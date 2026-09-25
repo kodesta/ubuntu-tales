@@ -1,0 +1,106 @@
+/* Ubuntu Tales Design System Tokens & Base Styles */
+:root {
+  /* Colour Tokens (60/30/10 Rule) */
+  --color-dominant: #F5ECD7;         /* 60% Savanna cream - main background */
+  --color-dominant-dark: #EDD9B5;    /* 60% Warm parchment - cards & panels */
+  --color-secondary: #5C3D1E;        /* 30% Baobab brown - headers & structure */
+  --color-secondary-light: #8B5E3C;  /* 30% Warm bark - secondary text & borders */
+  --color-accent: #D85A30;           /* 10% Terracotta - buttons, active states, highlights */
+  --color-accent-light: #F0997B;     /* 10% Dusty terracotta - soft washes */
+
+  /* Text Colours */
+  --color-text-primary: #2C1A0E;     /* Deep warm brown body text */
+  --color-text-secondary: #7A4B2A;   /* Metadata & captions */
+  --color-text-inverse: #F5ECD7;     /* Text on dark brown surfaces */
+  --color-text-accent: #D85A30;      /* Accent links & active tags */
+
+  /* Surface Colours */
+  --color-surface-base: #F5ECD7;
+  --color-surface-card: #EDD9B5;
+  --color-surface-nav: #5C3D1E;
+  --color-surface-reading: #FAF3E6;
+  --color-surface-overlay: rgba(44, 26, 14, 0.6);
+
+  /* Spacing Grid (8px Base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--color-surface-base);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  user-select: none;
+  overflow-x: hidden;
+}
+
+/* Typography styles */
+.text-display {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.text-heading-1 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.text-heading-2 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.text-body-large {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.text-body {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.text-ui {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.text-meta {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.text-caption {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
