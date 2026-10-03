@@ -1,7 +1,9 @@
 @if (currentScreen() === 'onboarding') {
   <app-onboarding (joinTribe)="goToHome()" (skip)="goToHome()" />
+} @else if (currentScreen() === 'read-mode') {
+  <app-read-mode (back)="goToHome()" />
 } @else {
-  <app-home />
+  <app-home (openStory)="goToReadMode()" />
   <app-bottom-nav />
 }
 

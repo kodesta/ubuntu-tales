@@ -1,0 +1,308 @@
+.read-mode-container {
+  min-height: 100vh;
+  background-color: var(--color-surface-reading); /* #FAF3E6 - Slightly lighter warm reading canvas */
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 90px; /* Space for persistent mini player */
+  box-sizing: border-box;
+}
+
+/* Header */
+.read-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background-color: rgba(250, 243, 230, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(92, 61, 30, 0.08);
+}
+
+.header-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.header-btn:active {
+  background-color: rgba(92, 61, 30, 0.08);
+}
+
+.header-app-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #D88E30;
+  letter-spacing: 0.5px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.font-icon {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+.bookmark-btn.active {
+  color: var(--color-accent);
+}
+
+/* Reading Surface */
+.reading-surface {
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 20px;
+  box-sizing: border-box;
+}
+
+.story-heading-block {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.story-category-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.story-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.story-origin-meta {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.meta-dot {
+  opacity: 0.6;
+}
+
+/* Banner Frame */
+.story-banner-frame {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 16px rgba(92, 61, 30, 0.08);
+}
+
+.story-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Article Body */
+.story-article-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.story-paragraph {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--color-text-primary);
+}
+
+/* Dynamic Sentence Highlight Wash */
+.sentence {
+  padding: 2px 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.sentence.highlighted {
+  background-color: rgba(240, 153, 123, 0.35); /* Warm soft terracotta wash */
+  color: #201309;
+  box-shadow: 0 0 0 2px rgba(240, 153, 123, 0.2);
+}
+
+/* Font Size Scales */
+.font-sm .story-paragraph {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.font-md .story-paragraph {
+  font-size: 18px;
+  line-height: 1.85;
+}
+
+.font-lg .story-paragraph {
+  font-size: 21px;
+  line-height: 2.0;
+}
+
+/* Moral Box */
+.moral-box {
+  margin-top: 24px;
+  background-color: var(--color-accent); /* Terracotta */
+  color: #FFFFFF;
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 6px 18px rgba(216, 90, 48, 0.25);
+}
+
+.moral-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.moral-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.moral-text {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.65;
+  color: #FFFFFF;
+}
+
+.complete-story-btn {
+  margin-top: 8px;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  color: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 10px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.complete-story-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Mini Audio Bar (Spotify-like persistent footer) */
+.mini-audio-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  background-color: var(--color-surface-nav); /* #5C3D1E Baobab brown */
+  color: var(--color-text-inverse);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  z-index: 1000;
+  cursor: pointer;
+  box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mini-play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.mini-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.mini-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #FFFFFF;
+}
+
+.mini-subtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mini-progress-track {
+  width: 80px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.mini-progress-fill {
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.expand-icon-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
