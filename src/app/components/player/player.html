@@ -1,0 +1,148 @@
+<div class="player-container">
+  
+  <!-- Top Hero Artwork Section -->
+  <div class="player-hero-artwork">
+    <img src="assets/images/baobab_hero.jpg" alt="Wisdom of the Baobab" class="hero-cover-img">
+    <div class="hero-gradient-overlay"></div>
+
+    <!-- Navigation Header Icons -->
+    <header class="player-top-nav">
+      <button class="nav-btn" (click)="onBack()" aria-label="Go back">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+
+      <span class="player-nav-brand">Ubuntu Tales</span>
+
+      <button class="nav-btn" aria-label="Share story">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+          <circle cx="18" cy="5" r="3"/>
+          <circle cx="6" cy="12" r="3"/>
+          <circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+      </button>
+    </header>
+  </div>
+
+  <!-- Player Main Sheet / Body -->
+  <main class="player-sheet">
+    
+    <!-- Story Info -->
+    <div class="story-info-block">
+      <div class="badge-row">
+        <span class="story-tag">ORIGIN STORY · ZULU</span>
+        <span class="audio-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+          </svg>
+          SPATIAL AUDIO
+        </span>
+      </div>
+
+      <h2 class="player-title">Wisdom of the Baobab</h2>
+      <p class="player-excerpt">
+        Long ago, when the world was young, the Great Creator fashioned the first trees. Each was given a unique gift.
+      </p>
+    </div>
+
+    <!-- Scrubber Progress Bar -->
+    <div class="scrubber-section">
+      <div class="scrubber-bar-wrapper">
+        <input 
+          type="range" 
+          class="scrubber-range" 
+          min="0" 
+          [max]="totalDuration()" 
+          [value]="currentTime()" 
+          (input)="onSeek($event)" 
+          aria-label="Audio scrubber"
+        />
+        <div class="scrubber-fill" [style.width.%]="getProgressPercentage()"></div>
+      </div>
+
+      <div class="time-labels">
+        <span class="time-current">{{ formatTime(currentTime()) }}</span>
+        <span class="time-duration">{{ formatTime(totalDuration()) }}</span>
+      </div>
+    </div>
+
+    <!-- Playback Controls -->
+    <div class="controls-row">
+      <!-- Speed selector -->
+      <button class="speed-toggle-btn" (click)="cycleSpeed()" aria-label="Playback speed">
+        {{ speed() }}
+      </button>
+
+      <!-- Skip backward 15s -->
+      <button class="control-btn" (click)="skipBackward(15)" aria-label="Rewind 15 seconds">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/>
+        </svg>
+      </button>
+
+      <!-- Main Play/Pause Button -->
+      <button class="main-play-btn" (click)="togglePlay()" aria-label="Play or Pause">
+        @if (isPlaying()) {
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16" rx="1"/>
+            <rect x="14" y="4" width="4" height="16" rx="1"/>
+          </svg>
+        } @else {
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="6 3 20 12 6 21 6 3"/>
+          </svg>
+        }
+      </button>
+
+      <!-- Skip forward 15s -->
+      <button class="control-btn" (click)="skipForward(15)" aria-label="Fast forward 15 seconds">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M13 17l5-5-5-5M6 17l5-5-5-5"/>
+        </svg>
+      </button>
+
+      <!-- Sleep Timer / Loop -->
+      <button class="timer-btn" aria-label="Sleep timer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- READ THE STORY Primary Button -->
+    <div class="read-action-section">
+      <button class="read-story-btn" (click)="onReadStory()" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        <span>READ THE STORY</span>
+      </button>
+    </div>
+
+    <!-- Soundscape & Output Bar -->
+    <footer class="player-bottom-bar">
+      <div class="audio-output-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+          <line x1="12" y1="18" x2="12.01" y2="18"/>
+        </svg>
+        <span>Device Audio</span>
+      </div>
+
+      <button class="soundscape-toggle" (click)="toggleSoundscape()" [class.active]="soundscapeActive()" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 10v3M6 6v11M10 3v18M14 8v7M18 5v13M22 10v3"/>
+        </svg>
+        <span>Savanna Soundscape</span>
+      </button>
+    </footer>
+
+  </main>
+
+</div>

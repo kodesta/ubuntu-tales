@@ -1,10 +1,21 @@
 @if (currentScreen() === 'onboarding') {
-  <app-onboarding (joinTribe)="goToHome()" (skip)="goToHome()" />
+  <app-onboarding (joinTribe)="goToTribes()" (skip)="goToHome()" />
 } @else if (currentScreen() === 'read-mode') {
-  <app-read-mode (back)="goToHome()" />
+  <app-read-mode (back)="goToHome()" (storyFinished)="goToCelebration()" (openFullPlayer)="goToPlayer()" />
+} @else if (currentScreen() === 'player') {
+  <app-player (back)="goToHome()" (readStory)="goToReadMode()" />
+} @else if (currentScreen() === 'tribes') {
+  <app-tribe-selection (journeyOnwards)="goToHome()" />
+  <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
+} @else if (currentScreen() === 'celebration') {
+  <app-celebration (returnHome)="goToHome()" (openRecommended)="goToReadMode()" />
+  <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
+} @else if (currentScreen() === 'library') {
+  <app-library (openStory)="goToReadMode()" (resumeStory)="goToReadMode()" />
+  <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
 } @else {
-  <app-home (openStory)="goToReadMode()" />
-  <app-bottom-nav />
+  <app-home (openStory)="goToReadMode()" (openTribes)="goToTribes()" (playAudio)="goToPlayer()" />
+  <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
 }
 
 <router-outlet />

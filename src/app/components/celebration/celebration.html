@@ -1,0 +1,153 @@
+<div class="celebration-container">
+  
+  <!-- Header Bar -->
+  <header class="celebration-header">
+    <button class="icon-btn" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <h1 class="brand-title">Ubuntu Tales</h1>
+
+    <div class="avatar-ring">
+      <div class="avatar-inner">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#2C1A0E">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Celebration Hero Block -->
+  <section class="celebration-hero">
+    <div class="flame-symbol-aura">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="#D85A30">
+        <path d="M12 2c1.5 3 4 5.5 4 8.5 0 3.59-2.91 6.5-6.5 6.5-1.07 0-2.07-.26-2.96-.72C7.38 17.48 8.6 18 10 18c3.86 0 7-3.14 7-7 0-3.32-2.12-6.14-5-7z"/>
+        <path d="M12 6.5c.83 1.67 2.5 3.06 2.5 4.72 0 1.99-1.61 3.61-3.61 3.61-.59 0-1.15-.14-1.64-.4.47.66 1.15.95 1.92.95 2.14 0 3.88-1.74 3.88-3.88 0-1.84-1.17-3.41-2.77-3.88z" fill="#E68A00"/>
+      </svg>
+    </div>
+    <h2 class="celebration-title">Ubuntu !</h2>
+    <p class="celebration-subtitle">
+      You have just experienced a piece of Africa's wisdom.
+    </p>
+  </section>
+
+  <!-- Emotional Reaction Prompt -->
+  <section class="reactions-section">
+    <h3 class="reaction-prompt">How did this story make you feel?</h3>
+
+    <div class="reactions-grid">
+      @for (reaction of reactions; track reaction.id) {
+        <button 
+          class="reaction-card" 
+          [class.selected]="selectedReactionId() === reaction.id"
+          (click)="selectReaction(reaction)"
+          type="button">
+          
+          <div class="reaction-icon-box">
+            @if (reaction.iconType === 'sun') {
+              <!-- Joy / Sunburst symbol -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+            } @else if (reaction.iconType === 'crest') {
+              <!-- Great / Cultural Crest -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 2a10 10 0 0 0-7.07 17.07l1.41-1.41A8 8 0 1 1 12 4z"/>
+                <path d="M12 6a6 6 0 1 0 6 6"/>
+              </svg>
+            } @else if (reaction.iconType === 'shield') {
+              <!-- Good / Strength Shield -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            } @else if (reaction.iconType === 'mind') {
+              <!-- Thinking / Wisdom -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3a7 7 0 0 0-4.95 11.95A4 4 0 0 1 6 18h12a4 4 0 0 1-1.05-3.05A7 7 0 0 0 12 3z"/>
+                <path d="M9 21h6"/>
+              </svg>
+            } @else {
+              <!-- Happy / Warmth Love -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            }
+          </div>
+
+          <span class="reaction-label">{{ reaction.label }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Private Reflection Toast Confirmation -->
+    @if (showSavedToast()) {
+      <div class="saved-toast">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A7C59" stroke-width="2.5">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        <span>Saved to your personal favourites tagged with this reflection</span>
+      </div>
+    }
+  </section>
+
+  <!-- Post-Story Recommendations Section -->
+  <section class="recommendations-section">
+    <h3 class="section-label">You might also enjoy</h3>
+
+    <div class="recommendations-list">
+      @for (story of recommendations; track story.id) {
+        <article class="recommendation-card" (click)="onSelectRecommended(story)">
+          <div class="rec-image-box">
+            <img [src]="story.image" [alt]="story.title" class="rec-thumb-img">
+            <span class="rec-region-pill">{{ story.region }}</span>
+          </div>
+          <div class="rec-content">
+            <h4 class="rec-title">{{ story.title }}</h4>
+            <p class="rec-snippet">{{ story.snippet }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- Bottom CTA Actions -->
+  <div class="celebration-actions">
+    <button class="return-home-btn" (click)="onReturnHome()">
+      Return Home
+    </button>
+    <button class="share-wisdom-link" (click)="toggleShareModal(true)" type="button">
+      SHARE THIS WISDOM
+    </button>
+  </div>
+
+  <!-- Share Wisdom Modal (Branded Social Snippet Card) -->
+  @if (showShareModal()) {
+    <div class="modal-backdrop" (click)="toggleShareModal(false)">
+      <div class="modal-card" (click)="$event.stopPropagation()">
+        <h4 class="modal-title">Share African Wisdom</h4>
+        
+        <div class="share-card-preview">
+          <span class="share-app-tag">Ubuntu Tales</span>
+          <p class="share-quote">
+            "True strength and wisdom come not from outward beauty, but from quiet service, patience, and sheltering others in their deepest need."
+          </p>
+          <span class="share-attribution">— The Wisdom of the Baobab · Zulu Folklore</span>
+        </div>
+
+        <div class="modal-buttons">
+          <button class="share-confirm-btn" (click)="toggleShareModal(false)">
+            Copy & Share Card
+          </button>
+          <button class="modal-close-btn" (click)="toggleShareModal(false)">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

@@ -1,0 +1,321 @@
+.tribe-selection-container {
+  min-height: 100vh;
+  background-color: var(--color-dominant); /* #F5ECD7 Savanna cream */
+  color: var(--color-text-primary);
+  padding: 16px 20px 100px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.tribe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.brand-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #D88E30; /* Warm gold */
+  letter-spacing: 0.5px;
+}
+
+.header-avatar-ring {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 2px solid #D88E30;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background-color: #EDD9B5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Title Block */
+.title-block {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.main-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+}
+
+.title-accent {
+  font-style: italic;
+  font-weight: 600;
+  color: #C25121; /* Terracotta */
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  margin-top: 6px;
+  letter-spacing: 0.2px;
+}
+
+/* Search Input */
+.search-bar-wrapper {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input-box {
+  width: 100%;
+  max-width: 340px;
+  height: 46px;
+  background-color: #F8EED9;
+  border: 1.5px solid rgba(216, 142, 48, 0.4);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 10px;
+}
+
+.search-icon {
+  color: #D88E30;
+  flex-shrink: 0;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #A6876D;
+}
+
+/* 2-Column Grid */
+.tribes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 16px;
+  max-width: 360px;
+  margin: 0 auto 28px auto;
+  width: 100%;
+}
+
+.tribe-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.tribe-card:active {
+  transform: scale(0.96);
+}
+
+.tribe-oval-frame {
+  position: relative;
+  width: 130px;
+  height: 160px;
+  border-radius: 65px;
+  overflow: hidden;
+  background-color: #EDD9B5;
+  border: 3px solid transparent;
+  box-shadow: 0 4px 14px rgba(92, 61, 30, 0.08);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tribe-card.selected .tribe-oval-frame {
+  border-color: var(--color-accent);
+  box-shadow: 0 6px 18px rgba(216, 90, 48, 0.35);
+}
+
+.tribe-mask-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.check-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.tribe-label {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-top: 10px;
+}
+
+.tribe-region-sub {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* Action CTA */
+.action-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding: 10px 0;
+}
+
+.journey-btn {
+  width: 100%;
+  max-width: 320px;
+  height: 52px;
+  background-color: #B8531D; /* Warm Terracotta / Bark CTA */
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(184, 83, 29, 0.35);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.journey-btn:hover {
+  background-color: #A04414;
+  transform: translateY(-1px);
+}
+
+.journey-btn:active {
+  transform: scale(0.98);
+}
+
+/* Low Story Compensation Popup (Design System Section 5b & 7) */
+.popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-surface-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 2000;
+  animation: fadeIn 0.25s ease;
+}
+
+.popup-card {
+  width: 100%;
+  max-width: 320px;
+  background-color: var(--color-surface-card); /* #EDD9B5 Warm parchment */
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(44, 26, 14, 0.4);
+}
+
+.popup-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background-color: rgba(216, 90, 48, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.popup-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 10px;
+}
+
+.popup-body {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+}
+
+.popup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.popup-btn-primary {
+  width: 100%;
+  height: 46px;
+  background-color: var(--color-accent); /* Terracotta */
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.popup-btn-primary:hover {
+  background-color: #C24B23;
+}
+
+.popup-btn-secondary {
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  color: var(--color-secondary);
+  border: 1.5px solid var(--color-secondary-light);
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

@@ -1,0 +1,95 @@
+<div class="tribe-selection-container">
+  
+  <!-- Header Bar -->
+  <header class="tribe-header">
+    <h1 class="brand-title">Ubuntu Tales</h1>
+    <div class="header-avatar-ring">
+      <div class="header-avatar-inner">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#2C1A0E">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Title & Headline -->
+  <div class="title-block">
+    <h2 class="main-title">Choose Your<br><span class="title-accent">Roots</span></h2>
+    <p class="subtitle">select a lineage to explore</p>
+  </div>
+
+  <!-- Search Input -->
+  <div class="search-bar-wrapper">
+    <div class="search-input-box">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="search tribes, regions, or stories..."
+        [value]="searchQuery()"
+        (input)="onSearch($event)"
+      />
+    </div>
+  </div>
+
+  <!-- 2-Column Tribe Grid (Oval Masked Artifacts) -->
+  <div class="tribes-grid">
+    @for (tribe of filteredTribes(); track tribe.id) {
+      <div 
+        class="tribe-card" 
+        [class.selected]="selectedTribeId() === tribe.id"
+        (click)="selectTribe(tribe)">
+        <div class="tribe-oval-frame">
+          <img [src]="tribe.image" [alt]="tribe.name" class="tribe-mask-img">
+          @if (selectedTribeId() === tribe.id) {
+            <div class="check-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+            </div>
+          }
+        </div>
+        <span class="tribe-label">{{ tribe.name }}</span>
+        <span class="tribe-region-sub">{{ tribe.country }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Journey Onwards Action CTA -->
+  <div class="action-footer">
+    <button class="journey-btn" (click)="onJourneyOnwards()">
+      JOURNEY ONWARDS
+    </button>
+  </div>
+
+  <!-- Low Story Compensation Popup (Section 5b & 7 of Design System) -->
+  @if (showLowStoryPopup() && pendingLowStoryTribe()) {
+    <div class="popup-backdrop" (click)="showLowStoryPopup.set(false)">
+      <div class="popup-card" (click)="$event.stopPropagation()">
+        <div class="popup-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <h3 class="popup-title">More Stories Coming Soon</h3>
+        <p class="popup-body">
+          We only have {{ pendingLowStoryTribe()?.storyCount }} {{ pendingLowStoryTribe()?.name }} stories right now — we are working on adding more! Would you like to see them, or explore all tribes for now?
+        </p>
+        <div class="popup-actions">
+          <button class="popup-btn-primary" (click)="proceedWithLowStoryTribe()">
+            Show me my stories
+          </button>
+          <button class="popup-btn-secondary" (click)="exploreAllTribes()">
+            Show me everything
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

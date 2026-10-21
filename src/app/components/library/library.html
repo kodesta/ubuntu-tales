@@ -1,0 +1,156 @@
+<div class="library-container">
+  
+  <!-- Header Bar -->
+  <header class="library-header">
+    <button class="icon-btn" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <h1 class="brand-title">Ubuntu Tales</h1>
+
+    <div class="avatar-ring">
+      <div class="avatar-inner">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#2C1A0E">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Title Headline -->
+  <div class="title-section">
+    <h2 class="library-title">THE STORIES YOU<br>LOVE</h2>
+  </div>
+
+  <!-- Saved Story Card 1 -->
+  <article class="saved-story-card" (click)="onStoryClick()">
+    <div class="card-hero-img-box">
+      <img src="assets/images/baobab_hero.jpg" alt="The Breath Of The Baobab" class="card-hero-img">
+      <span class="offline-badge" title="Cached for offline listening">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        OFFLINE READY
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="card-tags-row">
+        <span class="category-meta">FOLKLORE · ZULU</span>
+        <span class="reaction-tag-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2"/>
+          </svg>
+          Joy
+        </span>
+      </div>
+
+      <h3 class="card-title">The Breath Of The Baobab</h3>
+      <p class="card-subtitle">
+        In all myths, a celebratory notion of the life and wisdom... An heirloom of folklore in grand tales.
+      </p>
+
+      <div class="card-footer">
+        <div class="narrator-info">
+          <img src="assets/images/tribe_portrait_1.jpg" alt="Kofi Mensah" class="narrator-avatar">
+          <span class="narrator-name">by Kofi Mensah</span>
+        </div>
+        <button class="card-arrow-btn" aria-label="Open story">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </article>
+
+  <!-- Resume Reading Feature Card -->
+  <section class="resume-feature-card" (click)="onResumeClick()">
+    <div class="bookmark-ribbon" title="Saved Bookmark">
+      <svg width="18" height="22" viewBox="0 0 24 24" fill="#D85A30">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+      </svg>
+    </div>
+
+    <div class="resume-content">
+      <p class="resume-excerpt">
+        For instance, the total volume of the comprehensive methods has a long history of The Songweavers of Tsodilo.
+      </p>
+      
+      <button class="resume-btn" type="button">
+        <span>Resume Reading</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- African Clay Urn / Vessel Illustration -->
+    <div class="urn-illustration-box">
+      <svg width="76" height="88" viewBox="0 0 100 120" fill="none">
+        <!-- Clay Pot / Urn vector -->
+        <defs>
+          <linearGradient id="urnGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#D87848"/>
+            <stop offset="50%" stop-color="#B8531D"/>
+            <stop offset="100%" stop-color="#5C3D1E"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="50" cy="18" rx="22" ry="6" fill="#8B4513"/>
+        <ellipse cx="50" cy="16" rx="20" ry="4" fill="#D87848"/>
+        <path d="M30 18 Q26 34 16 56 Q6 80 18 100 Q28 114 50 114 Q72 114 82 100 Q94 80 84 56 Q74 34 70 18 Z" fill="url(#urnGrad)"/>
+        <!-- Tribal decorative band -->
+        <path d="M22 62 Q50 72 78 62" stroke="#FAF2E3" stroke-width="3" stroke-dasharray="4,3"/>
+        <path d="M20 70 Q50 80 80 70" stroke="#FAF2E3" stroke-width="2"/>
+        <ellipse cx="50" cy="112" rx="24" ry="4" fill="#3D2010" opacity="0.3"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Saved Story Card 2 -->
+  <article class="saved-story-card" (click)="onStoryClick()">
+    <div class="card-hero-img-box">
+      <img src="assets/images/onboarding_warrior.jpg" alt="The Songweavers of Tsodilo" class="card-hero-img">
+      <span class="offline-badge" title="Cached for offline listening">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        OFFLINE READY
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="card-tags-row">
+        <span class="category-meta">NIGHT TALES · KALAHARI</span>
+        <span class="reaction-tag-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 3a7 7 0 0 0-4.95 11.95A4 4 0 0 1 6 18h12a4 4 0 0 1-1.05-3.05A7 7 0 0 0 12 3z"/>
+            <path d="M9 21h6"/>
+          </svg>
+          Thinking
+        </span>
+      </div>
+
+      <h3 class="card-title">The Breath Of The Baobab</h3>
+      <p class="card-subtitle">
+        In all myths, a celebratory notion of the life and wisdom... An heirloom of folklore in grand tales.
+      </p>
+
+      <div class="card-footer">
+        <div class="narrator-info">
+          <img src="assets/images/tribe_portrait_2.jpg" alt="Amina Diallo" class="narrator-avatar">
+          <span class="narrator-name">by Amina Diallo</span>
+        </div>
+        <button class="card-arrow-btn" aria-label="Open story">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </article>
+
+</div>
