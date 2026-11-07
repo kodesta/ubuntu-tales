@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 export interface EmotionReaction {
   id: string;
@@ -23,8 +24,12 @@ export interface RecommendedStory {
   styleUrl: './celebration.css',
 })
 export class Celebration {
+  readonly auth = inject(AuthService);
+
   @Output() returnHome = new EventEmitter<void>();
   @Output() openRecommended = new EventEmitter<RecommendedStory>();
+  @Output() openMenu = new EventEmitter<void>();
+  @Output() openProfile = new EventEmitter<void>();
 
   selectedReactionId = signal<string | null>('joy');
   showSavedToast = signal<boolean>(false);

@@ -5,17 +5,428 @@
 } @else if (currentScreen() === 'player') {
   <app-player (back)="goToHome()" (readStory)="goToReadMode()" />
 } @else if (currentScreen() === 'tribes') {
-  <app-tribe-selection (journeyOnwards)="goToHome()" />
+  <app-tribe-selection 
+    (journeyOnwards)="goToHome()" 
+    (openMenu)="openDrawer()" 
+    (openProfile)="openProfile()" />
   <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
 } @else if (currentScreen() === 'celebration') {
-  <app-celebration (returnHome)="goToHome()" (openRecommended)="goToReadMode()" />
+  <app-celebration 
+    (returnHome)="goToHome()" 
+    (openRecommended)="goToReadMode()" 
+    (openMenu)="openDrawer()" 
+    (openProfile)="openProfile()" />
   <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
 } @else if (currentScreen() === 'library') {
-  <app-library (openStory)="goToReadMode()" (resumeStory)="goToReadMode()" />
+  <app-library 
+    (openStory)="goToReadMode()" 
+    (playAudio)="goToPlayer()" 
+    (openMenu)="openDrawer()" 
+    (openProfile)="openProfile()" />
+  <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
+} @else if (currentScreen() === 'saved') {
+  <app-saved 
+    (openStory)="goToReadMode()" 
+    (resumeStory)="goToReadMode()" 
+    (openMenu)="openDrawer()" 
+    (openProfile)="openProfile()" />
   <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
 } @else {
-  <app-home (openStory)="goToReadMode()" (openTribes)="goToTribes()" (playAudio)="goToPlayer()" />
+  <app-home 
+    (openStory)="goToReadMode()" 
+    (openTribes)="goToTribes()" 
+    (playAudio)="goToPlayer()" 
+    (openMenu)="openDrawer()" 
+    (openProfile)="openProfile()" />
   <app-bottom-nav [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
+}
+
+<!-- Floating Notification Toast -->
+@if (toastMessage()) {
+  <div class="toast-notification">
+    <span class="toast-dot"></span>
+    <span class="toast-text">{{ toastMessage() }}</span>
+  </div>
+}
+
+<!-- Navigation Side Drawer -->
+@if (isDrawerOpen()) {
+  <div class="drawer-backdrop" (click)="closeDrawer()">
+    <aside class="nav-drawer" (click)="$event.stopPropagation()">
+      <div class="drawer-header">
+        <div class="drawer-brand">
+          <span class="drawer-symbol">✦</span>
+          <div>
+            <h2 class="drawer-title">Ubuntu Tales</h2>
+            <p class="drawer-tagline">ANCIENT WISDOM · MODERN HEARTS</p>
+          </div>
+        </div>
+        <button class="drawer-close-btn" (click)="closeDrawer()" aria-label="Close navigation menu">✕</button>
+      </div>
+
+      <!-- User Status Card in Drawer -->
+      <div class="drawer-user-status">
+        @if (auth.isLoggedIn()) {
+          <div class="drawer-user-info" (click)="closeDrawer(); isProfileOpen.set(true)">
+            <div class="drawer-user-avatar-box">
+              <div class="drawer-user-avatar">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#2C1A0E">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+              </div>
+              <span class="online-pulse-dot" title="Online"></span>
+            </div>
+            <div class="drawer-user-meta">
+              <span class="drawer-user-name">{{ auth.currentUser()?.name }}</span>
+              <span class="drawer-user-lineage">{{ auth.currentUser()?.clanOrLineage || auth.currentUser()?.tribe }}</span>
+            </div>
+            <span class="drawer-status-pill">Online</span>
+          </div>
+        } @else {
+          <div class="drawer-guest-box">
+            <span class="drawer-guest-text">Welcome, Wayfarer</span>
+            <button class="drawer-auth-btn" (click)="openAuthModal('login')">
+              Sign In / Join Tribe
+            </button>
+          </div>
+        }
+      </div>
+
+      <nav class="drawer-links">
+        <button class="drawer-item" [class.active]="currentScreen() === 'home'" (click)="navigateTo('home', 'home')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Discover Stories</span>
+        </button>
+
+        <button class="drawer-item" [class.active]="currentScreen() === 'tribes'" (click)="navigateTo('tribes', 'tribes')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Choose Your Roots</span>
+        </button>
+
+        <button class="drawer-item" [class.active]="currentScreen() === 'read-mode'" (click)="navigateTo('read-mode')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          <span>Read Mode</span>
+        </button>
+
+        <button class="drawer-item" [class.active]="currentScreen() === 'player'" (click)="navigateTo('player')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="10 8 16 12 10 16 10 8"/>
+          </svg>
+          <span>Sacred Audio Player</span>
+        </button>
+
+        <button class="drawer-item" [class.active]="currentScreen() === 'library' && activeTab() === 'library'" (click)="navigateTo('library', 'library')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span>Library & Audio</span>
+        </button>
+
+        <button class="drawer-item" [class.active]="currentScreen() === 'saved' && activeTab() === 'saved'" (click)="navigateTo('saved', 'saved')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Saved Stories</span>
+        </button>
+
+        <button class="drawer-item" [class.active]="currentScreen() === 'celebration'" (click)="navigateTo('celebration')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <span>Ubuntu Celebration</span>
+        </button>
+      </nav>
+
+      <div class="drawer-footer">
+        @if (auth.isLoggedIn()) {
+          <button class="drawer-logout-btn" (click)="onLogout()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            <span>Log Out</span>
+          </button>
+        } @else {
+          <button class="drawer-login-btn" (click)="openAuthModal('login')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            <span>Log In to Account</span>
+          </button>
+        }
+        <p class="drawer-quote">
+          "Umuntu ngumuntu ngabantu"
+          <br>
+          <span class="drawer-quote-sub">A person is a person through other persons.</span>
+        </p>
+      </div>
+    </aside>
+  </div>
+}
+
+<!-- User Profile Sheet / Modal (Image Reference Matched) -->
+@if (isProfileOpen() && auth.currentUser()) {
+  <div class="profile-backdrop" (click)="closeProfile()">
+    <div class="profile-modal" (click)="$event.stopPropagation()">
+      <button class="profile-close-btn" (click)="closeProfile()" aria-label="Close profile">✕</button>
+      
+      <div class="profile-avatar-large">
+        <div class="profile-avatar-inner">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="#2C1A0E">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        </div>
+        <!-- Active online badge on avatar -->
+        <span class="modal-online-dot" title="Online now"></span>
+      </div>
+
+      <h3 class="profile-name">{{ auth.currentUser()?.name }}</h3>
+
+      <!-- Dynamic Function / Role Badge: only shown if role exists -->
+      @if (auth.currentUser()?.role) {
+        <span class="profile-badge">{{ auth.currentUser()?.role | uppercase }}</span>
+      }
+
+      <!-- Dynamic Tribal Lineage / Clan -->
+      <p class="profile-lineage">{{ auth.currentUser()?.clanOrLineage || (auth.currentUser()?.tribe + ' Lineage') }}</p>
+
+      <div class="profile-stats">
+        <div class="stat-card">
+          <span class="stat-num">{{ auth.currentUser()?.talesRead }}</span>
+          <span class="stat-label">Tales Read</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">{{ auth.currentUser()?.tribesExplored }}</span>
+          <span class="stat-label">Tribes Explored</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">{{ auth.currentUser()?.listeningTimeMins }}m</span>
+          <span class="stat-label">Listening Time</span>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="profile-action-btn primary" (click)="navigateTo('library', 'saved')">
+          VIEW MY SAVED TALES
+        </button>
+        <button class="profile-action-btn secondary" (click)="navigateTo('tribes', 'tribes')">
+          EXPLORE OTHER ROOTS
+        </button>
+        <button class="profile-logout-action-btn" (click)="onLogout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          LOG OUT
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Authentication Modal (Log In / Sign Up) -->
+@if (isAuthModalOpen()) {
+  <div class="auth-backdrop" (click)="closeAuthModal()">
+    <div class="auth-card" (click)="$event.stopPropagation()">
+      <button class="auth-close-btn" (click)="closeAuthModal()" aria-label="Close modal">✕</button>
+
+      <!-- Auth Tabs: Log In vs Sign Up -->
+      <div class="auth-tabs-row">
+        <button 
+          class="auth-tab-btn" 
+          [class.active]="authTab() === 'login'" 
+          (click)="switchAuthTab('login')">
+          Log In
+        </button>
+        <button 
+          class="auth-tab-btn" 
+          [class.active]="authTab() === 'signup'" 
+          (click)="switchAuthTab('signup')">
+          Join Tribe (Sign Up)
+        </button>
+      </div>
+
+      <!-- LOG IN FORM -->
+      @if (authTab() === 'login') {
+        <div class="auth-form-body">
+          <h3 class="auth-heading">Welcome Back</h3>
+          <p class="auth-subheading">Enter your details to reconnect with ancestral wisdom.</p>
+
+          @if (loginError()) {
+            <div class="auth-error-banner">
+              {{ loginError() }}
+            </div>
+          }
+
+          <div class="auth-field-group">
+            <label class="auth-label">Email or Username</label>
+            <input 
+              type="text" 
+              class="auth-input" 
+              placeholder="e.g. kwame@ubuntutales.com" 
+              [value]="loginEmail()"
+              (input)="loginEmail.set($any($event.target).value)"
+            />
+          </div>
+
+          <div class="auth-field-group">
+            <label class="auth-label">Password</label>
+            <input 
+              type="password" 
+              class="auth-input" 
+              placeholder="Enter your password" 
+              [value]="loginPassword()"
+              (input)="loginPassword.set($any($event.target).value)"
+              (keyup.enter)="onLoginSubmit()"
+            />
+          </div>
+
+          <button class="auth-submit-btn" (click)="onLoginSubmit()">
+            Log In & Connect
+          </button>
+
+          <!-- Quick 1-Tap Demo Switcher -->
+          <div class="quick-demo-section">
+            <span class="quick-demo-label">Or test with demo profiles:</span>
+            <div class="quick-demo-chips">
+              <button class="quick-demo-chip" (click)="loginEmail.set('kwame@ubuntutales.com'); loginPassword.set('password123'); onLoginSubmit()">
+                Kwame (Ashanti · Storyteller)
+              </button>
+              <button class="quick-demo-chip" (click)="loginEmail.set('thandiwe@ubuntutales.com'); loginPassword.set('password123'); onLoginSubmit()">
+                Thandiwe (Zulu · Writer)
+              </button>
+              <button class="quick-demo-chip" (click)="loginEmail.set('tendai@ubuntutales.com'); loginPassword.set('password123'); onLoginSubmit()">
+                Tendai (Shona · Seeker)
+              </button>
+            </div>
+          </div>
+
+          <div class="auth-switch-prompt">
+            Don't have an account? 
+            <button class="auth-switch-link" (click)="switchAuthTab('signup')">Sign Up</button>
+          </div>
+        </div>
+      }
+
+      <!-- SIGN UP FORM -->
+      @if (authTab() === 'signup') {
+        <div class="auth-form-body">
+          <h3 class="auth-heading">Join The Tribe</h3>
+          <p class="auth-subheading">Register your clan roots and function in our storytelling circle.</p>
+
+          @if (signupError()) {
+            <div class="auth-error-banner">
+              {{ signupError() }}
+            </div>
+          }
+
+          <div class="auth-field-group">
+            <label class="auth-label">Full Name *</label>
+            <input 
+              type="text" 
+              class="auth-input" 
+              placeholder="e.g. Sipho Ndlovu" 
+              [value]="signupName()"
+              (input)="signupName.set($any($event.target).value)"
+            />
+          </div>
+
+          <div class="auth-field-group">
+            <label class="auth-label">Email Address *</label>
+            <input 
+              type="email" 
+              class="auth-input" 
+              placeholder="e.g. sipho@example.com" 
+              [value]="signupEmail()"
+              (input)="signupEmail.set($any($event.target).value)"
+            />
+          </div>
+
+          <div class="auth-field-group">
+            <label class="auth-label">Password *</label>
+            <input 
+              type="password" 
+              class="auth-input" 
+              placeholder="Create a password" 
+              [value]="signupPassword()"
+              (input)="signupPassword.set($any($event.target).value)"
+            />
+          </div>
+
+          <!-- Tribal / Clan / Lineage Selection (Requested by user) -->
+          <div class="auth-field-group">
+            <label class="auth-label">
+              Tribal / Clan / Lineage *
+              <span class="auth-field-hint">(e.g. Zulu tribe, Shona, etc.)</span>
+            </label>
+            <select 
+              class="auth-select" 
+              [value]="signupTribe()"
+              (change)="signupTribe.set($any($event.target).value)">
+              @for (t of tribesList; track t) {
+                <option [value]="t">{{ t }}</option>
+              }
+            </select>
+          </div>
+
+          @if (signupTribe() === 'Other / Custom Lineage') {
+            <div class="auth-field-group">
+              <label class="auth-label">Specify Your Clan or Tribe *</label>
+              <input 
+                type="text" 
+                class="auth-input" 
+                placeholder="e.g. Ndebele, Batswana, Berber, etc." 
+                [value]="signupCustomTribe()"
+                (input)="signupCustomTribe.set($any($event.target).value)"
+              />
+            </div>
+          }
+
+          <!-- Function / Role in the community -->
+          <div class="auth-field-group">
+            <label class="auth-label">
+              Function / Role in Community
+              <span class="auth-field-hint">(Optional)</span>
+            </label>
+            <select 
+              class="auth-select" 
+              [value]="signupRole()"
+              (change)="signupRole.set($any($event.target).value)">
+              @for (r of rolesList; track r.value) {
+                <option [value]="r.value">{{ r.label }}</option>
+              }
+            </select>
+          </div>
+
+          <button class="auth-submit-btn" (click)="onSignupSubmit()">
+            Create Clan Profile & Enter
+          </button>
+
+          <div class="auth-switch-prompt">
+            Already have an account? 
+            <button class="auth-switch-link" (click)="switchAuthTab('login')">Log In</button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
 }
 
 <router-outlet />

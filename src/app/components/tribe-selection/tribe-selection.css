@@ -1,26 +1,46 @@
 .tribe-selection-container {
   min-height: 100vh;
-  background-color: var(--color-dominant); /* #F5ECD7 Savanna cream */
+  background-color: #FFFFFF; /* Pure clean white from Image 2 */
   color: var(--color-text-primary);
-  padding: 16px 20px 100px 20px;
+  padding: 0 0 100px 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
+/* Header - Solid Saffron Orange matching Image 2 */
 .tribe-header {
+  background-color: #E8820B; /* Bright saffron orange top bar from Image 2 */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 14px 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 10px rgba(232, 130, 11, 0.2);
+}
+
+.header-menu-btn {
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #FFFFFF;
+  transition: transform 0.2s ease;
+}
+
+.header-menu-btn:hover {
+  transform: scale(1.08);
 }
 
 .brand-title {
   font-family: 'Lora', Georgia, serif;
   font-size: 24px;
   font-weight: 700;
-  color: #D88E30; /* Warm gold */
+  color: #FFFFFF; /* Pure white on orange header */
   letter-spacing: 0.5px;
 }
 
@@ -28,7 +48,7 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  border: 2px solid #D88E30;
+  border: 2px solid #FFFFFF;
   padding: 2px;
   display: flex;
   align-items: center;
@@ -39,7 +59,7 @@
   width: 100%;
   height: 100%;
   border-radius: var(--radius-full);
-  background-color: #EDD9B5;
+  background-color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,79 +68,82 @@
 /* Title Block */
 .title-block {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 26px;
+  padding: 0 20px;
 }
 
 .main-title {
   font-family: 'Lora', Georgia, serif;
-  font-size: 32px;
+  font-size: 38px;
   line-height: 1.15;
-  font-weight: 700;
-  color: var(--color-text-primary);
+  font-weight: 600;
+  color: #1A1A1A; /* Crisp dark black from Image 2 */
   letter-spacing: -0.5px;
 }
 
-.title-accent {
-  font-style: italic;
-  font-weight: 600;
-  color: #C25121; /* Terracotta */
-}
-
 .subtitle {
-  font-size: 14px;
-  color: var(--color-text-secondary);
-  font-weight: 400;
-  margin-top: 6px;
-  letter-spacing: 0.2px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #333333; /* Clean dark grey from Image 2 */
+  margin-top: 12px;
+  text-transform: capitalize;
+  line-height: 1.5;
 }
 
-/* Search Input */
+/* Search Bar - Warm Golden Sand matching Image 2 */
 .search-bar-wrapper {
-  margin-bottom: 24px;
+  margin-bottom: 34px;
   display: flex;
   justify-content: center;
+  padding: 0 20px;
 }
 
 .search-input-box {
   width: 100%;
-  max-width: 340px;
-  height: 46px;
-  background-color: #F8EED9;
-  border: 1.5px solid rgba(216, 142, 48, 0.4);
+  max-width: 350px;
+  height: 50px;
+  background-color: #EDD4AE; /* Golden sand from Image 2 */
+  border: none;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
-  padding: 0 16px;
-  gap: 10px;
+  padding: 0 20px;
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(163, 78, 23, 0.08);
 }
 
 .search-icon {
-  color: #D88E30;
   flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .search-input {
   width: 100%;
   border: none;
   background: transparent;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  color: var(--color-text-primary);
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  color: #1A1A1A;
   outline: none;
 }
 
 .search-input::placeholder {
-  color: #A6876D;
+  color: #8A6B4D;
+  font-weight: 400;
 }
 
-/* 2-Column Grid */
+/* 2-Column Tribe Grid (Organic Shape Design) */
 .tribes-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px 16px;
+  gap: 28px 18px;
   max-width: 360px;
-  margin: 0 auto 28px auto;
+  margin: 0 auto 34px auto;
   width: 100%;
+  justify-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .tribe-card {
@@ -128,62 +151,120 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tribe-card:hover {
+  transform: translateY(-4px);
 }
 
 .tribe-card:active {
   transform: scale(0.96);
 }
 
-.tribe-oval-frame {
+/* Organic Backdrop Blob */
+.tribe-organic-blob {
   position: relative;
-  width: 130px;
-  height: 160px;
-  border-radius: 65px;
+  width: 146px;
+  height: 142px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 2px solid transparent;
+}
+
+/* Unique Organic Blob Contours from Design Mockup */
+.blob-zulu {
+  background-color: #FAD4B2; /* Warm peach */
+  border-radius: 64% 36% 54% 46% / 44% 62% 38% 56%;
+}
+
+.blob-yoruba {
+  background-color: #E2E1CF; /* Soft sage sand */
+  border-radius: 40% 60% 48% 52% / 58% 42% 58% 42%;
+}
+
+.blob-maasai {
+  background-color: #FCDCD4; /* Warm blush rose */
+  border-radius: 54% 46% 40% 60% / 46% 58% 42% 54%;
+}
+
+.blob-ashanti {
+  background-color: #FDE2BA; /* Golden honey peach */
+  border-radius: 46% 54% 62% 38% / 56% 42% 58% 44%;
+}
+
+.blob-san {
+  background-color: #F8E3C5; /* Warm Kalahari desert sand */
+  border-radius: 58% 42% 62% 38% / 48% 56% 44% 52%;
+}
+
+.blob-kuba {
+  background-color: #EBD6C3; /* Raffia & terracotta clay */
+  border-radius: 42% 58% 46% 54% / 54% 44% 56% 46%;
+}
+
+.blob-tonga {
+  background-color: #E6EAD8; /* Zambezi river reed sage */
+  border-radius: 52% 48% 38% 62% / 60% 50% 50% 40%;
+}
+
+/* Organic Artifact Pebble Image Container */
+.tribe-artifact-pebble {
+  width: 106px;
+  height: 108px;
   overflow: hidden;
-  background-color: #EDD9B5;
-  border: 3px solid transparent;
-  box-shadow: 0 4px 14px rgba(92, 61, 30, 0.08);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 50% 50% 48% 52% / 54% 52% 48% 46%;
+  box-shadow: 0 4px 14px rgba(44, 26, 14, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FAF4EB;
 }
 
-.tribe-card.selected .tribe-oval-frame {
-  border-color: var(--color-accent);
-  box-shadow: 0 6px 18px rgba(216, 90, 48, 0.35);
-}
-
-.tribe-mask-img {
+.tribe-artifact-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.tribe-card:hover .tribe-artifact-img {
+  transform: scale(1.08);
+}
+
+/* Selected State */
+.tribe-card.selected .tribe-organic-blob {
+  border-color: #EB850C;
+  box-shadow: 0 10px 24px rgba(235, 133, 12, 0.3);
+  transform: scale(1.04);
 }
 
 .check-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   width: 26px;
   height: 26px;
   border-radius: var(--radius-full);
-  background-color: var(--color-accent);
+  background-color: #EB850C;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  z-index: 5;
 }
 
+/* Tribe Label - Clean Dark Font from Image 2 */
 .tribe-label {
-  font-family: 'Lora', Georgia, serif;
-  font-size: 16px;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--color-text-primary);
-  margin-top: 10px;
-}
-
-.tribe-region-sub {
-  font-size: 11px;
-  color: var(--color-text-secondary);
-  font-weight: 500;
+  color: #1A1A1A; /* Crisp dark black */
+  margin-top: 12px;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 /* Action CTA */
@@ -191,28 +272,28 @@
   display: flex;
   justify-content: center;
   margin-top: auto;
-  padding: 10px 0;
+  padding: 10px 20px 20px;
 }
 
 .journey-btn {
   width: 100%;
   max-width: 320px;
   height: 52px;
-  background-color: #B8531D; /* Warm Terracotta / Bark CTA */
+  background-color: #BA5112; /* Rich burnt terracotta from Image 2 */
   color: #FFFFFF;
   border: none;
   border-radius: var(--radius-full);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(184, 83, 29, 0.35);
+  box-shadow: 0 4px 16px rgba(186, 81, 18, 0.35);
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .journey-btn:hover {
-  background-color: #A04414;
+  background-color: #A3450F;
   transform: translateY(-1px);
 }
 
@@ -220,14 +301,14 @@
   transform: scale(0.98);
 }
 
-/* Low Story Compensation Popup (Design System Section 5b & 7) */
+/* Low Story Compensation Popup */
 .popup-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: var(--color-surface-overlay);
+  background-color: rgba(26, 26, 26, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -238,84 +319,85 @@
 }
 
 .popup-card {
-  width: 100%;
-  max-width: 320px;
-  background-color: var(--color-surface-card); /* #EDD9B5 Warm parchment */
+  background-color: #FFFFFF;
   border-radius: var(--radius-xl);
-  padding: 24px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 28px 24px;
+  max-width: 360px;
+  width: 100%;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(44, 26, 14, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+  border: 1.5px solid rgba(235, 133, 12, 0.2);
+  animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .popup-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-full);
-  background-color: rgba(216, 90, 48, 0.12);
+  margin-bottom: 16px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
 }
 
 .popup-title {
   font-family: 'Lora', Georgia, serif;
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 700;
-  color: var(--color-text-primary);
-  margin-bottom: 10px;
+  color: #1A1A1A;
+  margin-bottom: 12px;
 }
 
 .popup-body {
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--color-text-secondary);
-  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 24px;
 }
 
 .popup-actions {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
 }
 
 .popup-btn-primary {
-  width: 100%;
-  height: 46px;
-  background-color: var(--color-accent); /* Terracotta */
+  height: 48px;
+  background-color: #BA5112;
   color: #FFFFFF;
   border: none;
-  border-radius: var(--radius-md);
-  font-family: 'DM Sans', sans-serif;
+  border-radius: var(--radius-full);
+  font-family: system-ui, sans-serif;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(186, 81, 18, 0.25);
+  transition: all 0.2s ease;
 }
 
 .popup-btn-primary:hover {
-  background-color: #C24B23;
+  background-color: #A3450F;
 }
 
 .popup-btn-secondary {
-  width: 100%;
   height: 44px;
-  background: transparent;
-  color: var(--color-secondary);
-  border: 1.5px solid var(--color-secondary-light);
-  border-radius: var(--radius-md);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  background-color: transparent;
+  color: #A34E17;
+  border: 1.5px solid rgba(163, 78, 23, 0.3);
+  border-radius: var(--radius-full);
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.popup-btn-secondary:hover {
+  background-color: #FDF4E3;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }

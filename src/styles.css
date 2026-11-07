@@ -1,25 +1,30 @@
 /* Ubuntu Tales Design System Tokens & Base Styles */
 :root {
-  /* Colour Tokens (60/30/10 Rule) */
-  --color-dominant: #F5ECD7;         /* 60% Savanna cream - main background */
-  --color-dominant-dark: #EDD9B5;    /* 60% Warm parchment - cards & panels */
-  --color-secondary: #5C3D1E;        /* 30% Baobab brown - headers & structure */
-  --color-secondary-light: #8B5E3C;  /* 30% Warm bark - secondary text & borders */
-  --color-accent: #D85A30;           /* 10% Terracotta - buttons, active states, highlights */
-  --color-accent-light: #F0997B;     /* 10% Dusty terracotta - soft washes */
+  /* Colour Tokens matching design reference images */
+  --color-dominant: #FFFFFF;         /* Clean white main background */
+  --color-dominant-dark: #FDF4E3;    /* Light warm cream - story cards & panels */
+  --color-secondary: #A34E17;        /* Rich terracotta / burnt sienna - bottom navbar & structural accents */
+  --color-secondary-light: #C46222;  /* Lighter warm terracotta */
+  --color-accent: #EB850C;           /* Vibrant saffron amber - active nav blob, category pills, badges */
+  --color-accent-dark: #BA5112;      /* Deep terracotta - primary action buttons (JOURNEY ONWARDS) */
+  --color-accent-light: #F7A83B;     /* Soft amber */
+  --color-header-bg: #E8820B;        /* Saffron orange top header bar */
+  --color-sand: #EDD5AF;             /* Warm golden sand - search bar & inactive category pills */
+  --color-sand-text: #5A3818;        /* Warm brown text for sand pills */
 
-  /* Text Colours */
-  --color-text-primary: #2C1A0E;     /* Deep warm brown body text */
-  --color-text-secondary: #7A4B2A;   /* Metadata & captions */
-  --color-text-inverse: #F5ECD7;     /* Text on dark brown surfaces */
-  --color-text-accent: #D85A30;      /* Accent links & active tags */
+  /* Text Colours (High-contrast, clean - no muddy chocolate brown) */
+  --color-text-primary: #1A1A1A;     /* Crisp deep charcoal / black body & headings */
+  --color-text-secondary: #555555;   /* Neutral secondary text & metadata */
+  --color-text-muted: #777777;       /* Captions & subtle tags */
+  --color-text-inverse: #FFFFFF;     /* Pure white on navbar / headers / active buttons */
+  --color-text-accent: #EB850C;      /* Vibrant saffron golden links & active tags */
 
   /* Surface Colours */
-  --color-surface-base: #F5ECD7;
-  --color-surface-card: #EDD9B5;
-  --color-surface-nav: #5C3D1E;
-  --color-surface-reading: #FAF3E6;
-  --color-surface-overlay: rgba(44, 26, 14, 0.6);
+  --color-surface-base: #FFFFFF;     /* Pure clean white */
+  --color-surface-card: #FDF4E3;     /* Warm golden cream for story cards */
+  --color-surface-nav: #A34E17;      /* Rich terracotta for navbar (replaces chocolate brown #3D2714) */
+  --color-surface-reading: #FAF7F0;  /* Subtle paper cream for reading */
+  --color-surface-overlay: rgba(26, 26, 26, 0.6);
 
   /* Spacing Grid (8px Base) */
   --space-1: 4px;
@@ -104,3 +109,35 @@ body {
   line-height: 1.4;
 }
 
+/* Global Online Status Indicator for Avatar Ring */
+.avatar-ring, .header-avatar-ring {
+  position: relative !important;
+}
+
+.online-indicator-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background-color: #2E7D32;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 6px rgba(46, 125, 50, 0.85);
+  z-index: 10;
+  display: block;
+  pointer-events: none;
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(76, 175, 80, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}

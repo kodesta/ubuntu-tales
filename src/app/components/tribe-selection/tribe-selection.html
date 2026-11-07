@@ -2,48 +2,64 @@
   
   <!-- Header Bar -->
   <header class="tribe-header">
+    <button class="header-menu-btn" (click)="openMenu.emit()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
     <h1 class="brand-title">Ubuntu Tales</h1>
-    <div class="header-avatar-ring">
+
+    <div class="header-avatar-ring" (click)="openProfile.emit()" style="cursor: pointer;" aria-label="Profile">
       <div class="header-avatar-inner">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="#2C1A0E">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#E8820B">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
         </svg>
       </div>
+      @if (auth.isLoggedIn()) {
+        <span class="online-indicator-dot" title="User is Online"></span>
+      }
     </div>
   </header>
 
   <!-- Title & Headline -->
   <div class="title-block">
-    <h2 class="main-title">Choose Your<br><span class="title-accent">Roots</span></h2>
-    <p class="subtitle">select a lineage to explore</p>
+    <h2 class="main-title">Choose your<br>roots</h2>
+    <p class="subtitle">SELECT A LINEAGE TO EXPLORE ITS ANCIENT WISDOM</p>
   </div>
 
   <!-- Search Input -->
   <div class="search-bar-wrapper">
     <div class="search-input-box">
-      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A4B2A" stroke-width="2.5">
         <circle cx="11" cy="11" r="8"/>
         <path d="M21 21l-4.35-4.35"/>
       </svg>
       <input 
         type="text" 
         class="search-input" 
-        placeholder="search tribes, regions, or stories..."
+        placeholder="Search tribes, regions or histories..."
         [value]="searchQuery()"
         (input)="onSearch($event)"
       />
     </div>
   </div>
 
-  <!-- 2-Column Tribe Grid (Oval Masked Artifacts) -->
+  <!-- 2-Column Tribe Grid (Organic Shape Design) -->
   <div class="tribes-grid">
     @for (tribe of filteredTribes(); track tribe.id) {
       <div 
         class="tribe-card" 
         [class.selected]="selectedTribeId() === tribe.id"
         (click)="selectTribe(tribe)">
-        <div class="tribe-oval-frame">
-          <img [src]="tribe.image" [alt]="tribe.name" class="tribe-mask-img">
+        
+        <!-- Organic Backdrop Blob -->
+        <div class="tribe-organic-blob" [ngClass]="tribe.blobClass">
+          <!-- Organic Clipped Artifact Image -->
+          <div class="tribe-artifact-pebble">
+            <img [src]="tribe.image" [alt]="tribe.name" class="tribe-artifact-img">
+          </div>
+
           @if (selectedTribeId() === tribe.id) {
             <div class="check-badge">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3">
@@ -52,8 +68,8 @@
             </div>
           }
         </div>
+
         <span class="tribe-label">{{ tribe.name }}</span>
-        <span class="tribe-region-sub">{{ tribe.country }}</span>
       </div>
     }
   </div>
