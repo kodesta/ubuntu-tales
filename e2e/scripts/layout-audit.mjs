@@ -2,9 +2,18 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import {
+  addRefreshCookie,
+  apiJson,
+  registerAccount,
+  sampleStories,
+  WEB_URL,
+} from './lib/accounts.mjs';
+
 /**
  * Layout / design QA audit: horizontal overflow, broken cover art, touch-target sizes, reader
- * measure and font availability at both breakpoints. Complements the screenshot evidence.
+ * measure and font availability at both breakpoints, for the Phase 1 routes and the new Phase 2
+ * auth/account pages.
  *
  * Usage (from the repo root, API :4100 + web :5173 running and seeded):
  *   node e2e/scripts/layout-audit.mjs
@@ -16,8 +25,6 @@ const ROOT = path.resolve(HERE, '../..');
 process.env.PLAYWRIGHT_BROWSERS_PATH ??= path.join(ROOT, '.playwright-browsers');
 
 const { chromium } = await import('@playwright/test');
-const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
-const API_URL = process.env.API_URL ?? 'http://localhost:4100/api/v1';
 const QA_DIR = path.join(ROOT, 'docs/qa');
 const STORY_SLUG = 'unogwaja-and-the-lions-well';
 
@@ -27,6 +34,8 @@ const baseSeed = {
   'ut.tribe': persisted({ slug: 'zulu', name: 'Zulu' }),
   'ut.follows': persisted({ slugs: ['zulu'] }),
 };
+
+const [savedStory] = await sampleStories(1);
 
 const ROUTES = [
   {
@@ -40,9 +49,17 @@ const ROUTES = [
   { label: 'reader', path: `/stories/${STORY_SLUG}`, seed: baseSeed },
   { label: 'library', path: '/library', seed: baseSeed },
   { label: 'library-voices', path: '/library?tab=authors', seed: baseSeed },
-  { label: 'saved', path: '/saved', seed: baseSeed },
-  { label: 'complete', path: `/stories/${STORY_SLUG}/complete`, seed: baseSeed },
+  { label: 'saved-guest', path: '/saved', seed: baseSeed },
+  { label: 'complete-guest', path: `/stories/${STORY_SLUG}/complete`, seed: baseSeed },
   { label: 'not-found', path: '/a-path-that-grew-over', seed: baseSeed },
+  { label: 'login', path: '/login', seed: null },
+  { label: 'signup', path: '/signup', seed: null },
+  { label: 'verify-email', path: '/verify-email?sent=1', seed: null },
+  { label: 'forgot-password', path: '/forgot-password', seed: null },
+  { label: 'profile', path: '/profile', signedIn: true },
+  { label: 'settings', path: '/settings', signedIn: true },
+  { label: 'home-signed-in', path: '/', signedIn: true },
+  { label: 'saved-signed-in', path: '/saved', signedIn: true, preSave: true },
 ];
 
 const DEVICES = [
@@ -64,20 +81,29 @@ for (const device of DEVICES) {
       locale: 'en-GB',
       colorScheme: 'light',
     });
-    await context.addInitScript((entries) => {
-      for (const [key, value] of Object.entries(entries)) {
-        if (window.localStorage.getItem(key) === null) {
-          window.localStorage.setItem(key, JSON.stringify(value));
-        }
+
+    if (route.signedIn) {
+      const account = await registerAccount({ displayName: `Layout ${route.label}`, verify: true });
+      if (route.preSave) {
+        await apiJson(`/me/saved/${savedStory.id}`, { method: 'PUT', token: account.accessToken });
       }
-    }, route.seed);
+      await addRefreshCookie(context, account.refreshToken);
+    } else if (route.seed) {
+      await context.addInitScript((entries) => {
+        for (const [key, value] of Object.entries(entries)) {
+          if (window.localStorage.getItem(key) === null) {
+            window.localStorage.setItem(key, JSON.stringify(value));
+          }
+        }
+      }, route.seed);
+    }
 
     const page = await context.newPage();
     try {
       await page.goto(route.path, { waitUntil: 'domcontentloaded', timeout: 30_000 });
       await page.waitForSelector('main h1', { state: 'visible', timeout: 30_000 });
       await page.evaluate(() => document.fonts.ready);
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(600);
 
       const metrics = await page.evaluate(() => {
         const vw = window.innerWidth;
@@ -103,8 +129,6 @@ for (const device of DEVICES) {
           }
         }
 
-        // `loading="lazy"` images below the fold are not "broken"; only a completed load with
-        // zero natural width is a real missing asset.
         const brokenImages = Array.from(document.images)
           .filter((image) => image.complete && image.naturalWidth === 0)
           .map((image) => image.getAttribute('src') ?? '');
@@ -169,7 +193,7 @@ for (const device of DEVICES) {
       if (metrics.brokenImages.length) flags.push('BROKEN_IMAGES');
       if (!metrics.fontChecks.lora || !metrics.fontChecks.dmSans) flags.push('MISSING_FONTS');
       console.log(
-        `[layout] ${device.name.padEnd(7)} ${route.label.padEnd(14)} scrollWidth=${metrics.documentScrollWidth} overflows=${metrics.overflowers.length} brokenImgs=${metrics.brokenImages.length} smallTargets=${metrics.smallTargetCount} ${flags.join(',')}`,
+        `[layout] ${device.name.padEnd(7)} ${route.label.padEnd(17)} scrollWidth=${metrics.documentScrollWidth} overflows=${metrics.overflowers.length} brokenImgs=${metrics.brokenImages.length} smallTargets=${metrics.smallTargetCount} ${flags.join(',')}`,
       );
     } catch (error) {
       console.error(`[layout] FAILED ${route.label} (${device.name}):`, error.message);

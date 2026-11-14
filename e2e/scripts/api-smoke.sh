@@ -49,6 +49,42 @@ check_status() {
   fi
 }
 
+assert_auth_json() {
+  local name="$1" path="$2" expr="$3" expected="${4:-200}"
+  local body status
+  body="$(mktemp)"
+  status="$(curl -sS -o "$body" -w '%{http_code}' "$API$path" -H "Authorization: Bearer $TOKEN" 2>/dev/null)"
+  if [ "$status" = "$expected" ] && EXPR="$expr" node -e '
+    const fs = require("node:fs");
+    const d = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+    const ok = Function("d", "return (" + process.env.EXPR + ");")(d);
+    process.exit(ok ? 0 : 1);
+  ' "$body"; then
+    echo "PASS  $name  GET $path"
+    PASS=$((PASS + 1))
+  else
+    echo "FAIL  $name  GET $path  (HTTP $status)"
+    head -c 300 "$body" 2>/dev/null | tr '\n' ' '
+    echo
+    FAIL=$((FAIL + 1))
+  fi
+  rm -f "$body"
+}
+
+check_method_status() {
+  local name="$1" method="$2" path="$3" expected="$4"
+  shift 4
+  local status
+  status="$(curl -sS -o /dev/null -w '%{http_code}' -X "$method" "$API$path" "$@" 2>/dev/null)"
+  if [ "$status" = "$expected" ]; then
+    echo "PASS  $name  ${method} ${path} -> $status"
+    PASS=$((PASS + 1))
+  else
+    echo "FAIL  $name  ${method} ${path} -> $status (expected $expected)"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
 echo "Ubuntu Tales API smoke — $API"
 echo "--------------------------------------------------------------------"
 
@@ -79,6 +115,62 @@ assert_json "voices list" "/authors?limit=100" "Array.isArray(d.items) && d.item
 assert_json "author detail" "/authors/adewale-okunola" "d.slug === 'adewale-okunola' && Array.isArray(d.stories) && d.stories.length === 3"
 
 assert_json "public config" "/config" "d.lowStoryThreshold === 5 && Array.isArray(d.reactions) && d.reactions.length === 5"
+
+echo "--------------------------------------------------------------------"
+echo "Phase 2 — auth and personal endpoints"
+
+P2_TMP="$(mktemp -d)"
+LOGIN_STATUS="$(curl -sS -D "$P2_TMP/headers" -c "$P2_TMP/cookies" -X POST "$API/auth/login" -H 'Content-Type: application/json' -d '{"email":"kwame@ubuntutales.local","password":"ubuntu-tales-dev"}' -o "$P2_TMP/login.json" -w '%{http_code}')"
+if [ "$LOGIN_STATUS" = "200" ]; then
+  echo "PASS  seeded login  POST /auth/login -> 200"
+  PASS=$((PASS + 1))
+else
+  echo "FAIL  seeded login  POST /auth/login -> $LOGIN_STATUS"
+  FAIL=$((FAIL + 1))
+fi
+if grep -qi 'HttpOnly' "$P2_TMP/headers" && grep -qi 'SameSite=Lax' "$P2_TMP/headers" && grep -qi 'Path=/api/v1/auth' "$P2_TMP/headers"; then
+  echo "PASS  refresh cookie attributes (HttpOnly, SameSite=Lax, Path=/api/v1/auth)"
+  PASS=$((PASS + 1))
+else
+  echo "FAIL  refresh cookie attributes"
+  FAIL=$((FAIL + 1))
+fi
+TOKEN="$(node -e "process.stdout.write(require(process.argv[1]).accessToken)" "$P2_TMP/login.json" 2>/dev/null)"
+if [ -n "$TOKEN" ]; then
+  echo "PASS  login returns an access token"
+  PASS=$((PASS + 1))
+else
+  echo "FAIL  login returns an access token"
+  FAIL=$((FAIL + 1))
+fi
+
+assert_auth_json "current user" "/me" "d.email === 'kwame@ubuntutales.local' && typeof d.displayName === 'string' && d.stats && typeof d.stats.talesRead === 'number' && d.emailVerified === true"
+assert_auth_json "account saved list" "/me/saved?limit=5" "Array.isArray(d.items) && typeof d.total === 'number'"
+assert_auth_json "account progress list" "/me/progress?limit=5" "Array.isArray(d.items)"
+STORY_ID="$(curl -sS "$API/stories?limit=1" | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>process.stdout.write(JSON.parse(s).items[0].id))')"
+assert_json "public reaction summary" "/stories/${STORY_ID}/reactions/summary" "typeof d.storyId === 'string' && typeof d.total === 'number' && typeof d.counts.JOY === 'number'"
+
+check_method_status "GET /me requires auth" GET "/me" 401
+check_method_status "GET /me/saved requires auth" GET "/me/saved" 401
+check_method_status "GET /me/progress requires auth" GET "/me/progress" 401
+check_method_status "PUT /me/saved requires auth" PUT "/me/saved/${STORY_ID}" 401
+check_method_status "PUT reactions requires auth" PUT "/stories/${STORY_ID}/reactions" 401 -H 'Content-Type: application/json' -d '{"type":"JOY"}'
+check_method_status "logout-all requires auth" POST "/auth/logout-all" 401
+
+check_method_status "refresh without CSRF header" POST "/auth/refresh" 403 -b "$P2_TMP/cookies"
+check_method_status "refresh with CSRF header" POST "/auth/refresh" 200 -b "$P2_TMP/cookies" -H 'X-Requested-With: ubuntu-tales'
+
+FORGOT_STATUS="$(curl -sS -o "$P2_TMP/forgot.json" -w '%{http_code}' -X POST "$API/auth/password/forgot" -H 'Content-Type: application/json' -d '{"email":"kwame@ubuntutales.local"}')"
+if [ "$FORGOT_STATUS" = "202" ]; then
+  echo "PASS  forgot password is 202"
+  PASS=$((PASS + 1))
+else
+  echo "FAIL  forgot password is $FORGOT_STATUS"
+  FAIL=$((FAIL + 1))
+fi
+
+check_method_status "logout" POST "/auth/logout" 200 -H "Authorization: Bearer $TOKEN"
+rm -rf "$P2_TMP"
 
 echo "--------------------------------------------------------------------"
 echo "PASS=$PASS FAIL=$FAIL"

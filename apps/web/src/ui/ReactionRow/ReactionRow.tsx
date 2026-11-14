@@ -42,10 +42,8 @@ export function ReactionRow({
             type="button"
             className={cn(styles.reaction, active && styles.active)}
             aria-pressed={active}
-            aria-label={`${reaction.label}${
-              count > 0 ? `, ${count} ${count === 1 ? 'reader' : 'readers'}` : ''
-            } — ${reaction.meaning}`}
-            title={reaction.meaning}
+            // No aria-label: the visible label(+count) is the accessible name, so WCAG 2.5.3
+            // label-in-name can never drift from what is on screen.
             onClick={() => {
               if (active) return;
               choose(reaction.type);

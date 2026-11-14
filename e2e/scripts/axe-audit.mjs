@@ -2,16 +2,24 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import {
+  addRefreshCookie,
+  apiJson,
+  registerAccount,
+  sampleStories,
+  WEB_URL,
+} from './lib/accounts.mjs';
+
 /**
- * Standalone axe-core audit of the Phase 1 key routes.
+ * Standalone axe-core audit of the Phase 1 + Phase 2 key routes.
  *
  * Usage (from the repo root, API :4100 + web :5173 running and seeded):
  *   node e2e/scripts/axe-audit.mjs
  *
  * Output:
  *   docs/qa/axe-results.json  — every violation with impact, help and affected selectors
- *   docs/qa/axe-summary.md    — human-readable table for the Phase 1 report
- * Exit code: 0 always (this is evidence gathering); the Playwright `a11y.spec.ts` gate fails CI.
+ *   docs/qa/axe-summary.md    — human-readable table for the QA reports
+ * Exit code: 0 always (evidence gathering); the Playwright a11y specs are the release gates.
  */
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -21,8 +29,6 @@ process.env.PLAYWRIGHT_BROWSERS_PATH ??= path.join(ROOT, '.playwright-browsers')
 const { chromium } = await import('@playwright/test');
 const AxeBuilder = (await import('@axe-core/playwright')).default;
 
-const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
-const API_URL = process.env.API_URL ?? 'http://localhost:4100/api/v1';
 const QA_DIR = path.join(ROOT, 'docs/qa');
 const STORY_SLUG = 'unogwaja-and-the-lions-well';
 
@@ -33,14 +39,14 @@ const baseSeed = {
   'ut.follows': persisted({ slugs: ['zulu'] }),
 };
 
-const storiesResponse = await fetch(`${API_URL}/stories?limit=2`);
-const storiesPayload = await storiesResponse.json();
-const savedEntries = storiesPayload.items.map((story, index) => ({
-  story,
-  savedAt: new Date(Date.now() - index * 60_000).toISOString(),
-}));
+const [savedStory] = await sampleStories(1);
 
+/**
+ * Each route is either a guest route (optional seeded localStorage) or a signed-in route where the
+ * script mints a disposable verified account and replays its httpOnly refresh cookie.
+ */
 const ROUTES = [
+  // Phase 1 (guest)
   {
     label: 'welcome',
     path: '/welcome',
@@ -51,13 +57,19 @@ const ROUTES = [
   { label: 'reader', path: `/stories/${STORY_SLUG}`, seed: baseSeed },
   { label: 'library', path: '/library', seed: baseSeed },
   { label: 'library-voices', path: '/library?tab=authors', seed: baseSeed },
-  {
-    label: 'saved',
-    path: '/saved',
-    seed: { ...baseSeed, 'ut.saved': persisted({ entries: savedEntries }) },
-  },
-  { label: 'complete', path: `/stories/${STORY_SLUG}/complete`, seed: baseSeed },
+  { label: 'saved-guest', path: '/saved', seed: baseSeed },
+  { label: 'complete-guest', path: `/stories/${STORY_SLUG}/complete`, seed: baseSeed },
   { label: 'not-found', path: '/a-path-that-grew-over', seed: baseSeed },
+  // Phase 2 (guest auth screens)
+  { label: 'login', path: '/login', seed: null },
+  { label: 'signup', path: '/signup', seed: null },
+  { label: 'verify-email', path: '/verify-email?sent=1', seed: null },
+  { label: 'forgot-password', path: '/forgot-password', seed: null },
+  // Phase 2 (signed-in account screens)
+  { label: 'profile', path: '/profile', signedIn: true },
+  { label: 'settings', path: '/settings', signedIn: true },
+  { label: 'home-signed-in', path: '/', signedIn: true },
+  { label: 'saved-signed-in', path: '/saved', signedIn: true, preSave: true },
 ];
 
 await mkdir(QA_DIR, { recursive: true });
@@ -79,20 +91,33 @@ for (const device of [
       colorScheme: 'light',
       timezoneId: 'Africa/Johannesburg',
     });
-    await context.addInitScript((entries) => {
-      for (const [key, value] of Object.entries(entries)) {
-        if (window.localStorage.getItem(key) === null) {
-          window.localStorage.setItem(key, JSON.stringify(value));
-        }
+
+    if (route.signedIn) {
+      const account = await registerAccount({ displayName: `Axe ${route.label}`, verify: true });
+      if (route.preSave) {
+        const save = await apiJson(`/me/saved/${savedStory.id}`, {
+          method: 'PUT',
+          token: account.accessToken,
+        });
+        if (save.status !== 200) console.error(`[axe] could not pre-save for ${route.label}`);
       }
-    }, route.seed);
+      await addRefreshCookie(context, account.refreshToken);
+    } else if (route.seed) {
+      await context.addInitScript((entries) => {
+        for (const [key, value] of Object.entries(entries)) {
+          if (window.localStorage.getItem(key) === null) {
+            window.localStorage.setItem(key, JSON.stringify(value));
+          }
+        }
+      }, route.seed);
+    }
 
     const page = await context.newPage();
     try {
       await page.goto(route.path, { waitUntil: 'domcontentloaded', timeout: 30_000 });
       await page.waitForSelector('main h1', { state: 'visible', timeout: 30_000 });
       await page.evaluate(() => document.fonts.ready);
-      await page.waitForTimeout(600);
+      await page.waitForTimeout(700);
 
       const result = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
@@ -121,7 +146,7 @@ for (const device of [
         (violation) => violation.impact === 'serious' || violation.impact === 'critical',
       );
       console.log(
-        `[axe] ${device.name.padEnd(7)} ${route.label.padEnd(14)} total=${violations.length} serious/critical=${blocking.length}${
+        `[axe] ${device.name.padEnd(7)} ${route.label.padEnd(16)} total=${violations.length} serious/critical=${blocking.length}${
           blocking.length ? ` (${blocking.map((violation) => violation.id).join(', ')})` : ''
         }`,
       );
@@ -157,7 +182,7 @@ const rows = reports.map((report) => {
   return `| ${report.label} | ${report.device} | ${blocking.length} | ${moderate.length} | ${minor.length} | ${blocking.map((violation) => `${violation.id} (${violation.nodes.length})`).join(', ') || '—'} |`;
 });
 
-const md = `# axe-core audit — Phase 1 key routes
+const md = `# axe-core audit — Phase 1 + Phase 2 key routes
 
 Generated ${generatedAt} by \`e2e/scripts/axe-audit.mjs\` against ${WEB_URL}.
 Rules: WCAG 2.0/2.1/2.2 A + AA (\`wcag2a\`, \`wcag2aa\`, \`wcag21a\`, \`wcag21aa\`, \`wcag22aa\`).

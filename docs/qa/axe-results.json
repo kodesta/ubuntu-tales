@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T22:30:49.500Z",
+  "generatedAt": "2026-11-14T23:46:09.923Z",
   "webUrl": "http://localhost:5173",
   "routes": [
     {
@@ -28,7 +28,23 @@
       "label": "reader",
       "path": "/stories/unogwaja-and-the-lions-well",
       "url": "http://localhost:5173/stories/unogwaja-and-the-lions-well",
-      "violations": []
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+          "nodes": [
+            {
+              "target": [
+                "button[title=\"A story worth passing on.\"]"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_kch5w_7\" aria-pressed=\"false\" aria-label=\"Great, 1 reader — A story worth passing on.\" title=\"A story worth passing on.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
     },
     {
       "device": "mobile",
@@ -46,23 +62,123 @@
     },
     {
       "device": "mobile",
-      "label": "saved",
+      "label": "saved-guest",
       "path": "/saved",
       "url": "http://localhost:5173/saved",
       "violations": []
     },
     {
       "device": "mobile",
-      "label": "complete",
+      "label": "complete-guest",
       "path": "/stories/unogwaja-and-the-lions-well/complete",
       "url": "http://localhost:5173/stories/unogwaja-and-the-lions-well/complete",
-      "violations": []
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+          "nodes": [
+            {
+              "target": [
+                "._reaction_1r2b1_10:nth-child(1)"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Joy — This tale made my spirit bright.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                "._reaction_1r2b1_10:nth-child(2)"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Great, 1 reader — A story worth passing on.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Good — A quiet, good read.\"]"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Good — A quiet, good read.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                "._reaction_1r2b1_10:nth-child(4)"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Thinking — It left me with a question.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                "._reaction_1r2b1_10:nth-child(5)"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Happy — A smile that stayed with me.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
     },
     {
       "device": "mobile",
       "label": "not-found",
       "path": "/a-path-that-grew-over",
       "url": "http://localhost:5173/a-path-that-grew-over",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "login",
+      "path": "/login",
+      "url": "http://localhost:5173/login",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "signup",
+      "path": "/signup",
+      "url": "http://localhost:5173/signup",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "verify-email",
+      "path": "/verify-email?sent=1",
+      "url": "http://localhost:5173/verify-email?sent=1",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "forgot-password",
+      "path": "/forgot-password",
+      "url": "http://localhost:5173/forgot-password",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "profile",
+      "path": "/profile",
+      "url": "http://localhost:5173/profile",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "settings",
+      "path": "/settings",
+      "url": "http://localhost:5173/settings",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "home-signed-in",
+      "path": "/",
+      "url": "http://localhost:5173/",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "saved-signed-in",
+      "path": "/saved",
+      "url": "http://localhost:5173/saved",
       "violations": []
     },
     {
@@ -91,7 +207,23 @@
       "label": "reader",
       "path": "/stories/unogwaja-and-the-lions-well",
       "url": "http://localhost:5173/stories/unogwaja-and-the-lions-well",
-      "violations": []
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+          "nodes": [
+            {
+              "target": [
+                "button[title=\"A story worth passing on.\"]"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_kch5w_7\" aria-pressed=\"false\" aria-label=\"Great, 1 reader — A story worth passing on.\" title=\"A story worth passing on.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
     },
     {
       "device": "desktop",
@@ -109,23 +241,123 @@
     },
     {
       "device": "desktop",
-      "label": "saved",
+      "label": "saved-guest",
       "path": "/saved",
       "url": "http://localhost:5173/saved",
       "violations": []
     },
     {
       "device": "desktop",
-      "label": "complete",
+      "label": "complete-guest",
       "path": "/stories/unogwaja-and-the-lions-well/complete",
       "url": "http://localhost:5173/stories/unogwaja-and-the-lions-well/complete",
-      "violations": []
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+          "nodes": [
+            {
+              "target": [
+                "._reaction_1r2b1_10:nth-child(1)"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Joy — This tale made my spirit bright.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                "._reaction_1r2b1_10:nth-child(2)"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Great, 1 reader — A story worth passing on.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Good — A quiet, good read.\"]"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Good — A quiet, good read.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                "._reaction_1r2b1_10:nth-child(4)"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Thinking — It left me with a question.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "target": [
+                "._reaction_1r2b1_10:nth-child(5)"
+              ],
+              "html": "<button type=\"button\" class=\"_reaction_1r2b1_10\" aria-pressed=\"false\" aria-label=\"Happy — A smile that stayed with me.\">",
+              "failureSummary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
     },
     {
       "device": "desktop",
       "label": "not-found",
       "path": "/a-path-that-grew-over",
       "url": "http://localhost:5173/a-path-that-grew-over",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "login",
+      "path": "/login",
+      "url": "http://localhost:5173/login",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "signup",
+      "path": "/signup",
+      "url": "http://localhost:5173/signup",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "verify-email",
+      "path": "/verify-email?sent=1",
+      "url": "http://localhost:5173/verify-email?sent=1",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "forgot-password",
+      "path": "/forgot-password",
+      "url": "http://localhost:5173/forgot-password",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "profile",
+      "path": "/profile",
+      "url": "http://localhost:5173/profile",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "settings",
+      "path": "/settings",
+      "url": "http://localhost:5173/settings",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "home-signed-in",
+      "path": "/",
+      "url": "http://localhost:5173/",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "saved-signed-in",
+      "path": "/saved",
+      "url": "http://localhost:5173/saved",
       "violations": []
     }
   ]

@@ -100,15 +100,39 @@ node e2e/scripts/capture-screenshots.mjs
 The script seeds local state per route, waits for fonts/images, and (re)writes
 `docs/qa/screenshots/index.html` — the contact sheet used by the Phase 1 report.
 
+## Phase 2 specs (accounts + personal features)
+
+| Spec                      | Journeys                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `phase2-auth.spec.ts`     | signup with optional roots/consents → dev-token verification → personalised home; login/logout/reload with the httpOnly refresh cookie and no token in localStorage; identical error copy for wrong password and unknown email; forgot/reset via dev token; signed-out `/profile` redirect-resume; verification banner + resend; client-side signup validation |
+| `phase2-merge.spec.ts`    | guest roots/saved/progress → `/saved` "Sign in to keep this list on every device" → AuthModal sign-in → modal closes back on `/saved`, merged tale/roots/reading place appear, guest-only keys cleared                                                                                                                                                         |
+| `phase2-personal.spec.ts` | saved sync across two browser contexts (+ unsave propagation); reading progress syncs and resumes in a new context; finish → complete shows account stats and reaction counts; switching reactions keeps the public total stable                                                                                                                               |
+| `phase2-profile.spec.ts`  | profile name/roots/role edits; settings password change keeps this device signed in while revoking other sessions; sign-out-everywhere; wrong current password field error                                                                                                                                                                                     |
+| `phase2-console.spec.ts`  | signed-in journey (login → home → saved → library → tribes → reader → profile → settings → sign out) with zero JS/console errors; the expected guest boot `/auth/refresh` 401 network noise is filtered                                                                                                                                                        |
+| `phase2-a11y.spec.ts`     | axe (WCAG 2.0/2.1/2.2 A+AA) on `/login`, `/signup`, `/verify-email`, `/forgot-password`, `/profile`, `/settings`, signed-in home and signed-in `/saved` — serious/critical must be 0                                                                                                                                                                           |
+
+Disposable accounts are minted through the API (`e2e/support/accounts.ts`) and signed into a browser
+context by replaying the API's httpOnly refresh cookie — never by injecting a bearer token. The
+seeded dev users are used for read-only auth journeys only. The database intentionally accumulates
+`qa*@ubuntutales.local` accounts between runs.
+
 ## Additional evidence scripts
 
 ```bash
-# axe-core audit of every key route at both breakpoints → docs/qa/axe-results.json + axe-summary.md
+# axe-core audit of every Phase 1 + Phase 2 key route at both breakpoints
+# → docs/qa/axe-results.json + docs/qa/axe-summary.md
 node e2e/scripts/axe-audit.mjs
 
-# layout/touch-target/broken-image audit → docs/qa/layout-audit.json
+# layout/touch-target/broken-image audit (Phase 1 + Phase 2 routes) → docs/qa/layout-audit.json
 node e2e/scripts/layout-audit.mjs
+
+# Phase 2 screenshots (auth screens + signed-in account surfaces)
+# → docs/qa/screenshots/phase-2/ + index.html
+node e2e/scripts/capture-phase2-screenshots.mjs
+
+# Phase 2 security/session contract probe → docs/qa/phase2-security.log
+node e2e/scripts/phase2-security.mjs | tee docs/qa/phase2-security.log
 ```
 
-`a11y.spec.ts` is the release gate (serious/critical must be 0); the standalone scripts are evidence
-generators for the Phase 1 report and do not fail the build.
+`a11y.spec.ts` / `phase2-a11y.spec.ts` are the release gates (serious/critical must be 0); the
+standalone scripts are evidence generators and do not fail the build.

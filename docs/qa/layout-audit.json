@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T22:37:53.271Z",
+  "generatedAt": "2026-11-14T23:47:04.565Z",
   "webUrl": "http://localhost:5173",
   "reports": [
     {
@@ -49,7 +49,7 @@
       "h1FontSize": "41.6px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 29,
+      "smallTargetCount": 27,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -77,20 +77,6 @@
           "tag": "a",
           "width": 62,
           "height": 32,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
           "inline": false
         },
         {
@@ -221,6 +207,20 @@
         },
         {
           "label": "Follow Mandinka",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Kikuyu",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Amhara",
           "tag": "button",
           "width": 73,
           "height": 40,
@@ -370,8 +370,8 @@
         {
           "label": "Back to your reading list",
           "tag": "a",
-          "width": 146,
-          "height": 17,
+          "width": 347,
+          "height": 37,
           "inline": true
         }
       ]
@@ -394,7 +394,7 @@
       "h1FontSize": "32px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 6,
+      "smallTargetCount": 2,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -404,39 +404,11 @@
           "inline": false
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "uNogwaja and the Lion’s Well",
           "tag": "a",
           "width": 258,
           "height": 24,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         }
       ]
     },
@@ -458,7 +430,7 @@
       "h1FontSize": "33.6px",
       "bodyFontSize": "19px",
       "bodyLineHeight": "33.25px",
-      "smallTargetCount": 8,
+      "smallTargetCount": 5,
       "smallTargets": [
         {
           "label": "Zulu",
@@ -494,27 +466,6 @@
           "width": 64,
           "height": 32,
           "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         }
       ]
     },
@@ -536,7 +487,7 @@
       "h1FontSize": "32px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 20,
+      "smallTargetCount": 8,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -553,46 +504,11 @@
           "inline": false
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "Ngai and the Sacred Fig",
           "tag": "a",
           "width": 210,
           "height": 24,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         },
         {
           "label": "The First Drum",
@@ -602,25 +518,11 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "The Fox Who Read the Sand",
           "tag": "a",
           "width": 245,
           "height": 24,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         },
         {
           "label": "The Grain Left Standing",
@@ -630,27 +532,6 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "The Mantis and the Eland",
           "tag": "a",
           "width": 225,
@@ -658,25 +539,11 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "The River That Remembers",
           "tag": "a",
           "width": 238,
           "height": 24,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         }
       ]
     },
@@ -718,7 +585,7 @@
     },
     {
       "device": "mobile",
-      "label": "saved",
+      "label": "saved-guest",
       "path": "/saved",
       "viewportWidth": 390,
       "documentScrollWidth": 390,
@@ -734,7 +601,7 @@
       "h1FontSize": "32px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 1,
+      "smallTargetCount": 2,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -742,12 +609,19 @@
           "width": 136,
           "height": 30,
           "inline": false
+        },
+        {
+          "label": "Sign in to keep this list on every devic",
+          "tag": "button",
+          "width": 276,
+          "height": 40,
+          "inline": false
         }
       ]
     },
     {
       "device": "mobile",
-      "label": "complete",
+      "label": "complete-guest",
       "path": "/stories/unogwaja-and-the-lions-well/complete",
       "viewportWidth": 390,
       "documentScrollWidth": 390,
@@ -763,34 +637,13 @@
       "h1FontSize": "41.6px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 4,
+      "smallTargetCount": 1,
       "smallTargets": [
         {
           "label": "The library",
           "tag": "a",
           "width": 64,
           "height": 32,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
           "inline": false
         }
       ]
@@ -820,6 +673,560 @@
           "tag": "a",
           "width": 136,
           "height": 30,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "login",
+      "path": "/login",
+      "viewportWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "32px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 9,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Show password",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Forgot your password?",
+          "tag": "a",
+          "width": 140,
+          "height": 20,
+          "inline": false
+        },
+        {
+          "label": "Open an account",
+          "tag": "a",
+          "width": 107,
+          "height": 17,
+          "inline": true
+        },
+        {
+          "label": "Kwame",
+          "tag": "button",
+          "width": 67,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Thandiwe",
+          "tag": "button",
+          "width": 81,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Tendai",
+          "tag": "button",
+          "width": 64,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Amina",
+          "tag": "button",
+          "width": 62,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "keep browsing the archive",
+          "tag": "a",
+          "width": 163,
+          "height": 17,
+          "inline": true
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "signup",
+      "path": "/signup",
+      "viewportWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "32px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 4,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Show password",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Sign in",
+          "tag": "a",
+          "width": 40,
+          "height": 17,
+          "inline": true
+        },
+        {
+          "label": "The archive is open.",
+          "tag": "a",
+          "width": 280,
+          "height": 37,
+          "inline": true
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "verify-email",
+      "path": "/verify-email?sent=1",
+      "viewportWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "32px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 1,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "forgot-password",
+      "path": "/forgot-password",
+      "viewportWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "32px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 2,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Back to sign in",
+          "tag": "a",
+          "width": 308,
+          "height": 20,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "profile",
+      "path": "/profile",
+      "viewportWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "32px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 3,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "LPLayout profileaccount menu",
+          "tag": "button",
+          "width": 67,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 131,
+          "height": 19,
+          "inline": true
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "settings",
+      "path": "/settings",
+      "viewportWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "32px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 8,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "LSLayout settingsaccount menu",
+          "tag": "button",
+          "width": 67,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Edit details",
+          "tag": "a",
+          "width": 102,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Show current password",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Show new password",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Show password confirmation",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Review your roots",
+          "tag": "a",
+          "width": 110,
+          "height": 20,
+          "inline": false
+        },
+        {
+          "label": "Your reading list",
+          "tag": "a",
+          "width": 98,
+          "height": 20,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "home-signed-in",
+      "path": "/",
+      "viewportWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 9,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": 358,
+      "h1FontSize": "41.6px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 29,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "LHLayout home-signed-inaccount menu",
+          "tag": "button",
+          "width": 67,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Zulu",
+          "tag": "a",
+          "width": 33,
+          "height": 18,
+          "inline": false
+        },
+        {
+          "label": "Choose a publication",
+          "tag": "a",
+          "width": 165,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "View all →",
+          "tag": "a",
+          "width": 62,
+          "height": 32,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 149,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "When the Chameleon Carried the Word",
+          "tag": "a",
+          "width": 223,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "Ìjàpá and the Feast Above the Clouds",
+          "tag": "a",
+          "width": 213,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "The Mantis and the Eland",
+          "tag": "a",
+          "width": 144,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "Anansi and the Pot of Wisdom",
+          "tag": "a",
+          "width": 171,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "The Acacia and the Herdsman’s Promise",
+          "tag": "a",
+          "width": 227,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "Browse the publications →",
+          "tag": "a",
+          "width": 308,
+          "height": 20,
+          "inline": false
+        },
+        {
+          "label": "View all →",
+          "tag": "a",
+          "width": 62,
+          "height": 32,
+          "inline": false
+        },
+        {
+          "label": "Follow Zulu",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Shona",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Yoruba",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Ashanti",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Maasai",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Dogon",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow San / Khoikhoi",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Kuba",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Tonga",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Igbo",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Xhosa",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Mandinka",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "saved-signed-in",
+      "path": "/saved",
+      "viewportWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": 358,
+      "h1FontSize": "32px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 2,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "LSLayout saved-signed-inaccount menu",
+          "tag": "button",
+          "width": 67,
+          "height": 40,
           "inline": false
         }
       ]
@@ -871,7 +1278,7 @@
       "h1FontSize": "73.6px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 31,
+      "smallTargetCount": 30,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -895,6 +1302,13 @@
           "inline": false
         },
         {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        },
+        {
           "label": "Zulu",
           "tag": "a",
           "width": 33,
@@ -913,20 +1327,6 @@
           "tag": "a",
           "width": 62,
           "height": 32,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
           "inline": false
         },
         {
@@ -1047,6 +1447,13 @@
           "width": 73,
           "height": 40,
           "inline": false
+        },
+        {
+          "label": "Follow Xhosa",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
         }
       ]
     },
@@ -1068,7 +1475,7 @@
       "h1FontSize": "51.2px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 20,
+      "smallTargetCount": 21,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -1089,6 +1496,13 @@
           "tag": "a",
           "width": 85,
           "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
           "inline": false
         },
         {
@@ -1230,7 +1644,7 @@
       "h1FontSize": "51.2px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 9,
+      "smallTargetCount": 6,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -1254,6 +1668,13 @@
           "inline": false
         },
         {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        },
+        {
           "label": "When the Chameleon Carried the Word",
           "tag": "a",
           "width": 399,
@@ -1261,39 +1682,11 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "uNogwaja and the Lion’s Well",
           "tag": "a",
           "width": 292,
           "height": 28,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         }
       ]
     },
@@ -1315,7 +1708,7 @@
       "h1FontSize": "53.6px",
       "bodyFontSize": "19px",
       "bodyLineHeight": "33.25px",
-      "smallTargetCount": 8,
+      "smallTargetCount": 5,
       "smallTargets": [
         {
           "label": "Zulu",
@@ -1351,27 +1744,6 @@
           "width": 64,
           "height": 32,
           "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         }
       ]
     },
@@ -1393,7 +1765,7 @@
       "h1FontSize": "51.2px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 28,
+      "smallTargetCount": 17,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -1417,6 +1789,13 @@
           "inline": false
         },
         {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        },
+        {
           "label": "Audio",
           "tag": "button",
           "width": 42,
@@ -1431,25 +1810,11 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "Hlakanyana and the Lion’s Feast",
           "tag": "a",
           "width": 283,
           "height": 24,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         },
         {
           "label": "Ngai and the Sacred Fig",
@@ -1459,25 +1824,11 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "Obatala and the Chain of the Sky",
           "tag": "a",
           "width": 289,
           "height": 24,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         },
         {
           "label": "The Acacia and the Herdsman’s Promise",
@@ -1487,25 +1838,11 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "The First Drum",
           "tag": "a",
           "width": 136,
           "height": 24,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         },
         {
           "label": "The Fox Who Read the Sand",
@@ -1515,25 +1852,11 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "The Grain Left Standing",
           "tag": "a",
           "width": 214,
           "height": 24,
           "inline": true
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
         },
         {
           "label": "The Hare and the Hyena’s Bag",
@@ -1543,13 +1866,6 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "The Judge and the Grain of Salt",
           "tag": "a",
           "width": 277,
@@ -1557,16 +1873,16 @@
           "inline": true
         },
         {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
           "label": "The Mantis and the Eland",
           "tag": "a",
           "width": 225,
+          "height": 24,
+          "inline": true
+        },
+        {
+          "label": "The River That Remembers",
+          "tag": "a",
+          "width": 238,
           "height": 24,
           "inline": true
         }
@@ -1590,7 +1906,7 @@
       "h1FontSize": "51.2px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 4,
+      "smallTargetCount": 5,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -1614,6 +1930,13 @@
           "inline": false
         },
         {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        },
+        {
           "label": "Audio",
           "tag": "button",
           "width": 42,
@@ -1624,7 +1947,7 @@
     },
     {
       "device": "desktop",
-      "label": "saved",
+      "label": "saved-guest",
       "path": "/saved",
       "viewportWidth": 1440,
       "documentScrollWidth": 1440,
@@ -1640,7 +1963,7 @@
       "h1FontSize": "51.2px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 3,
+      "smallTargetCount": 5,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -1662,12 +1985,26 @@
           "width": 85,
           "height": 36,
           "inline": false
+        },
+        {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Sign in to keep this list on every devic",
+          "tag": "button",
+          "width": 276,
+          "height": 40,
+          "inline": false
         }
       ]
     },
     {
       "device": "desktop",
-      "label": "complete",
+      "label": "complete-guest",
       "path": "/stories/unogwaja-and-the-lions-well/complete",
       "viewportWidth": 1440,
       "documentScrollWidth": 1440,
@@ -1683,34 +2020,13 @@
       "h1FontSize": "73.6px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 4,
+      "smallTargetCount": 1,
       "smallTargets": [
         {
           "label": "The library",
           "tag": "a",
           "width": 64,
           "height": 32,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
-          "inline": false
-        },
-        {
-          "label": "Save to your reading list",
-          "tag": "button",
-          "width": 36,
-          "height": 36,
           "inline": false
         }
       ]
@@ -1733,7 +2049,7 @@
       "h1FontSize": "32px",
       "bodyFontSize": null,
       "bodyLineHeight": null,
-      "smallTargetCount": 3,
+      "smallTargetCount": 4,
       "smallTargets": [
         {
           "label": "Ubuntu Tales — home",
@@ -1755,6 +2071,700 @@
           "width": 85,
           "height": 36,
           "inline": false
+        },
+        {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "desktop",
+      "label": "login",
+      "path": "/login",
+      "viewportWidth": 1440,
+      "documentScrollWidth": 1440,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "51.2px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 12,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Read",
+          "tag": "a",
+          "width": 36,
+          "height": 44,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 134,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Show password",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Forgot your password?",
+          "tag": "a",
+          "width": 140,
+          "height": 20,
+          "inline": false
+        },
+        {
+          "label": "Open an account",
+          "tag": "a",
+          "width": 107,
+          "height": 17,
+          "inline": true
+        },
+        {
+          "label": "Kwame",
+          "tag": "button",
+          "width": 67,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Thandiwe",
+          "tag": "button",
+          "width": 81,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Tendai",
+          "tag": "button",
+          "width": 64,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Amina",
+          "tag": "button",
+          "width": 62,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "keep browsing the archive",
+          "tag": "a",
+          "width": 415,
+          "height": 37,
+          "inline": true
+        }
+      ]
+    },
+    {
+      "device": "desktop",
+      "label": "signup",
+      "path": "/signup",
+      "viewportWidth": 1440,
+      "documentScrollWidth": 1440,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "51.2px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 7,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Read",
+          "tag": "a",
+          "width": 36,
+          "height": 44,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 134,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Show password",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Sign in",
+          "tag": "a",
+          "width": 40,
+          "height": 17,
+          "inline": true
+        },
+        {
+          "label": "The archive is open.",
+          "tag": "a",
+          "width": 123,
+          "height": 17,
+          "inline": true
+        }
+      ]
+    },
+    {
+      "device": "desktop",
+      "label": "verify-email",
+      "path": "/verify-email?sent=1",
+      "viewportWidth": 1440,
+      "documentScrollWidth": 1440,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "51.2px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 4,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Read",
+          "tag": "a",
+          "width": 36,
+          "height": 44,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 134,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "desktop",
+      "label": "forgot-password",
+      "path": "/forgot-password",
+      "viewportWidth": 1440,
+      "documentScrollWidth": 1440,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "51.2px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 5,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Read",
+          "tag": "a",
+          "width": 36,
+          "height": 44,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 134,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "Join",
+          "tag": "a",
+          "width": 60,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Back to sign in",
+          "tag": "a",
+          "width": 466,
+          "height": 20,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "desktop",
+      "label": "profile",
+      "path": "/profile",
+      "viewportWidth": 1440,
+      "documentScrollWidth": 1440,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "51.2px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 5,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Read",
+          "tag": "a",
+          "width": 36,
+          "height": 44,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 134,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "LPLayout profileaccount menu",
+          "tag": "button",
+          "width": 159,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 131,
+          "height": 19,
+          "inline": true
+        }
+      ]
+    },
+    {
+      "device": "desktop",
+      "label": "settings",
+      "path": "/settings",
+      "viewportWidth": 1440,
+      "documentScrollWidth": 1440,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": null,
+      "h1FontSize": "51.2px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 10,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Read",
+          "tag": "a",
+          "width": 36,
+          "height": 44,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 134,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "LSLayout settingsaccount menu",
+          "tag": "button",
+          "width": 169,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Edit details",
+          "tag": "a",
+          "width": 102,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Show current password",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Show new password",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Show password confirmation",
+          "tag": "button",
+          "width": 40,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Review your roots",
+          "tag": "a",
+          "width": 110,
+          "height": 20,
+          "inline": false
+        },
+        {
+          "label": "Your reading list",
+          "tag": "a",
+          "width": 98,
+          "height": 20,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "desktop",
+      "label": "home-signed-in",
+      "path": "/",
+      "viewportWidth": 1440,
+      "documentScrollWidth": 1440,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 6,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": 651,
+      "h1FontSize": "73.6px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 31,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Read",
+          "tag": "a",
+          "width": 36,
+          "height": 44,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 134,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "LHLayout home-signed-inaccount menu",
+          "tag": "button",
+          "width": 201,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Zulu",
+          "tag": "a",
+          "width": 33,
+          "height": 18,
+          "inline": false
+        },
+        {
+          "label": "Choose a publication",
+          "tag": "a",
+          "width": 165,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "View all →",
+          "tag": "a",
+          "width": 62,
+          "height": 32,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 149,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "When the Chameleon Carried the Word",
+          "tag": "a",
+          "width": 223,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "Ìjàpá and the Feast Above the Clouds",
+          "tag": "a",
+          "width": 213,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "The Mantis and the Eland",
+          "tag": "a",
+          "width": 144,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "Anansi and the Pot of Wisdom",
+          "tag": "a",
+          "width": 171,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "The Acacia and the Herdsman’s Promise",
+          "tag": "a",
+          "width": 227,
+          "height": 16,
+          "inline": true
+        },
+        {
+          "label": "Browse the publications →",
+          "tag": "a",
+          "width": 275,
+          "height": 20,
+          "inline": false
+        },
+        {
+          "label": "View all →",
+          "tag": "a",
+          "width": 62,
+          "height": 32,
+          "inline": false
+        },
+        {
+          "label": "Follow Zulu",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Shona",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Yoruba",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Ashanti",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Maasai",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Dogon",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow San / Khoikhoi",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Kuba",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Tonga",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "Follow Igbo",
+          "tag": "button",
+          "width": 73,
+          "height": 40,
+          "inline": false
+        }
+      ]
+    },
+    {
+      "device": "desktop",
+      "label": "saved-signed-in",
+      "path": "/saved",
+      "viewportWidth": 1440,
+      "documentScrollWidth": 1440,
+      "horizontalOverflow": false,
+      "overflowers": [],
+      "brokenImages": [],
+      "pendingLazyImages": 0,
+      "fontChecks": {
+        "lora": true,
+        "dmSans": true
+      },
+      "readerArticleWidth": 1040,
+      "h1FontSize": "51.2px",
+      "bodyFontSize": null,
+      "bodyLineHeight": null,
+      "smallTargetCount": 5,
+      "smallTargets": [
+        {
+          "label": "Ubuntu Tales — home",
+          "tag": "a",
+          "width": 136,
+          "height": 30,
+          "inline": false
+        },
+        {
+          "label": "Read",
+          "tag": "a",
+          "width": 36,
+          "height": 44,
+          "inline": false
+        },
+        {
+          "label": "Choose your roots",
+          "tag": "a",
+          "width": 134,
+          "height": 36,
+          "inline": false
+        },
+        {
+          "label": "LSLayout saved-signed-inaccount menu",
+          "tag": "button",
+          "width": 201,
+          "height": 40,
+          "inline": false
+        },
+        {
+          "label": "When the Chameleon Carried the Word",
+          "tag": "a",
+          "width": 348,
+          "height": 24,
+          "inline": true
         }
       ]
     }

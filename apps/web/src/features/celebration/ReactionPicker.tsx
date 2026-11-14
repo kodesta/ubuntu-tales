@@ -47,9 +47,7 @@ export function ReactionPicker({
             type="button"
             className={cn(styles.reaction, active && styles.active)}
             aria-pressed={active}
-            aria-label={`${reaction.label}${
-              count > 0 ? `, ${count} ${count === 1 ? 'reader' : 'readers'}` : ''
-            } — ${reaction.meaning}`}
+            // The visible label, count and meaning form the accessible name (WCAG 2.5.3).
             onClick={() => {
               if (active) {
                 clear();
