@@ -6,7 +6,8 @@ import type { CursorPayload } from '../common/pagination/cursor';
 import { encodeCursor } from '../common/pagination/cursor';
 import { PrismaService } from '../infra/prisma/prisma.service';
 import { STORY_INCLUDE } from './catalogue.include';
-import { toAuthorDetail, toAuthorSummary } from './catalogue.mapper';
+import { toAuthorSummary, toStoryCard } from './catalogue.mapper';
+import { ViewerOverlayService } from './viewer.service';
 
 export interface AuthorListOptions {
   q?: string;
@@ -16,7 +17,10 @@ export interface AuthorListOptions {
 
 @Injectable()
 export class AuthorsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly viewer: ViewerOverlayService,
+  ) {}
 
   /**
    * Paginated list of griots (narrators) with at least one published tale. Sorted by name; the
@@ -68,7 +72,7 @@ export class AuthorsService {
     return { items, nextCursor };
   }
 
-  async getDetail(slug: string): Promise<AuthorDetail> {
+  async getDetail(slug: string, viewerId?: string | null): Promise<AuthorDetail> {
     const narrator = await this.prisma.narrator.findUnique({
       where: { slug },
       include: {
@@ -83,6 +87,9 @@ export class AuthorsService {
     });
 
     if (!narrator) throw AppException.notFound('Author');
-    return toAuthorDetail(narrator, narrator._count.stories, narrator.stories);
+    return {
+      ...toAuthorSummary(narrator, narrator._count.stories),
+      stories: await this.viewer.overlay(viewerId, narrator.stories.map(toStoryCard)),
+    };
   }
 }

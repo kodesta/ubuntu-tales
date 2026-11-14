@@ -10,23 +10,37 @@ export interface SavedEntry {
 
 interface SavedState {
   entries: SavedEntry[];
+  /**
+   * True once the signed-in reading list has been merged in from `GET /me/saved`.
+   * Not persisted: it only describes the current session's in-memory mirror.
+   */
+  hydrated: boolean;
   save: (story: StoryCard) => void;
   unsave: (slug: string) => void;
   /** Returns true when the tale is now saved. */
   toggle: (story: StoryCard) => boolean;
   isSaved: (slug: string) => boolean;
+  /**
+   * Merges account entries read from the API with anything already on the device. Guest saves
+   * must never be dropped here — the guest→account merge (features/auth) reads them separately.
+   */
+  hydrate: (entries: SavedEntry[]) => void;
+  /** Restores a pre-mutation snapshot (optimistic save/unsave rollback). */
+  restore: (entries: SavedEntry[]) => void;
   reset: () => void;
 }
 
 /**
- * On-device reading list. We keep a snapshot of the StoryCard so `/saved` can render instantly
- * without a network round-trip; Phase 2 replaces this with `GET /me/saved`.
- * Persisted under `ut.saved`.
+ * The reading list. Guests keep a snapshot of the StoryCard so `/saved` can render instantly
+ * without a network round-trip; signed-in readers mirror `GET /me/saved` into the same store so
+ * every save affordance (home, reader, library, saved) reflects the account list.
+ * Persisted under `ut.saved` (entries only — see `partialize`).
  */
 export const useSavedStore = create<SavedState>()(
   persist(
     (set, get) => ({
       entries: [],
+      hydrated: false,
       save: (story) => {
         set((state) => {
           if (state.entries.some((entry) => entry.story.slug === story.slug)) return state;
@@ -50,11 +64,26 @@ export const useSavedStore = create<SavedState>()(
         return !saved;
       },
       isSaved: (slug) => get().entries.some((entry) => entry.story.slug === slug),
-      reset: () => set({ entries: [] }),
+      hydrate: (entries) => {
+        set((state) => {
+          const bySlug = new Map<string, SavedEntry>();
+          for (const entry of entries) bySlug.set(entry.story.slug, entry);
+          for (const entry of state.entries) {
+            if (!bySlug.has(entry.story.slug)) bySlug.set(entry.story.slug, entry);
+          }
+          const merged = [...bySlug.values()].sort((a, b) =>
+            b.savedAt.localeCompare(a.savedAt),
+          );
+          return { entries: merged, hydrated: true };
+        });
+      },
+      restore: (entries) => set({ entries }),
+      reset: () => set({ entries: [], hydrated: false }),
     }),
     {
       name: 'ut.saved',
       storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({ entries: state.entries }),
     },
   ),
 );

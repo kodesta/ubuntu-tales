@@ -1,5 +1,7 @@
 import { Link } from '@tanstack/react-router';
 
+import { AccountMenu } from '@/features/auth/AccountMenu';
+import { useCurrentUser, useIsAuthenticated } from '@/stores/session';
 import { useTribeStore } from '@/stores/tribe';
 import { Menu, Search } from 'lucide-react';
 
@@ -23,6 +25,9 @@ const NAV_ITEMS = [
 /** Sticky 64px editorial header: brand, primary nav (desktop), search and the drawer trigger. */
 export function Header({ onOpenMenu, onOpenSearch }: HeaderProps) {
   const chosenTribe = useTribeStore((state) => state.name);
+  const user = useCurrentUser();
+  const authenticated = useIsAuthenticated();
+  const accountTribe = authenticated ? user?.tribe : undefined;
 
   return (
     <header className={styles.header}>
@@ -52,7 +57,21 @@ export function Header({ onOpenMenu, onOpenSearch }: HeaderProps) {
           <IconButton label="Search tales" onClick={onOpenSearch}>
             <Search size={20} aria-hidden="true" />
           </IconButton>
-          {chosenTribe ? (
+          {authenticated ? (
+            accountTribe ? (
+              <Link
+                to="/tribes/$slug"
+                params={{ slug: accountTribe.slug }}
+                className={styles.rootsLink}
+              >
+                {accountTribe.name} roots
+              </Link>
+            ) : (
+              <Link to="/profile" className={styles.rootsLink}>
+                Choose your roots
+              </Link>
+            )
+          ) : chosenTribe ? (
             <Link to="/tribes" className={styles.rootsLink}>
               {chosenTribe} roots
             </Link>
@@ -61,6 +80,7 @@ export function Header({ onOpenMenu, onOpenSearch }: HeaderProps) {
               Choose your roots
             </Link>
           )}
+          <AccountMenu />
         </div>
       </div>
     </header>

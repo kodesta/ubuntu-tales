@@ -11,13 +11,25 @@ export { Prisma, PrismaClient };
 export type {
   AccessLevel,
   Category,
+  CommunityRole,
+  EmailToken,
+  EmailTokenType,
   Narrator,
+  Reaction,
   ReactionType,
+  ReadingProgress,
+  RefreshToken,
   Region,
+  SavedStory,
   Story,
   StoryOfTheDay,
   StoryStatus,
+  SystemRole,
   Tribe,
+  User,
+  UserConsent,
+  UserStats,
+  UserStatus,
 } from '@prisma/client';
 
 export interface CreatePrismaClientOptions {

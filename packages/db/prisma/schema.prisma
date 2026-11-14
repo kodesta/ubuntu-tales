@@ -1,8 +1,11 @@
-// Ubuntu Tales — Phase 1 read path (see docs/production-plan/02 §3 and DEVIATIONS.md 0.4).
+// Ubuntu Tales — Phase 1 read path + Phase 2 accounts (see docs/production-plan/02 §3 and
+// DEVIATIONS.md 0.4 / Phase 2 notes).
 //
-// This slice models only the public catalogue: categories, tribes, narrators, stories and the
-// editorial story-of-the-day. Identity, progress, submissions and media tables are deferred to
-// their phases; additive fields and tables are allowed when a later task needs them.
+// Phase 1 modelled the public catalogue: categories, tribes, narrators, stories and the editorial
+// story-of-the-day. Phase 2 (migration `phase2_accounts`) adds identity (`User`, `RefreshToken`,
+// `EmailToken`, `UserConsent`), stats and the personal activity tables (`SavedStory`,
+// `ReadingProgress`, `Reaction`). Submissions and media tables remain deferred to their phases;
+// additive fields and tables are allowed when a later task needs them.
 //
 // Images are served as root-relative static paths in Phase 1 (`/covers/*.svg`); the plan's
 // MediaAsset/RustFS pipeline returns in Phase 3. Fields are named `*Url` so a media-asset
@@ -38,13 +41,39 @@ enum AccessLevel {
   PREMIUM
 }
 
-/// Kept for the Phase 2 reactions feature and the public /config payload; no reaction table yet.
 enum ReactionType {
   JOY
   GREAT
   GOOD
   THINKING
   HAPPY
+}
+
+/// Permissions role (ADR-008: never derive this from `communityRole`).
+enum SystemRole {
+  READER
+  CONTRIBUTOR
+  EDITOR
+  ADMIN
+}
+
+enum CommunityRole {
+  STORYTELLER
+  SEEKER
+  WRITER
+  STORYTELLER_AND_SEEKER
+  ELDER_GUARDIAN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum EmailTokenType {
+  VERIFY_EMAIL
+  RESET_PASSWORD
 }
 
 // ───────────── Catalogue ─────────────
@@ -75,6 +104,8 @@ model Tribe {
   updatedAt           DateTime @updatedAt
 
   stories Story[]
+
+  users User[]
 
   @@index([region, isActive])
   @@index([isActive, sortOrder])
@@ -144,6 +175,10 @@ model Story {
   narrator Narrator? @relation(fields: [narratorId], references: [id])
   featuredOn StoryOfTheDay[]
 
+  saved    SavedStory[]
+  progress ReadingProgress[]
+  reactions Reaction[]
+
   @@index([status, publishedAt(sort: Desc)])
   @@index([status, popularityScore(sort: Desc)])
   @@index([status, title])
@@ -163,4 +198,166 @@ model StoryOfTheDay {
 
   @@unique([date, locale])
   @@index([storyId])
+}
+
+// ───────────── Identity & accounts (Phase 2) ─────────────
+
+/// A reader account. Email uniqueness is case-insensitive (`citext`). Deleting a user is a soft
+/// delete (`status = DELETED`, `deletedAt`) so published attribution and audit trails survive;
+/// personal activity rows cascade from the relation.
+model User {
+  id              String         @id @default(uuid(7)) @db.Uuid
+  email           String         @unique @db.Citext
+  emailVerifiedAt DateTime?
+  passwordHash    String?
+  displayName     String         @db.VarChar(80)
+  /// Optional, sensitive personalisation data (POPIA/GDPR special category) collected with consent.
+  tribeId         String?        @db.Uuid
+  customLineage   String?        @db.VarChar(120)
+  lineageLabel    String?        @db.VarChar(160)
+  communityRole   CommunityRole?
+  systemRole      SystemRole     @default(READER)
+  status          UserStatus     @default(ACTIVE)
+  /// Bumped on logout-all / password reset / suspension; the access-token `sv` claim must match.
+  sessionVersion  Int            @default(0)
+  locale          String         @default("en") @db.VarChar(10)
+  onboardedAt     DateTime?
+  lastSeenAt      DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  deletedAt       DateTime?
+
+  tribe         Tribe?            @relation(fields: [tribeId], references: [id])
+  refreshTokens RefreshToken[]
+  emailTokens   EmailToken[]
+  consents      UserConsent[]
+  stats         UserStats?
+  saved         SavedStory[]
+  progress      ReadingProgress[]
+  reactions     Reaction[]
+
+  @@index([tribeId])
+  @@index([status])
+}
+
+/// A rotating session. The raw opaque token lives only in the httpOnly cookie; the database stores
+/// `sha256(token)` so a database leak cannot be replayed.
+model RefreshToken {
+  id           String    @id @default(uuid(7)) @db.Uuid
+  userId       String    @db.Uuid
+  /// All descendants of one login share a family id; reuse detection revokes the whole family.
+  familyId     String    @db.Uuid
+  tokenHash    String    @unique
+  userAgent    String?
+  ip           String?   @db.Inet
+  expiresAt    DateTime
+  revokedAt    DateTime?
+  replacedById String?   @db.Uuid
+  createdAt    DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([familyId])
+  @@index([expiresAt])
+}
+
+/// Single-use, hashed email tokens for verification (24 h) and password reset (30 min).
+model EmailToken {
+  id        String         @id @default(uuid(7)) @db.Uuid
+  userId    String         @db.Uuid
+  type      EmailTokenType
+  tokenHash String         @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime       @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+  @@index([expiresAt])
+}
+
+/// Consent records with policy version (POPIA/NDPA/Kenya DPA/GDPR evidence).
+model UserConsent {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  userId    String   @db.Uuid
+  /// "terms" | "privacy" | "lineage_personalisation" | "analytics" | "marketing_email"
+  type      String
+  version   String
+  granted   Boolean
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+}
+
+/// Denormalised gamification counters; always updated in the same transaction as the activity row.
+model UserStats {
+  userId            String    @id @db.Uuid
+  /// Distinct stories completed.
+  talesRead         Int       @default(0)
+  /// Distinct tribes of completed stories, plus the user's own tribe.
+  tribesExplored    Int       @default(0)
+  listeningSeconds  Int       @default(0)
+  currentStreakDays Int       @default(0)
+  /// Activity day used for the streak (YYYY-MM-DD in the request timezone).
+  lastActiveDay     DateTime? @db.Date
+  updatedAt         DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ───────────── Personal activity (Phase 2) ─────────────
+
+model SavedStory {
+  userId    String   @db.Uuid
+  storyId   String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@id([userId, storyId])
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([storyId])
+}
+
+model ReadingProgress {
+  userId          String    @db.Uuid
+  storyId         String    @db.Uuid
+  narrationId     String?   @db.Uuid
+  lastSentenceId  String?
+  audioPositionMs Int       @default(0)
+  /// 0..100, clamped server-side.
+  percent         Int       @default(0)
+  startedAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  completedAt     DateTime?
+  completionCount Int       @default(0)
+  /// Client clock of the last accepted write, for offline last-write-wins.
+  clientUpdatedAt DateTime
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@id([userId, storyId])
+  @@index([userId, updatedAt(sort: Desc)])
+  @@index([storyId])
+}
+
+model Reaction {
+  userId    String       @db.Uuid
+  storyId   String       @db.Uuid
+  type      ReactionType
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@id([userId, storyId])
+  @@index([storyId, type])
+  @@index([userId])
 }

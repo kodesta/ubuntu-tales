@@ -1,0 +1,6 @@
+/* QA (Phase 1): the compact archive save button was a 36px target. Keep the icon compact but the
+   hit area at the WCAG 2.2 / design-doc 44px minimum. */
+.saveButton {
+  min-width: 44px;
+  min-height: 44px;
+}

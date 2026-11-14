@@ -15,6 +15,7 @@ import { PrismaService } from '../infra/prisma/prisma.service';
 import { STORY_INCLUDE } from './catalogue.include';
 import { toStoryCard, toStoryDetail } from './catalogue.mapper';
 import { DEFAULT_EDITORIAL_TZ, editorialDateKey, pickStoryOfTheDay } from './story-of-day';
+import { ViewerOverlayService } from './viewer.service';
 
 export interface StoryListOptions {
   q?: string;
@@ -91,13 +92,17 @@ export class StoriesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
+    private readonly viewer: ViewerOverlayService,
   ) {}
 
   /**
    * Filtered, accent-insensitive story list with keyset pagination.
    * Search uses `unaccent_immutable` + `pg_trgm` expression indexes (production plan 02 §5).
    */
-  async list(options: StoryListOptions): Promise<Paginated<StoryCard>> {
+  async list(
+    options: StoryListOptions,
+    viewerId?: string | null,
+  ): Promise<Paginated<StoryCard>> {
     const filters: Prisma.Sql[] = [
       Prisma.sql`s."status" = 'PUBLISHED'`,
       Prisma.sql`s."locale" = 'en'`,
@@ -153,12 +158,15 @@ export class StoriesService {
       if (sortValue) nextCursor = encodeCursor({ v: sortValue, id: last.id });
     }
 
-    return { items, nextCursor };
+    return { items: await this.viewer.overlay(viewerId, items), nextCursor };
   }
 
   /** `/library/stories` — the same catalogue as `/stories`, sorted by title. */
-  async listLibrary(options: Omit<StoryListOptions, 'sort'>): Promise<Paginated<StoryCard>> {
-    return this.list({ ...options, sort: 'title' });
+  async listLibrary(
+    options: Omit<StoryListOptions, 'sort'>,
+    viewerId?: string | null,
+  ): Promise<Paginated<StoryCard>> {
+    return this.list({ ...options, sort: 'title' }, viewerId);
   }
 
   /** `/library/audio` — empty until narrations arrive in Phase 3. */
@@ -166,16 +174,25 @@ export class StoriesService {
     return { items: [], nextCursor: null };
   }
 
-  async getDetail(slug: string): Promise<StoryDetail> {
+  async getDetail(slug: string, viewerId?: string | null): Promise<StoryDetail> {
     const story = await this.prisma.story.findFirst({
       where: { slug, status: 'PUBLISHED' },
       include: STORY_INCLUDE,
     });
     if (!story) throw AppException.notFound('Story');
-    return toStoryDetail(story);
+    const detail = toStoryDetail(story);
+    const [overlaid] = await this.viewer.overlay(viewerId, [detail]);
+    return (overlaid ?? detail) as StoryDetail;
   }
 
-  async getRecommendations(slug: string): Promise<StoryCard[]> {
+  /**
+   * Four recommendations: same tribe/category/region ranked by popularity. Authenticated callers may
+   * exclude stories they have already completed (`excludeStoryIds`) and receive `viewer` overlays.
+   */
+  async getRecommendations(
+    slug: string,
+    options: { viewerId?: string | null; excludeStoryIds?: readonly string[] } = {},
+  ): Promise<StoryCard[]> {
     const story = await this.prisma.story.findFirst({
       where: { slug, status: 'PUBLISHED' },
       select: {
@@ -187,10 +204,11 @@ export class StoriesService {
     });
     if (!story) throw AppException.notFound('Story');
 
+    const excluded = options.excludeStoryIds ?? [];
     const candidates = await this.prisma.story.findMany({
       where: {
         status: 'PUBLISHED',
-        id: { not: story.id },
+        id: { not: story.id, ...(excluded.length > 0 ? { notIn: [...excluded] } : {}) },
         OR: [
           { tribeId: story.tribeId },
           { categoryId: story.categoryId },
@@ -204,7 +222,11 @@ export class StoriesService {
 
     const recommendations = candidates.map(toStoryCard);
     if (recommendations.length < 4) {
-      const excludedIds = [story.id, ...candidates.map((candidate) => candidate.id)];
+      const excludedIds = [
+        story.id,
+        ...excluded,
+        ...candidates.map((candidate) => candidate.id),
+      ];
       const filler = await this.prisma.story.findMany({
         where: { status: 'PUBLISHED', id: { notIn: excludedIds } },
         include: STORY_INCLUDE,
@@ -214,7 +236,7 @@ export class StoriesService {
       recommendations.push(...filler.map(toStoryCard));
     }
 
-    return recommendations;
+    return this.viewer.overlay(options.viewerId, recommendations);
   }
 
   /** Search-as-you-type suggestions mixing up to 5 stories and 3 tribes (max 8). */
@@ -269,7 +291,7 @@ export class StoriesService {
   }
 
   /** Editorial pick for today, else a deterministic fallback across featured/published stories. */
-  async getStoryOfTheDay(): Promise<StoryCard> {
+  async getStoryOfTheDay(viewerId?: string | null): Promise<StoryCard> {
     const timezone = this.config.get<string>('EDITORIAL_TZ') ?? DEFAULT_EDITORIAL_TZ;
     const dateKey = editorialDateKey(new Date(), timezone);
     const today = new Date(`${dateKey}T00:00:00.000Z`);
@@ -279,7 +301,8 @@ export class StoriesService {
       include: { story: { include: STORY_INCLUDE } },
     });
     if (scheduled?.story.status === 'PUBLISHED') {
-      return toStoryCard(scheduled.story);
+      const [card] = await this.viewer.overlay(viewerId, [toStoryCard(scheduled.story)]);
+      return card ?? toStoryCard(scheduled.story);
     }
 
     let candidates = await this.prisma.story.findMany({
@@ -299,6 +322,7 @@ export class StoriesService {
 
     const picked = pickStoryOfTheDay(dateKey, candidates);
     if (!picked) throw AppException.notFound('Story of the day');
-    return toStoryCard(picked);
+    const [card] = await this.viewer.overlay(viewerId, [toStoryCard(picked)]);
+    return card ?? toStoryCard(picked);
   }
 }

@@ -1,6 +1,8 @@
 .picker {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* QA polish: a fluid track count instead of a fixed 2-col grid so the fifth card is never
+     orphaned — the last odd card spans the row, and wider phones/tablets settle evenly. */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: var(--space-3);
   width: 100%;
 }
@@ -35,11 +37,28 @@
   line-height: 1;
 }
 
+.labelRow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
 .label {
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--text-ui);
   font-weight: 500;
+}
+
+.count {
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-variant-numeric: tabular-nums;
+}
+
+.active .count {
+  color: var(--terracotta-dark);
 }
 
 .meaning {
@@ -49,13 +68,25 @@
   line-height: 1.4;
 }
 
+/* Fill the final row: with 5 emotions an odd trailing card spans the full width on the narrow
+   fluid tracks instead of leaving a ragged gap. */
+.reaction:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 @media (min-width: 640px) {
   .picker {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .reaction {
+  .reaction,
+  .reaction:last-child:nth-child(odd) {
+    grid-column: auto;
     align-items: center;
     text-align: center;
+  }
+
+  .labelRow {
+    justify-content: center;
   }
 }

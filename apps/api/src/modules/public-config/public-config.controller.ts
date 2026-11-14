@@ -8,11 +8,13 @@ import {
   SUPPORTED_LOCALES,
   type PublicConfig,
 } from '@ubuntu-tales/shared';
+import { Public } from '../../common/auth/auth.decorators';
 import { CacheablePublic } from '../../common/http/cacheable-public.decorator';
 
 /** Public runtime config consumed by the web app at boot (production plan 03 §2.1). */
 @Controller('config')
 @CacheablePublic()
+@Public()
 export class PublicConfigController {
   @Get()
   getConfig(): PublicConfig {

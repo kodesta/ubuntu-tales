@@ -10,8 +10,12 @@ import { StoriesController } from './stories.controller';
 import { StoriesService } from './stories.service';
 import { TribesController } from './tribes.controller';
 import { TribesService } from './tribes.service';
+import { ViewerOverlayService } from './viewer.service';
 
-/** The public catalogue read path: catalogue, search, home, library and griots. */
+/**
+ * The public catalogue read path: catalogue, search, home, library and griots. Optional auth makes
+ * `StoryCard.viewer` available for authenticated callers without changing guest behaviour.
+ */
 @Module({
   controllers: [
     StoriesController,
@@ -21,6 +25,14 @@ import { TribesService } from './tribes.service';
     HomeController,
     LibraryController,
   ],
-  providers: [StoriesService, TribesService, CategoriesService, AuthorsService, HomeService],
+  providers: [
+    StoriesService,
+    TribesService,
+    CategoriesService,
+    AuthorsService,
+    HomeService,
+    ViewerOverlayService,
+  ],
+  exports: [StoriesService, ViewerOverlayService],
 })
 export class CatalogueModule {}

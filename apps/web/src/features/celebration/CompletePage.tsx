@@ -3,9 +3,10 @@ import { ArrowLeft, Share2 } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import { useEffect } from 'react';
 
-import { useRecommendations, useStory } from '@/features/reader/queries';
+import { useCompleteStory, useRecommendations, useStory } from '@/features/reader/queries';
 import { useReadingProgressStore } from '@/features/reader/readingProgress';
 import { ApiError } from '@/lib/api';
+import { useIsAuthenticated } from '@/stores/session';
 import { useToastStore } from '@/stores/toast';
 import {
   Button,
@@ -16,6 +17,7 @@ import {
   Skeleton,
   StoryCard,
 } from '@/ui';
+import { useReactionSummary } from '@/ui/ReactionRow/useReactionSync';
 
 import { Confetti } from './Confetti';
 import { ReactionPicker } from './ReactionPicker';
@@ -28,14 +30,34 @@ export interface CompletePageProps {
   slug: string;
 }
 
+function readersLine(count: number): string {
+  if (count === 1) return 'One reader felt this.';
+  return `${count.toLocaleString('en')} readers felt this.`;
+}
+
+function statsLine(stats: { talesRead: number; currentStreakDays: number }): string {
+  const tales = stats.talesRead === 1 ? '1 tale' : `${stats.talesRead.toLocaleString('en')} tales`;
+  const streak =
+    stats.currentStreakDays > 1 ? ` · ${stats.currentStreakDays}-day reading streak` : '';
+  return `That is ${tales} read on your account${streak}.`;
+}
+
 /**
  * `/stories/$slug/complete` — the end-of-tale screen (design doc §7.9): editorial "Ubuntu!",
  * the large reaction picker, the wisdom quote, wisdom sharing and three recommendations.
- * Visiting directly works too: the page simply celebrates the tale that was opened.
+ *
+ * Signed-in readers get the server's celebration payload from `POST /me/progress/:id/complete`
+ * (stats + recommendations, shared with the reader's "Finish tale" call). Guests keep the
+ * catalogue recommendations query. Visiting directly works too: the page simply celebrates the
+ * tale that was opened.
  */
 export function CompletePage({ slug }: CompletePageProps) {
   const storyQuery = useStory(slug);
-  const recommendationsQuery = useRecommendations(slug);
+  const isAuthed = useIsAuthenticated();
+  const completeQuery = useCompleteStory(slug, storyQuery.data?.id, isAuthed);
+  // Guests only: signed-in recommendations come from the completion response.
+  const recommendationsQuery = useRecommendations(slug, { enabled: !isAuthed });
+  const summaryQuery = useReactionSummary(storyQuery.data?.id);
   const markComplete = useReadingProgressStore((state) => state.markComplete);
   const showToast = useToastStore((state) => state.show);
 
@@ -79,9 +101,18 @@ export function CompletePage({ slug }: CompletePageProps) {
 
   const story = storyQuery.data;
   const wisdom = story.moral ?? story.summary;
-  const recommendations = (recommendationsQuery.data ?? [])
+  const completion = completeQuery.data;
+  const recommendationSource = isAuthed
+    ? (completion?.recommendations ?? [])
+    : (recommendationsQuery.data ?? []);
+  const recommendations = recommendationSource
     .filter((item) => item.slug !== story.slug)
     .slice(0, 3);
+  const recommendationsLoading = isAuthed
+    ? completeQuery.isPending
+    : recommendationsQuery.isPending;
+  const reactionTotal = summaryQuery.data?.total ?? 0;
+  const stats = completion?.stats;
 
   const accentStyle = {
     '--accent': story.tribe.accentColor ?? 'var(--terracotta)',
@@ -108,7 +139,14 @@ export function CompletePage({ slug }: CompletePageProps) {
           <h2 id="complete-reactions" className={styles.sectionLabel}>
             How did the tale leave you?
           </h2>
-          <ReactionPicker storySlug={story.slug} />
+          <ReactionPicker
+            storySlug={story.slug}
+            storyId={story.id}
+            viewerReaction={story.viewer?.reaction ?? null}
+          />
+          {reactionTotal > 0 ? (
+            <p className={styles.readersLine}>{readersLine(reactionTotal)}</p>
+          ) : null}
         </section>
 
         <figure className={styles.wisdom}>
@@ -116,6 +154,8 @@ export function CompletePage({ slug }: CompletePageProps) {
           <blockquote className={styles.wisdomQuote}>“{wisdom}”</blockquote>
           <figcaption className={styles.wisdomSource}>From “{story.title}”</figcaption>
         </figure>
+
+        {stats ? <p className={styles.statsLine}>{statsLine(stats)}</p> : null}
 
         <div className={styles.actions}>
           <Link to="/" className={buttonClassName('primary', 'md')}>
@@ -148,7 +188,16 @@ export function CompletePage({ slug }: CompletePageProps) {
               </Link>
             }
           />
-          {recommendationsQuery.isPending ? (
+          {isAuthed && completeQuery.isError ? (
+            <EmptyState
+              eyebrow="The fire is patient"
+              title="We could not gather your next tales."
+              body="Your finish is kept on this device. Try once more — the tales are still warm."
+              action={
+                <Button onClick={() => void completeQuery.refetch()}>Try again</Button>
+              }
+            />
+          ) : recommendationsLoading ? (
             <div className={styles.cardGrid}>
               {Array.from({ length: 3 }, (_, index) => (
                 <Skeleton key={index} variant="card" lines={3} />

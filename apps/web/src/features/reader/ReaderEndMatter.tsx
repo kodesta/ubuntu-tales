@@ -1,14 +1,18 @@
 import { Link, useNavigate } from '@tanstack/react-router';
+import { useQueryClient } from '@tanstack/react-query';
 import type { StoryCard, StoryDetail } from '@ubuntu-tales/shared';
 import { ArrowRight, Bookmark, BookmarkCheck, Link2, Share2 } from 'lucide-react';
 import type { CSSProperties } from 'react';
+import { useState } from 'react';
 
+import { announceSavedToggle, toggleSavedWithSync } from '@/features/saved/savedSync';
 import { cn } from '@/lib/cn';
 import { formatReadTime } from '@/lib/format';
 import { useStories } from '@/lib/queries';
 import { useReadingProgressStore } from '@/features/reader/readingProgress';
+import { useIsAuthenticated } from '@/stores/session';
 import { useSavedStore } from '@/stores/saved';
-import { ON_DEVICE_NOTE, useToastStore } from '@/stores/toast';
+import { useToastStore } from '@/stores/toast';
 import {
   Button,
   FollowButton,
@@ -19,7 +23,7 @@ import {
   StoryCard as StoryCardView,
 } from '@/ui';
 
-import { useRecommendations } from './queries';
+import { completeStoryQueryOptions, useRecommendations } from './queries';
 import styles from './ReaderEndMatter.module.css';
 
 export interface ReaderEndMatterProps {
@@ -53,10 +57,17 @@ export function padMoreStories(
  */
 export function ReaderEndMatter({ story, onShare, onCopyLink }: ReaderEndMatterProps) {
   const navigate = useNavigate();
-  const saved = useSavedStore((state) =>
+  const queryClient = useQueryClient();
+  const isAuthed = useIsAuthenticated();
+  const hydrated = useSavedStore((state) => state.hydrated);
+  const savedInStore = useSavedStore((state) =>
     state.entries.some((entry) => entry.story.slug === story.slug),
   );
-  const toggleSaved = useSavedStore((state) => state.toggle);
+  const [finishing, setFinishing] = useState(false);
+  const [savedOverride, setSavedOverride] = useState<boolean | null>(null);
+  // Before the account list hydrates, the per-response viewer overlay is the freshest truth.
+  const effectiveSaved = isAuthed && !hydrated ? (story.viewer?.saved ?? savedInStore) : savedInStore;
+  const saved = savedOverride ?? effectiveSaved;
   const markComplete = useReadingProgressStore((state) => state.markComplete);
   const showToast = useToastStore((state) => state.show);
 
@@ -93,12 +104,30 @@ export function ReaderEndMatter({ story, onShare, onCopyLink }: ReaderEndMatterP
   } as CSSProperties;
 
   const handleSave = () => {
-    const nowSaved = toggleSaved(story);
-    showToast(nowSaved ? ON_DEVICE_NOTE : 'Removed from your reading list.');
+    const previouslySaved = saved;
+    setSavedOverride(!previouslySaved);
+    void toggleSavedWithSync(story, previouslySaved, queryClient).then((outcome) => {
+      setSavedOverride(outcome.saved);
+      announceSavedToggle(outcome);
+    });
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
+    if (finishing) return;
     markComplete(story.slug);
+    setFinishing(true);
+    if (isAuthed) {
+      try {
+        // Shares its cache entry with the celebration screen (staleTime: Infinity) so the completion
+        // screen renders the returned stats/recommendations without a second POST.
+        await queryClient.ensureQueryData(completeStoryQueryOptions(story.slug, story.id));
+      } catch {
+        showToast(
+          'We could not record this finish on your account. Your place is kept on this device.',
+        );
+      }
+    }
+    setFinishing(false);
     void navigate({ to: '/stories/$slug/complete', params: { slug: story.slug } });
   };
 
@@ -120,7 +149,11 @@ export function ReaderEndMatter({ story, onShare, onCopyLink }: ReaderEndMatterP
         <h2 id="reader-reactions-heading" className={styles.label}>
           How did the tale leave you?
         </h2>
-        <ReactionRow storySlug={story.slug} />
+        <ReactionRow
+          storySlug={story.slug}
+          storyId={story.id}
+          viewerReaction={story.viewer?.reaction ?? null}
+        />
       </section>
 
       <div className={styles.actions}>
@@ -154,8 +187,14 @@ export function ReaderEndMatter({ story, onShare, onCopyLink }: ReaderEndMatterP
       </div>
 
       <div className={styles.finishBlock}>
-        <Button variant="primary" size="lg" iconRight={<ArrowRight size={18} aria-hidden="true" />} onClick={handleFinish}>
-          Finish tale
+        <Button
+          variant="primary"
+          size="lg"
+          iconRight={<ArrowRight size={18} aria-hidden="true" />}
+          disabled={finishing}
+          onClick={() => void handleFinish()}
+        >
+          {finishing ? 'Finishing…' : 'Finish tale'}
         </Button>
         <p className={styles.finishNote}>
           Mark the tale finished, then choose how it made you feel.

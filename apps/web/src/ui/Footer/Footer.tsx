@@ -17,8 +17,8 @@ export function Footer() {
             A quiet archive of African folktales, retold with care and kept for the next teller.
           </p>
           <p className={styles.note}>
-            Tales here are traditional. They belong to everyone. Saves and follows live on this
-            device until accounts arrive.
+            Tales here are traditional. They belong to everyone. Your roots, reading list and
+            progress follow your account — and work on this device when you read as a guest.
           </p>
         </div>
 

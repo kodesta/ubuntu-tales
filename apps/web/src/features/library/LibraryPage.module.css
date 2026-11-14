@@ -132,6 +132,7 @@
 }
 
 .voiceBio {
+  max-width: 68ch;
   display: -webkit-box;
   overflow: hidden;
   color: var(--ink-soft);

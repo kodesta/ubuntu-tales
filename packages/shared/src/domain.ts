@@ -21,6 +21,14 @@ export type LibraryTab = 'stories' | 'audio' | 'authors';
 export type SavedFilter = 'all' | 'in-progress' | 'offline';
 export type SearchSuggestionType = 'story' | 'tribe';
 
+/** Per-viewer overlay on a story card. Only present when the request is authenticated. */
+export interface StoryViewerState {
+  saved: boolean;
+  progressPercent: number;
+  completed: boolean;
+  reaction?: ReactionType | null;
+}
+
 /** A responsive image reference. Phase 1 serves local static artwork; Phase 3 swaps in CDN renditions. */
 export interface ImageRef {
   url: string;
@@ -91,6 +99,8 @@ export interface StoryCard {
   publishedAt: string;
   narrator?: NarratorSummary;
   isFeatured?: boolean;
+  /** Present only for authenticated requests (optional auth). */
+  viewer?: StoryViewerState;
 }
 
 export interface StoryDetail extends StoryCard {

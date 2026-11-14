@@ -193,7 +193,7 @@ properties from data). Spacing only from the scale. Type sizes only from the sca
   Optional personal line: “Welcome back, {tribe} reader.” (guest name absent).
 - **Today's tale** hero: 7/5 split. Left: publication eyebrow (accent bar + tribe name), Lora title
   `--text-post-title`, dek, byline "Narrated by X · 6 min read", "Read the tale →" button. Right:
-  cover with a thin paper mat and small caption. On mobile: cover above text (cover 16:10).
+  cover with a thin paper mat and small caption. On mobile: cover above text at the artwork's native 3:2 ratio.
 - **From your publications** feed: section header with "View all →". Rows: 112×84 cover thumb,
   meta line (publication · date), title (Lora 1.35rem), dek clamp 2, footer meta (category badge,
   read time, save icon). Hairline between rows. Every row links to `/stories/$slug`.

@@ -4,7 +4,8 @@ import { Prisma } from '@ubuntu-tales/db';
 import { AppException } from '../common/errors/app-exception';
 import { PrismaService } from '../infra/prisma/prisma.service';
 import { STORY_INCLUDE } from './catalogue.include';
-import { toTribeDetail, toTribeSummary } from './catalogue.mapper';
+import { toStoryCard, toTribeSummary } from './catalogue.mapper';
+import { ViewerOverlayService } from './viewer.service';
 
 export interface TribeListOptions {
   q?: string;
@@ -13,7 +14,10 @@ export interface TribeListOptions {
 
 @Injectable()
 export class TribesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly viewer: ViewerOverlayService,
+  ) {}
 
   /** Publications are not paginated (< 200 rows), sorted by editorial `sortOrder`. */
   async list(options: TribeListOptions): Promise<TribeSummary[]> {
@@ -29,7 +33,7 @@ export class TribesService {
     return tribes.map(toTribeSummary);
   }
 
-  async getDetail(slug: string): Promise<TribeDetail> {
+  async getDetail(slug: string, viewerId?: string | null): Promise<TribeDetail> {
     const tribe = await this.prisma.tribe.findFirst({
       where: { slug, isActive: true },
     });
@@ -50,6 +54,16 @@ export class TribesService {
       }),
     ]);
 
-    return toTribeDetail(tribe, featured.length > 0 ? featured : latest.slice(0, 6), latest);
+    const featuredRows = featured.length > 0 ? featured : latest.slice(0, 6);
+    const [featuredStories, latestStories] = await Promise.all([
+      this.viewer.overlay(viewerId, featuredRows.map(toStoryCard)),
+      this.viewer.overlay(viewerId, latest.map(toStoryCard)),
+    ]);
+
+    return {
+      ...toTribeSummary(tribe),
+      featuredStories,
+      latestStories,
+    };
   }
 }

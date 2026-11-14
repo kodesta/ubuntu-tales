@@ -123,7 +123,7 @@ export function AuthorPage({ slug }: AuthorPageProps) {
               {author.roleLabel ? <p className={styles.role}>{author.roleLabel}</p> : null}
               {author.bio ? <p className={styles.bio}>{author.bio}</p> : null}
               <p className={styles.stats}>
-                {formatTaleCount(author.publishedStoryCount)} · {publications.length} publication
+                {formatTaleCount(author.publishedStoryCount)} · {publications.length} tribe
                 {publications.length === 1 ? '' : 's'}
               </p>
             </div>

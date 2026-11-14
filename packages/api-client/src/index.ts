@@ -1,13 +1,29 @@
 import type {
   ApiErrorBody,
+  AuthResponse,
   AuthorDetail,
   AuthorSummary,
   CategorySummary,
+  ChangePasswordInput,
+  CompleteResponse,
+  ContinueReadingItem,
+  ForgotPasswordResponse,
   HomeResponse,
   LibraryTab,
+  LoginInput,
+  MePatchInput,
+  OkResponse,
   Paginated,
+  ProgressInput,
+  ProgressPutResponse,
   PublicConfig,
+  ReactionSetResponse,
+  ReactionSummary,
+  ReactionType,
   Region,
+  RegisterInput,
+  SavedFilter,
+  SavedStoryItem,
   SearchSuggestion,
   StoryCard,
   StoryDetail,
@@ -15,15 +31,17 @@ import type {
   TribeDetail,
   TribeListQuery,
   TribeSummary,
+  UserMe,
+  VerifyEmailResponse,
 } from '@ubuntu-tales/shared';
 
 /**
  * Typed HTTP client for the Ubuntu Tales API.
  *
- * NOTE (Phase 1 deviation): the production plan generates this package with orval from the
- * OpenAPI document (roadmap task 0.8). Until the API exposes a stable document and codegen is
- * wired, this package is a small, fully typed hand-written client over @ubuntu-tales/shared DTOs.
- * Keep it the only place that knows about URLs and fetch options.
+ * NOTE (Phase 1 deviation, now with auth): the production plan generates this package with orval
+ * from the OpenAPI document (roadmap task 0.8). Until the API exposes a stable document, this
+ * package is a small, fully typed, hand-written client over @ubuntu-tales/shared DTOs. It is the
+ * only place that knows about URLs, fetch options, bearer tokens and problem details.
  */
 
 export interface RequestOptions {
@@ -40,8 +58,22 @@ export interface LibraryQuery {
 }
 
 export interface HomeQuery {
-  /** Guest personalisation: the tribe slug stored locally until accounts exist (Phase 2). */
+  /** Guest personalisation is not used when signed in; the account tribe wins server-side. */
   tribe?: string;
+  signal?: AbortSignal;
+}
+
+export interface SavedQuery {
+  filter?: SavedFilter;
+  deviceId?: string;
+  limit?: number;
+  cursor?: string;
+  signal?: AbortSignal;
+}
+
+export interface CursorQuery {
+  limit?: number;
+  cursor?: string;
   signal?: AbortSignal;
 }
 
@@ -73,7 +105,51 @@ function buildQuery(params: Record<string, QueryValue>): string {
   return query ? `?${query}` : '';
 }
 
+interface RequestConfig {
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  body?: unknown;
+  query?: Record<string, QueryValue>;
+  headers?: Record<string, string>;
+  signal?: AbortSignal;
+  /** Send the in-memory bearer token. Defaults to true. */
+  auth?: boolean;
+  /** Skip the onUnauthorized refresh-and-retry hook (used by /auth/refresh itself). */
+  skipUnauthorizedHandler?: boolean;
+}
+
 export interface ApiClient {
+  auth: {
+    register(input: RegisterInput): Promise<AuthResponse>;
+    login(input: LoginInput): Promise<AuthResponse>;
+    refresh(): Promise<AuthResponse>;
+    logout(): Promise<OkResponse>;
+    logoutAll(): Promise<OkResponse>;
+    verifyEmail(token: string): Promise<VerifyEmailResponse>;
+    resendVerification(): Promise<OkResponse>;
+    forgotPassword(email: string): Promise<ForgotPasswordResponse>;
+    resetPassword(token: string, newPassword: string): Promise<OkResponse>;
+  };
+  me: {
+    get(opts?: RequestOptions): Promise<UserMe>;
+    update(patch: MePatchInput): Promise<UserMe>;
+    completeOnboarding(): Promise<UserMe>;
+    changePassword(input: ChangePasswordInput): Promise<OkResponse>;
+  };
+  saved: {
+    list(query?: SavedQuery): Promise<Paginated<SavedStoryItem>>;
+    save(storyId: string): Promise<OkResponse>;
+    unsave(storyId: string): Promise<OkResponse>;
+  };
+  progress: {
+    put(storyId: string, input: ProgressInput): Promise<ProgressPutResponse>;
+    complete(storyId: string): Promise<CompleteResponse>;
+    list(query?: CursorQuery): Promise<Paginated<ContinueReadingItem>>;
+  };
+  reactions: {
+    set(storyId: string, type: ReactionType): Promise<ReactionSetResponse>;
+    remove(storyId: string): Promise<ReactionSetResponse>;
+    summary(storyId: string, opts?: RequestOptions): Promise<ReactionSummary>;
+  };
   getConfig(opts?: RequestOptions): Promise<PublicConfig>;
   getHome(query?: HomeQuery): Promise<HomeResponse>;
   getTribe(slug: string, opts?: RequestOptions): Promise<TribeDetail>;
@@ -95,19 +171,69 @@ export interface ApiClient {
 export interface ApiClientOptions {
   baseUrl?: string;
   fetchImpl?: FetchLike;
+  /** Returns the short-lived access token held in memory by the web session store. */
+  getAccessToken?: () => string | null;
+  /**
+   * Called once when a request fails with 401. Must return a fresh access token (single-flight
+   * refresh lives in the web session store) or null when the session is over.
+   */
+  onUnauthorized?: () => Promise<string | null> | string | null;
 }
 
 export function createApiClient({
   baseUrl = '/api/v1',
   fetchImpl,
+  getAccessToken,
+  onUnauthorized,
 }: ApiClientOptions = {}): ApiClient {
   const doFetch: FetchLike = fetchImpl ?? ((input, init) => fetch(input, init));
 
-  async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-    const response = await doFetch(`${baseUrl}${path}`, {
-      headers: { Accept: 'application/json' },
-      signal: options.signal,
+  function currentToken(): string | null {
+    try {
+      return getAccessToken?.() ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  function send(
+    path: string,
+    config: RequestConfig,
+    token: string | null,
+  ): Promise<Response> {
+    const query = config.query ? buildQuery(config.query) : '';
+    const headers: Record<string, string> = {
+      Accept: 'application/json',
+      ...(config.headers ?? {}),
+    };
+    if (config.body !== undefined) headers['Content-Type'] = 'application/json';
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    return doFetch(`${baseUrl}${path}${query}`, {
+      method: config.method ?? 'GET',
+      credentials: 'include',
+      headers,
+      body: config.body !== undefined ? JSON.stringify(config.body) : undefined,
+      signal: config.signal,
     });
+  }
+
+  async function rawRequest<T>(path: string, config: RequestConfig = {}): Promise<T> {
+    const useAuth = config.auth !== false;
+
+    let response = await send(path, config, useAuth ? currentToken() : null);
+
+    if (
+      response.status === 401 &&
+      useAuth &&
+      !config.skipUnauthorizedHandler &&
+      onUnauthorized
+    ) {
+      const refreshedToken = await onUnauthorized();
+      if (refreshedToken) {
+        response = await send(path, config, refreshedToken);
+      }
+    }
 
     if (!response.ok) {
       let body: ApiErrorBody;
@@ -125,27 +251,121 @@ export function createApiClient({
       throw new ApiError(response.status, body);
     }
 
+    if (response.status === 204) return undefined as T;
     return (await response.json()) as T;
   }
 
+  const cfg = (
+    method: RequestConfig['method'],
+    body?: unknown,
+    extra: Partial<RequestConfig> = {},
+  ): RequestConfig => ({ method, ...(body !== undefined ? { body } : {}), ...extra });
+
   return {
-    getConfig: (opts) => request('/config', opts),
+    auth: {
+      register: (input) => rawRequest<AuthResponse>('/auth/register', cfg('POST', input, { auth: false })),
+      login: (input) => rawRequest<AuthResponse>('/auth/login', cfg('POST', input, { auth: false })),
+      refresh: () =>
+        rawRequest<AuthResponse>(
+          '/auth/refresh',
+          cfg('POST', undefined, {
+            auth: false,
+            skipUnauthorizedHandler: true,
+            headers: { 'X-Requested-With': 'ubuntu-tales' },
+          }),
+        ),
+      logout: () => rawRequest<OkResponse>('/auth/logout', cfg('POST')),
+      logoutAll: () => rawRequest<OkResponse>('/auth/logout-all', cfg('POST')),
+      verifyEmail: (token) =>
+        rawRequest<VerifyEmailResponse>('/auth/verify-email', cfg('POST', { token }, { auth: false })),
+      resendVerification: () => rawRequest<OkResponse>('/auth/verify-email/resend', cfg('POST')),
+      forgotPassword: (email) =>
+        rawRequest<ForgotPasswordResponse>('/auth/password/forgot', cfg('POST', { email }, { auth: false })),
+      resetPassword: (token, newPassword) =>
+        rawRequest<OkResponse>(
+          '/auth/password/reset',
+          cfg('POST', { token, newPassword }, { auth: false }),
+        ),
+    },
+
+    me: {
+      get: (opts) => rawRequest<UserMe>('/me', { signal: opts?.signal }),
+      update: (patch) => rawRequest<UserMe>('/me', cfg('PATCH', patch)),
+      completeOnboarding: () => rawRequest<UserMe>('/me/onboarding/complete', cfg('POST')),
+      changePassword: (input) => rawRequest<OkResponse>('/me/password', cfg('PUT', input)),
+    },
+
+    saved: {
+      list: (query = {}) =>
+        rawRequest<Paginated<SavedStoryItem>>(
+          `/me/saved${buildQuery({
+            filter: query.filter,
+            deviceId: query.deviceId,
+            limit: query.limit,
+            cursor: query.cursor,
+          })}`,
+          { signal: query.signal },
+        ),
+      save: (storyId) =>
+        rawRequest<OkResponse>(`/me/saved/${encodeURIComponent(storyId)}`, cfg('PUT')),
+      unsave: (storyId) =>
+        rawRequest<OkResponse>(`/me/saved/${encodeURIComponent(storyId)}`, cfg('DELETE')),
+    },
+
+    progress: {
+      put: (storyId, input) =>
+        rawRequest<ProgressPutResponse>(
+          `/me/progress/${encodeURIComponent(storyId)}`,
+          cfg('PUT', input),
+        ),
+      complete: (storyId) =>
+        rawRequest<CompleteResponse>(
+          `/me/progress/${encodeURIComponent(storyId)}/complete`,
+          cfg('POST'),
+        ),
+      list: (query = {}) =>
+        rawRequest<Paginated<ContinueReadingItem>>(
+          `/me/progress${buildQuery({ limit: query.limit, cursor: query.cursor })}`,
+          { signal: query.signal },
+        ),
+    },
+
+    reactions: {
+      set: (storyId, type) =>
+        rawRequest<ReactionSetResponse>(
+          `/stories/${encodeURIComponent(storyId)}/reactions`,
+          cfg('PUT', { type }),
+        ),
+      remove: (storyId) =>
+        rawRequest<ReactionSetResponse>(
+          `/stories/${encodeURIComponent(storyId)}/reactions`,
+          cfg('DELETE'),
+        ),
+      summary: (storyId, opts) =>
+        rawRequest<ReactionSummary>(
+          `/stories/${encodeURIComponent(storyId)}/reactions/summary`,
+          { signal: opts?.signal },
+        ),
+    },
+
+    getConfig: (opts) => rawRequest('/config', { signal: opts?.signal }),
 
     getHome: (query = {}) =>
-      request(`/home${buildQuery({ tribe: query.tribe })}`, { signal: query.signal }),
+      rawRequest(`/home${buildQuery({ tribe: query.tribe })}`, { signal: query.signal }),
 
-    getTribe: (slug, opts) => request(`/tribes/${encodeURIComponent(slug)}`, opts),
+    getTribe: (slug, opts) =>
+      rawRequest(`/tribes/${encodeURIComponent(slug)}`, { signal: opts?.signal }),
 
     getTribes: (query = {}) =>
-      request<TribeSummary[]>(
+      rawRequest<TribeSummary[]>(
         `/tribes${buildQuery({ q: query.q, region: query.region as Region | undefined })}`,
         { signal: query.signal },
       ),
 
-    getCategories: (opts) => request<CategorySummary[]>('/categories', opts),
+    getCategories: (opts) => rawRequest<CategorySummary[]>('/categories', { signal: opts?.signal }),
 
     getStories: (query = {}) =>
-      request<Paginated<StoryCard>>(
+      rawRequest<Paginated<StoryCard>>(
         `/stories${buildQuery({
           q: query.q,
           tribe: query.tribe,
@@ -159,15 +379,21 @@ export function createApiClient({
       ),
 
     getSearchSuggestions: (q, opts) =>
-      request<SearchSuggestion[]>(`/stories/search-suggestions${buildQuery({ q })}`, opts),
+      rawRequest<SearchSuggestion[]>(
+        `/stories/search-suggestions${buildQuery({ q })}`,
+        { signal: opts?.signal },
+      ),
 
-    getStory: (slug, opts) => request<StoryDetail>(`/stories/${encodeURIComponent(slug)}`, opts),
+    getStory: (slug, opts) =>
+      rawRequest<StoryDetail>(`/stories/${encodeURIComponent(slug)}`, { signal: opts?.signal }),
 
     getRecommendations: (slug, opts) =>
-      request<StoryCard[]>(`/stories/${encodeURIComponent(slug)}/recommendations`, opts),
+      rawRequest<StoryCard[]>(`/stories/${encodeURIComponent(slug)}/recommendations`, {
+        signal: opts?.signal,
+      }),
 
     getLibrary: (tab, query = {}) =>
-      request<Paginated<StoryCard>>(
+      rawRequest<Paginated<StoryCard>>(
         `/library/${tab}${buildQuery({
           q: query.q,
           category: query.category,
@@ -179,18 +405,16 @@ export function createApiClient({
       ),
 
     getVoices: (query = {}) =>
-      request<Paginated<AuthorSummary>>(
-        `/authors${buildQuery({
-          q: query.q,
-          limit: query.limit,
-          cursor: query.cursor,
-        })}`,
+      rawRequest<Paginated<AuthorSummary>>(
+        `/authors${buildQuery({ q: query.q, limit: query.limit, cursor: query.cursor })}`,
         { signal: query.signal },
       ),
 
-    getAuthor: (slug, opts) => request<AuthorDetail>(`/authors/${encodeURIComponent(slug)}`, opts),
+    getAuthor: (slug, opts) =>
+      rawRequest<AuthorDetail>(`/authors/${encodeURIComponent(slug)}`, { signal: opts?.signal }),
 
-    getStoryOfTheDay: (opts) => request<StoryCard>('/stories/story-of-the-day', opts),
+    getStoryOfTheDay: (opts) =>
+      rawRequest<StoryCard>('/stories/story-of-the-day', { signal: opts?.signal }),
   };
 }
 

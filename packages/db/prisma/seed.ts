@@ -10,6 +10,7 @@
  * Usage: `pnpm db:seed` (dotenv is wired to the repository-root `.env`).
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
@@ -134,6 +135,192 @@ export function hashDateKey(key: string): number {
 export function storyOfTheDayIndex(dateKey: string, count: number): number | null {
   if (count <= 0) return null;
   return hashDateKey(dateKey) % count;
+}
+
+// ───────────── Phase 2 dev users (never seeded in production) ─────────────
+
+/** Current policy version recorded on the `UserConsent` rows created at signup/seed time. */
+const CONSENT_VERSION = '2026-11-01';
+
+interface DevUser {
+  email: string;
+  displayName: string;
+  systemRole: 'READER' | 'CONTRIBUTOR' | 'EDITOR' | 'ADMIN';
+  tribeSlug?: string;
+  communityRole?:
+    | 'STORYTELLER'
+    | 'SEEKER'
+    | 'WRITER'
+    | 'STORYTELLER_AND_SEEKER'
+    | 'ELDER_GUARDIAN';
+  lineageLabel?: string;
+}
+
+/**
+ * Seeded demo users from production plan 02 §6: admin + editor for role testing, and the four
+ * concept demo readers with their roots. Everyone shares `SEED_DEV_PASSWORD` so local/e2e runs are
+ * reproducible (the QA suite logs in with these accounts).
+ */
+const DEV_USERS: DevUser[] = [
+  {
+    email: 'admin@ubuntutales.local',
+    displayName: 'Ubuntu Tales Admin',
+    systemRole: 'ADMIN',
+  },
+  {
+    email: 'editor@ubuntutales.local',
+    displayName: 'Ubuntu Tales Editor',
+    systemRole: 'EDITOR',
+  },
+  {
+    email: 'kwame@ubuntutales.local',
+    displayName: 'Kwame Mensah',
+    systemRole: 'READER',
+    tribeSlug: 'ashanti',
+    communityRole: 'STORYTELLER',
+    lineageLabel: 'Ashanti Lineage',
+  },
+  {
+    email: 'thandiwe@ubuntutales.local',
+    displayName: 'Thandiwe Nkosi',
+    systemRole: 'READER',
+    tribeSlug: 'zulu',
+    communityRole: 'SEEKER',
+    lineageLabel: 'Zulu Lineage',
+  },
+  {
+    email: 'tendai@ubuntutales.local',
+    displayName: 'Tendai Moyo',
+    systemRole: 'READER',
+    tribeSlug: 'shona',
+    communityRole: 'WRITER',
+    lineageLabel: 'Shona Lineage',
+  },
+  {
+    email: 'amina@ubuntutales.local',
+    displayName: 'Amina Diallo',
+    systemRole: 'READER',
+    tribeSlug: 'hausa',
+    communityRole: 'STORYTELLER_AND_SEEKER',
+    lineageLabel: 'Hausa Lineage',
+  },
+];
+
+/** The subset of `@node-rs/argon2` the seed needs (typed locally — the dep lives in apps/api). */
+interface Argon2Like {
+  hash(
+    password: string,
+    options?: {
+      memoryCost?: number;
+      timeCost?: number;
+      parallelism?: number;
+      algorithm?: number;
+    },
+  ): Promise<string>;
+  verify(hashed: string, password: string): Promise<boolean>;
+}
+
+/**
+ * Load `@node-rs/argon2` from `apps/api` (the package that owns the dependency) so seeded password
+ * hashes are bit-identical to what the auth module produces. `packages/db` deliberately does not
+ * re-declare the dependency, so a bare import would not resolve under pnpm's strict linker.
+ */
+function loadArgon2(): Argon2Like {
+  const apiRequire = createRequire(resolve(__dirname, '../../../apps/api/package.json'));
+  return apiRequire('@node-rs/argon2') as Argon2Like;
+}
+
+/**
+ * Idempotently upsert the dev users, their consents and their stats rows. Passwords are only
+ * re-hashed when the stored hash no longer matches `SEED_DEV_PASSWORD`; re-running the seed keeps
+ * row counts stable and does not invalidate existing sessions.
+ */
+async function seedDevUsers(prisma: PrismaClient): Promise<number> {
+  const password = process.env.SEED_DEV_PASSWORD ?? 'ubuntu-tales-dev';
+  if (!process.env.SEED_DEV_PASSWORD) {
+    console.warn('[seed] SEED_DEV_PASSWORD is not set — using the development default password.');
+  }
+
+  const argon2 = loadArgon2();
+  const passwordHash = await argon2.hash(password, {
+    algorithm: 2, // Argon2id
+    memoryCost: 19456,
+    timeCost: 2,
+    parallelism: 1,
+  });
+
+  const tribeRows = await prisma.tribe.findMany({ select: { id: true, slug: true } });
+  const tribeIdBySlug = new Map(tribeRows.map((row) => [row.slug, row.id]));
+  const verifiedAt = new Date();
+
+  for (const user of DEV_USERS) {
+    const tribeId = user.tribeSlug ? tribeIdBySlug.get(user.tribeSlug) : null;
+    if (user.tribeSlug && !tribeId) {
+      throw new Error(
+        `[seed] dev user "${user.email}" references unknown tribe "${user.tribeSlug}".`,
+      );
+    }
+
+    const existing = await prisma.user.findUnique({
+      where: { email: user.email },
+      select: { id: true, passwordHash: true },
+    });
+    const existingHashMatches = existing?.passwordHash
+      ? await argon2.verify(existing.passwordHash, password)
+      : false;
+    const hash = existingHashMatches ? (existing?.passwordHash ?? passwordHash) : passwordHash;
+
+    const data = {
+      displayName: user.displayName,
+      passwordHash: hash,
+      emailVerifiedAt: verifiedAt,
+      onboardedAt: verifiedAt,
+      tribeId: tribeId ?? null,
+      communityRole: user.communityRole ?? null,
+      lineageLabel: user.lineageLabel ?? null,
+      systemRole: user.systemRole,
+      status: 'ACTIVE' as const,
+      locale: 'en',
+    };
+
+    const row = await prisma.user.upsert({
+      where: { email: user.email },
+      create: { email: user.email, ...data },
+      update: data,
+      select: { id: true },
+    });
+
+    await prisma.userStats.upsert({
+      where: { userId: row.id },
+      create: { userId: row.id },
+      update: {},
+    });
+
+    const consentTypes = [
+      'terms',
+      'privacy',
+      ...(tribeId || user.lineageLabel ? ['lineage_personalisation'] : []),
+    ];
+    const existingConsents = await prisma.userConsent.findMany({
+      where: { userId: row.id },
+      select: { type: true },
+    });
+    const missing = consentTypes.filter(
+      (type) => !existingConsents.some((consent) => consent.type === type),
+    );
+    if (missing.length > 0) {
+      await prisma.userConsent.createMany({
+        data: missing.map((type) => ({
+          userId: row.id,
+          type,
+          version: CONSENT_VERSION,
+          granted: true,
+        })),
+      });
+    }
+  }
+
+  return DEV_USERS.length;
 }
 
 async function main(): Promise<void> {
@@ -323,18 +510,23 @@ async function main(): Promise<void> {
       }
     }
 
-    const [categoryCount, tribeCount, narratorCount, storyCount, storyOfTheDayCount] =
+    // Phase 2: dev/staging user accounts (never in production, even with SEED_ALLOW_PRODUCTION).
+    const devUserCount = env !== 'production' ? await seedDevUsers(prisma) : 0;
+
+    const [categoryCount, tribeCount, narratorCount, storyCount, storyOfTheDayCount, userCount] =
       await Promise.all([
         prisma.category.count(),
         prisma.tribe.count(),
         prisma.narrator.count(),
         prisma.story.count(),
         prisma.storyOfTheDay.count(),
+        prisma.user.count(),
       ]);
 
     console.log(
       `[seed] done: categories=${categoryCount} tribes=${tribeCount} narrators=${narratorCount} ` +
-        `stories=${storyCount} storyOfTheDay=${storyOfTheDayCount}`,
+        `stories=${storyCount} storyOfTheDay=${storyOfTheDayCount} users=${userCount} ` +
+        `(dev users seeded this run: ${devUserCount})`,
     );
   } finally {
     await prisma.$disconnect();

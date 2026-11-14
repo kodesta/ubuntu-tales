@@ -8,6 +8,7 @@ import {
 
 import { NotFoundPage } from '@/app/not-found';
 import { RouteErrorPage } from '@/app/error-page';
+import { AuthModalHost, EmailVerificationBanner } from '@/features/auth';
 import { NavDrawer } from '@/features/shell/NavDrawer';
 import { SearchOverlay } from '@/features/search/SearchOverlay';
 import { useUiStore } from '@/stores/ui';
@@ -47,11 +48,13 @@ function RootLayout() {
           onOpenSearch={() => setSearchOpen(true)}
         />
       )}
+      {minimalChrome ? null : <EmailVerificationBanner />}
       <Outlet />
       {minimalChrome ? null : <Footer />}
       {minimalChrome ? null : <BottomNav />}
       <NavDrawer />
       <SearchOverlay />
+      <AuthModalHost />
       <Toaster />
     </>
   );

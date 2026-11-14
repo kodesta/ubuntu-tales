@@ -68,6 +68,21 @@
   border-top: 1px solid var(--line);
 }
 
+.readersLine {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+.statsLine {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+}
+
 /* ---------- wisdom ---------- */
 .wisdom {
   display: flex;

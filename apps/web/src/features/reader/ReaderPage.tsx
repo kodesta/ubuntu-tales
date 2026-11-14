@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { ApiError } from '@/lib/api';
 import { formatReadTime, formatShortDate } from '@/lib/format';
 import { FONT_SIZE_VALUES, useFontSizeStore } from '@/stores/fontSize';
+import { useIsAuthenticated } from '@/stores/session';
+import { useReadingProgressStore } from '@/features/reader/readingProgress';
 import { useToastStore } from '@/stores/toast';
 import { Avatar, Button, EmptyState, Image, PageShell, ReadingProgress, Skeleton } from '@/ui';
 
@@ -14,6 +16,7 @@ import { StoryBody } from './StoryBody';
 import { useReadingProgressTracking } from './readingProgress';
 import { useStory } from './queries';
 import { copyStoryLink, shareResultMessage, shareStory } from './shareStory';
+import { useProgressSync } from './useProgressSync';
 import styles from './ReaderPage.module.css';
 
 const APP_TITLE = 'Ubuntu Tales — Stories your grandmother knew';
@@ -33,6 +36,26 @@ export function ReaderPage({ slug }: ReaderPageProps) {
   const [scrolled, setScrolled] = useState(false);
 
   const progress = useReadingProgressTracking(slug, Boolean(storyQuery.data));
+  const isAuthed = useIsAuthenticated();
+  const recordProgress = useReadingProgressStore((state) => state.record);
+  const markCompleteProgress = useReadingProgressStore((state) => state.markComplete);
+
+  // Signed-in readers: mirror the local marker to PUT /me/progress while reading (10 s + flush on
+  // visibility/unmount). Guests stay local-only — the hook is a no-op.
+  useProgressSync({ storyId: storyQuery.data?.id, slug, enabled: isAuthed });
+
+  // Signed-in hydrate: a saved tale opened on a new device starts from the account's place.
+  useEffect(() => {
+    const tale = storyQuery.data;
+    if (!isAuthed || !tale?.viewer) return;
+    const local = useReadingProgressStore.getState().bySlug[slug];
+    if (local) return;
+    if (tale.viewer.completed) {
+      markCompleteProgress(slug);
+    } else if (tale.viewer.progressPercent > 0) {
+      recordProgress(slug, { percent: tale.viewer.progressPercent });
+    }
+  }, [isAuthed, markCompleteProgress, recordProgress, slug, storyQuery.data]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);

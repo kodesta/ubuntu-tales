@@ -3,10 +3,13 @@ import type { TribeSummary } from '@ubuntu-tales/shared';
 import { LOW_STORY_THRESHOLD, REGIONS, REGION_LABELS } from '@ubuntu-tales/shared';
 import { useEffect, useState } from 'react';
 
+import { api } from '@/lib/api';
 import { useDebouncedValue, useDocumentTitle } from '@/lib/hooks';
 import { usePublicConfig, useTribes } from '@/lib/queries';
 import { useFollowsStore } from '@/stores/follows';
 import { useOnboardingStore } from '@/stores/onboarding';
+import { useSessionStore, useCurrentUser, useIsAuthenticated } from '@/stores/session';
+import { useToastStore } from '@/stores/toast';
 import { useTribeStore } from '@/stores/tribe';
 import {
   Button,
@@ -50,13 +53,21 @@ export function TribesPage() {
   const setGuestTribe = useTribeStore((state) => state.setTribe);
   const follow = useFollowsStore((state) => state.follow);
   const completeOnboarding = useOnboardingStore((state) => state.complete);
+  const isAuthenticated = useIsAuthenticated();
+  const currentUser = useCurrentUser();
+  const updateUser = useSessionStore((state) => state.updateUser);
+  const showToast = useToastStore((state) => state.show);
 
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(guestTribeSlug);
+  const accountTribeSlug = currentUser?.tribe?.slug ?? null;
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(
+    accountTribeSlug ?? guestTribeSlug,
+  );
   const [pendingLowStory, setPendingLowStory] = useState<TribeSummary | null>(null);
+  const [savingRoots, setSavingRoots] = useState(false);
 
   useEffect(() => {
-    setSelectedSlug(guestTribeSlug);
-  }, [guestTribeSlug]);
+    setSelectedSlug(accountTribeSlug ?? guestTribeSlug);
+  }, [accountTribeSlug, guestTribeSlug]);
 
   const tribes = tribesQuery.data ?? [];
   const selectedTribe = tribes.find((tribe) => tribe.slug === selectedSlug) ?? null;
@@ -70,11 +81,27 @@ export function TribesPage() {
     choose(tribe);
   };
 
-  const beginReading = () => {
+  const beginReading = async () => {
     if (!selectedTribe) return;
-    setGuestTribe({ slug: selectedTribe.slug, name: selectedTribe.name });
-    follow(selectedTribe.slug);
+    const tribe = selectedTribe;
+    follow(tribe.slug);
     completeOnboarding();
+
+    if (isAuthenticated) {
+      setSavingRoots(true);
+      try {
+        const user = await api.me.update({ tribeId: tribe.id });
+        updateUser(user);
+        showToast(`Your roots are ${tribe.name}.`);
+      } catch {
+        showToast('We could not save your roots. You can change them in your profile.');
+      } finally {
+        setSavingRoots(false);
+      }
+    } else {
+      setGuestTribe({ slug: tribe.slug, name: tribe.name });
+    }
+
     void navigate({ to: '/' });
   };
 
@@ -178,7 +205,7 @@ export function TribesPage() {
 
         {!isOnboarding ? (
           <p className={styles.footerNote}>
-            Followed publications are kept on this device until accounts arrive.{' '}
+            Following a publication is kept on this device for now.{' '}
             <Link to="/" className={styles.footerLink}>
               Back to your reading list
             </Link>
@@ -200,7 +227,7 @@ export function TribesPage() {
                 'Choose one publication to begin.'
               )}
             </p>
-            <Button size="lg" onClick={beginReading} disabled={!selectedTribe}>
+            <Button size="lg" onClick={() => void beginReading()} disabled={!selectedTribe || savingRoots}>
               Begin reading
             </Button>
           </div>

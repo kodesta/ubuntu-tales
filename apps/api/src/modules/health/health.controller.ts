@@ -1,9 +1,11 @@
 import { Controller, Get, Logger, Res } from '@nestjs/common';
+import { Public } from '../../common/auth/auth.decorators';
 import { Prisma } from '@ubuntu-tales/db';
 import type { FastifyReply } from 'fastify';
 import { PrismaService } from '../../infra/prisma/prisma.service';
 
 @Controller('health')
+@Public()
 export class HealthController {
   private readonly logger = new Logger(HealthController.name);
 

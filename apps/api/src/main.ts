@@ -1,10 +1,12 @@
 import 'reflect-metadata';
+import fastifyCookie from '@fastify/cookie';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, type NestFastifyApplication } from '@nestjs/platform-fastify';
 import type { FastifyInstance } from 'fastify';
 import { AppModule } from './app.module';
+import { createValidationPipe } from './common/validation/validation.pipe';
 
 /**
  * CORS without an extra runtime dependency: the Fastify adapter does not enable CORS on its own
@@ -16,7 +18,8 @@ function configureCors(fastify: FastifyInstance, allowedOrigins: string[]): void
     const origin = request.headers.origin;
     if (origin && allowedOrigins.includes(origin)) {
       reply.header('Access-Control-Allow-Origin', origin);
-      reply.header('Access-Control-Allow-Credentials', 'false');
+      // Cookies are httpOnly and scoped to /api/v1/auth; only allowlisted origins get credentials.
+      reply.header('Access-Control-Allow-Credentials', 'true');
       reply.header('Vary', 'Origin');
     }
 
@@ -52,6 +55,9 @@ async function bootstrap(): Promise<void> {
     .filter((origin) => origin.length > 0);
 
   app.setGlobalPrefix('api/v1');
+  // Refresh-token cookies (httpOnly) — Fastify needs the cookie plugin to read/set them.
+  await app.register(fastifyCookie);
+  app.useGlobalPipes(createValidationPipe());
   configureCors(app.getHttpAdapter().getInstance() as FastifyInstance, allowedOrigins);
   app.enableShutdownHooks();
 

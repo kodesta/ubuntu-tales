@@ -109,3 +109,71 @@ and fonts are retained. Full specification: `docs/design/substack-experience.md`
     the two hooks rules (error/warn) for `apps/web`.
 20. CI (0.3) is minimal: frozen install, Prisma generate, build, lint, typecheck, test + gitleaks.
     No Turbo remote cache, no deploy workflows yet.
+
+## Phase 2 — Accounts and personal features (implemented 2026-11-15)
+
+Phase 2 is implemented except for optional Google sign-in (2.7). The following intentional
+deviations apply:
+
+### Auth/session
+
+1. **HS256 JWT with `JWT_SECRET`** instead of Ed25519/`kid` rotation. Claims are `sub`, `sv`, `role`;
+   access tokens are 15 minutes and live in memory only. EdDSA can be swapped in `TokenService` when
+   key rotation is needed.
+2. **Refresh rotation + reuse detection** are implemented (opaque 32-byte token, sha256 stored,
+   family revocation). Cookie: `refresh_token`, httpOnly, SameSite=Lax, Path=`/api/v1/auth`,
+   Secure via `COOKIE_SECURE`, max-age 30 days. CSRF header `X-Requested-With: ubuntu-tales`
+   required on `/auth/refresh`.
+3. **Rate limiting is in-process and partial**: login lockout (10 failures/15 min) and resend
+   (3/hour) are enforced; the broader Valkey-backed API throttler from 05 §3.2 is deferred
+   (Valkey is not part of this slice). Progressive delays are not implemented.
+4. **HIBP k-anonymity check** is implemented with a 2.5 s timeout and fail-open; disable via
+   `HIBP_ENABLED=false`.
+5. **Email is sent synchronously** (nodemailer → Mailpit in dev; any SMTP in prod) with a safe
+   console fallback when SMTP is unavailable. There is no BullMQ/outbox email queue yet (4.5).
+   In non-production, register/forgot responses include `devEmailToken`/`devResetToken` so tests and
+   demos can complete the flows without reading email.
+6. **Password change rotates the session**: because the refresh cookie is scoped to
+   `/api/v1/auth`, the API revokes all refresh tokens, bumps `sessionVersion` and issues a fresh
+   cookie for the current device; other devices are signed out.
+7. **Dev seed users** are created outside production (`admin@`, `editor@`, `kwame@`, `thandiwe@`,
+   `tendai@`, `amina@ubuntutales.local`, password from `SEED_DEV_PASSWORD`). Dev-only quick-login
+   chips exist on `/login`.
+8. **No email-verified gate on login**: unverified accounts can sign in; the UI shows a verification
+   banner and resend action. Gated actions are not blocked on verification in this slice.
+
+### Personal features
+
+9. **Avatars are initials-only** (no RustFS upload). `User.avatar` is absent in DTOs; the web renders
+   a monogram. Avatar upload stays in 3.1/2.3 follow-up.
+10. **`UserStats` keeps streaks directly** via `lastActiveDay` (optional `X-Timezone` header, editorial
+    timezone fallback); the `ListeningDaily` table and nightly `stats.recompute` job are deferred to
+    the audio phase. `listeningSeconds` accumulates from API deltas but text reading contributes 0.
+11. **Completion auto-triggers at ≥95%** on progress PUT as well as via the explicit complete
+    endpoint (05 §3.9). Completion is idempotent: `talesRead`/`tribesExplored` increment only on the
+    first completion.
+12. **`GET /me/saved` returns `total`** for the active filter, which the signed-in `/saved` header
+    uses (additive to the plan's pagination shape).
+13. **Optional auth on catalogue GETs** populates `StoryCard.viewer`; authenticated catalogue
+    responses use `Cache-Control: private, no-store`. `/home` prefers the account tribe over the
+    guest `?tribe=` preference.
+14. **Guest data is merged on login/signup** for roots (tribe), saved stories and reading progress.
+    Guest reactions stay local until the reader re-picks them (first sync uploads); documented as a
+    known minor gap for QA.
+15. **Export, delete account, consents management and legal pages** (privacy work, roadmap 5.2) are
+    still deferred; registration records terms/privacy/lineage consent rows.
+16. **Google sign-in (2.7)** is deferred as optional for launch.
+17. **Security headers/CSP/Helmet, OWASP ZAP, and a manual screen-reader pass** remain Phase 5 work;
+    cookies are httpOnly/SameSite-protected and tokens are never stored in localStorage.
+
+### Phase 2 roadmap status
+
+| Task | Status |
+| --- | --- |
+| 2.1 Auth backend | ✅ implemented (deviations above) |
+| 2.2 Web auth | ✅ implemented (AuthModal, requireAuth resume, guest merge, dev quick login) |
+| 2.3 Profile, settings, `/me` | ✅ adapted (initials avatar; update profile/password; export/delete deferred) |
+| 2.4 Saved stories | ✅ synced for accounts; local fallback for guests |
+| 2.5 Reading progress and stats | ✅ text progress, completion, streak, continue list; audio deltas later |
+| 2.6 Celebration, reactions, recommendations | ✅ API-synced reactions/counts, API recommendations and stats |
+| 2.7 Google sign-in | ⏸ deferred (optional for launch) |
