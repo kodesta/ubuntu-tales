@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 import { isInProgress, useReadingProgressStore } from '@/features/reader/readingProgress';
 import { formatTaleCount } from '@/lib/format';
+import { requireAuth } from '@/features/auth';
 import { useIsAuthenticated } from '@/stores/session';
 import { useSavedStore } from '@/stores/saved';
 import {
@@ -134,6 +135,13 @@ function GuestSavedList({ filter, onFilterChange }: SavedListProps) {
       <div className={styles.controls}>
         <SavedFilters value={filter} onChange={onFilterChange} />
         <p className={styles.note}>Offline reading arrives with downloads, in a later chapter.</p>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => requireAuth(undefined, { redirectTo: '/saved' })}
+        >
+          Sign in to keep this list on every device
+        </Button>
       </div>
 
       {emptyState ?? (
