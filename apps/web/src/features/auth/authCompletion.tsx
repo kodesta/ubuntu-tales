@@ -2,6 +2,8 @@ import { useNavigate } from '@tanstack/react-router';
 import type { AuthResponse } from '@ubuntu-tales/shared';
 import { useCallback } from 'react';
 
+import { hydrateSavedFromApi, SAVED_QUERY_ROOT } from '@/features/saved/savedSync';
+import { queryClient } from '@/lib/query-client';
 import { useOnboardingStore } from '@/stores/onboarding';
 import { useToastStore } from '@/stores/toast';
 
@@ -41,6 +43,14 @@ export function useCompleteAuthentication(): (
       } catch {
         // Guest merge is a courtesy, never a blocker for a session that already exists.
       }
+
+      // The session flips to authenticated before the merge finishes, so signed-in surfaces may
+      // have cached an empty pre-merge list. Drop those caches and re-read the account state now
+      // that every merged write has landed (otherwise guest saves look lost until a reload).
+      await queryClient.invalidateQueries({ queryKey: SAVED_QUERY_ROOT });
+      await hydrateSavedFromApi();
+      void queryClient.invalidateQueries({ queryKey: ['progress'] });
+      void queryClient.invalidateQueries({ queryKey: ['home'] });
 
       // A signed-in reader never needs the first-visit welcome again.
       useOnboardingStore.getState().complete();
