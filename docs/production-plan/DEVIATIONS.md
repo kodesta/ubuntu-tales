@@ -63,3 +63,49 @@ Adopt a publication/reading metaphor: tribes are publications, tales are posts/l
 are authors, home is a reading list, the library is an archive. Editorial typography (Lora), warm
 paper surfaces, hairline rules, restrained accent colours, no dashboard chrome. The concept palette
 and fonts are retained. Full specification: `docs/design/substack-experience.md`.
+
+## Implementation notes (verified 2026-11-15)
+
+### Backend
+
+1. No `searchVector` generated column in this slice. Accent-insensitive search uses
+   `unaccent_immutable(...) ILIKE` plus GIN trigram expression indexes on story title/summary/moral
+   and tribe name (see the appended SQL in the initial migration).
+2. `Story.status` defaults to `PUBLISHED` (plan says `DRAFT`) because the read-path slice has no
+   admin/publish flow. Revert to `DRAFT` when the admin console lands (4.2).
+3. No Swagger/OpenAPI emit yet; `openapi:emit` is still a stub (0.6/0.8).
+4. CORS is implemented with a Fastify `onRequest` hook instead of `@fastify/cors` (no extra
+   dependency). Behaviour is equivalent for credential-less public GETs.
+5. No ETag and no in-process/Valkey response cache; public catalogue GETs send
+   `Cache-Control: public, s-maxage=60, stale-while-revalidate=300` only (Valkey deferred).
+6. `/authors` serves the "Voices" tab (the typed client's `getVoices`), matching plan 03 §2.6 in
+   intent; the literal `/library/authors` route is not implemented.
+7. No narration data exists yet: `hasAudio` is always false, `audioDurationMinutes` is omitted and
+   `/library/audio` returns an empty page until Phase 3.
+8. `sourceNotes` is not modelled in the read-path schema (optional in the shared DTO).
+9. Story covers map to `ImageRef` 1200×800; publication marks map to 600×600 (Tribe stores no
+   dimensions). Both are root-relative `/covers/*.svg` paths served by the web app for now.
+10. `/stories?q=` filters within the requested sort (default `recent`); only
+    `/stories/search-suggestions` is relevance-ordered until full-text search lands (1.4/A-?).
+11. The seed rejects content import when `NODE_ENV=production` unless `SEED_ALLOW_PRODUCTION=true`.
+12. `ReactionType` enum exists in the schema without a reaction table (Phase 2.6).
+
+### Web
+
+13. `apps/web` build is `vite build && tsc --noEmit` because the file-based route tree is generated
+    by the Vite plugin; a fresh `tsc` before generation would fail. `routeTree.gen.ts` is gitignored.
+14. The DEV gallery lives at `src/routes/[_]_ui.tsx` (URL `/__ui`); TanStack treats a leading `__`
+    directory/file as pathless, so the escaped filename is required. It 404s in production builds.
+15. Library "Voices" tab is `?tab=authors` per the plan URL contract, but the page renders authors and
+    the data call is `getVoices()` → `GET /authors` (see backend note 6).
+16. Saves, follows, reactions, font size, onboarding and reading progress are local-only
+    (`localStorage`, Zustand persisted stores, keys `ut.*`); toasts say "accounts are coming soon".
+    These stores are the seam for the Phase 2 APIs.
+17. `react-i18next` is not installed in this slice; copy is English and lives in the feature
+    components. The i18n audit task (5.5) still owns extraction.
+18. Playwright, `@axe-core/playwright` and `axe-core` were added at the workspace root for the QA
+    evidence required by task 5; browsers live in `.playwright-browsers/` (gitignored).
+19. `eslint-plugin-react-hooks` was added to `packages/config` and the shared flat config now enables
+    the two hooks rules (error/warn) for `apps/web`.
+20. CI (0.3) is minimal: frozen install, Prisma generate, build, lint, typecheck, test + gitleaks.
+    No Turbo remote cache, no deploy workflows yet.
