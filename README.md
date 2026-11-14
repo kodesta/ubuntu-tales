@@ -3,16 +3,16 @@
 > *Umuntu ngumuntu ngabantu* — a person is a person through other persons.
 
 A mobile-first reading home for African folktales, organised by tribe and region. Pick your roots,
-read illustrated tales from the publications you follow, keep your reading list, and (soon) listen
-to narrations with read-along highlighting.
+read illustrated tales from the publications you follow, keep a synced reading list, track your
+progress and reactions, and (soon) listen to narrations with read-along highlighting.
 
 The product is built with a **Substack-inspired editorial experience**: each tribe is a publication,
 each tale is a letter, and the reading feed is yours. See
 [`docs/design/substack-experience.md`](docs/design/substack-experience.md).
 
 This repository is being delivered phase by phase from the production plan in
-[`docs/production-plan/`](docs/production-plan/). The current branch builds the **foundations +
-catalogue read path** (roadmap Phase 0 and Phase 1). See
+[`docs/production-plan/`](docs/production-plan/). The current branch builds the **foundations,
+catalogue read path and accounts/personal features** (roadmap Phases 0–2). See
 [`docs/production-plan/DEVIATIONS.md`](docs/production-plan/DEVIATIONS.md) for what is intentionally
 deferred.
 
@@ -21,8 +21,8 @@ deferred.
 React 19 + Vite + TanStack Router/Query · NestJS 11 + Fastify · Prisma 6 + PostgreSQL 17 ·
 pnpm workspaces + Turborepo · CSS Modules with shared design tokens · Vitest.
 
-Planned (not in this slice): accounts, audio/read-along, uploads, offline/PWA, admin console,
-RustFS media, Valkey, worker. All documented in the production plan.
+Planned (not in this slice): audio/read-along, uploads, offline/PWA, admin console, RustFS media,
+Valkey, worker, legal/privacy tooling. All documented in the production plan.
 
 ## Quickstart
 
@@ -40,6 +40,16 @@ pnpm dev                 # API :4100, web :5173
 ```
 
 Open <http://localhost:5173>. API: <http://localhost:4100/api/v1/health/live>.
+Mailpit (dev email) is at <http://localhost:8025>.
+
+### Accounts (Phase 2)
+
+Seeded dev readers (password `ubuntu-tales-dev`, or `SEED_DEV_PASSWORD` in `.env`):
+`kwame@ubuntutales.local`, `thandiwe@ubuntutales.local`, `tendai@ubuntutales.local`,
+`amina@ubuntutales.local`. In development the login page has one-click chips for them. Registering a
+new account works end-to-end: outside production the API returns a `devEmailToken` that the
+verification screen can use without opening Mailpit. Signed-in saves, reading progress and reactions
+sync to PostgreSQL; guest behaviour remains local and merges into the account on sign-in.
 
 > `pnpm dev` builds `@ubuntu-tales/shared` and `@ubuntu-tales/db` first so the API can resolve the
 > workspace packages, then runs both apps in watch mode.
@@ -85,7 +95,11 @@ Copy `.env.example` → `.env`. Values are local development defaults only. Neve
   web scaffold. *(Worker, RustFS, Valkey and OpenAPI codegen deferred.)*
 - **Phase 1 — Catalogue read path:** tribes, publications, catalogue API, home feed, library,
   reader, griot (author) pages, local reading list. *(Media pipeline and OG share pages deferred.)*
-- **Next:** Phase 2 accounts, saved stories and progress sync.
+- **Phase 2 — Accounts and personal features:** email/password accounts with rotating refresh
+  sessions, verification/reset email, profiles and settings, guest-data merge, synced saved stories,
+  reading progress/completion/stats, reactions and recommendations. *(Google sign-in, avatar upload,
+  data export/delete and legal pages deferred.)*
+- **Next:** Phase 3 audio, read-along, uploads and offline.
 
 ## Verification
 
