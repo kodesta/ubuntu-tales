@@ -62,8 +62,8 @@ Terminology in UI: "publication" may appear in editorial copy, but we keep the h
   --paper-sunk: #f4ecdf;
   --ink: #1e1a17;
   --ink-soft: #453d36;
-  --muted: #7a6e63;
-  --faint: #9a8e82;
+  --muted: #6b6056;
+  --faint: #6f6459;
   --line: #e5dbcc;
   --line-strong: #d3c5b2;
 

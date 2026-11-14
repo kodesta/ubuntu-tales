@@ -20,7 +20,7 @@ export function FontSizeControl({ className }: FontSizeControlProps) {
   return (
     <div className={cn(styles.control, className)} role="group" aria-label="Reading text size">
       <IconButton
-        label="Decrease text size"
+        label="A− Decrease text size"
         size="sm"
         variant="ghost"
         disabled={index <= 0}
@@ -31,7 +31,7 @@ export function FontSizeControl({ className }: FontSizeControlProps) {
         </span>
       </IconButton>
       <IconButton
-        label="Increase text size"
+        label="A+ Increase text size"
         size="sm"
         variant="ghost"
         disabled={index >= FONT_SIZES.length - 1}

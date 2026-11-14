@@ -41,7 +41,7 @@ describe('FollowButton', () => {
 
   it('supports publication-page Subscribe labels', () => {
     render(<FollowButton tribe={sampleTribe} labels={{ idle: 'Subscribe', active: 'Subscribed ✓' }} />);
-    expect(screen.getByRole('button', { name: `Follow ${sampleTribe.name}` })).toHaveTextContent(
+    expect(screen.getByRole('button', { name: `Subscribe ${sampleTribe.name}` })).toHaveTextContent(
       'Subscribe',
     );
   });

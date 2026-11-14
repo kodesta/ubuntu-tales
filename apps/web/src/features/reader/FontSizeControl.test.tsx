@@ -16,8 +16,8 @@ describe('FontSizeControl', () => {
     const user = userEvent.setup();
     render(<FontSizeControl />);
 
-    const increase = screen.getByRole('button', { name: 'Increase text size' });
-    const decrease = screen.getByRole('button', { name: 'Decrease text size' });
+    const increase = screen.getByRole('button', { name: /Increase text size/ });
+    const decrease = screen.getByRole('button', { name: /Decrease text size/ });
 
     expect(decrease).toBeEnabled();
     expect(increase).toBeEnabled();
@@ -36,10 +36,10 @@ describe('FontSizeControl', () => {
     const user = userEvent.setup();
     render(<FontSizeControl />);
 
-    await user.click(screen.getByRole('button', { name: 'Increase text size' }));
+    await user.click(screen.getByRole('button', { name: /Increase text size/ }));
     expect(window.localStorage.getItem('ut.fontSize')).toContain('"size":"lg"');
 
-    await user.click(screen.getByRole('button', { name: 'Decrease text size' }));
+    await user.click(screen.getByRole('button', { name: /Decrease text size/ }));
     expect(window.localStorage.getItem('ut.fontSize')).toContain('"size":"md"');
   });
 });

@@ -35,11 +35,9 @@ export function FollowButton({
     <button
       type="button"
       aria-pressed={following}
-      aria-label={
-        following
-          ? `Unfollow ${tribe.name}`
-          : `Follow ${tribe.name}`
-      }
+      // WCAG 2.5.3: the accessible name must contain the visible label, so start with it and
+      // append the publication name for context instead of overriding the label outright.
+      aria-label={`${following ? labels.active : labels.idle} ${tribe.name}`}
       className={cn(
         buttonClassName(following ? 'secondary' : 'pill', size, fullWidth),
         styles.followButton,
