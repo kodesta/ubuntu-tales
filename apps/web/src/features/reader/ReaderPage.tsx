@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { ApiError } from '@/lib/api';
 import { formatReadTime, formatShortDate } from '@/lib/format';
 import { FONT_SIZE_VALUES, useFontSizeStore } from '@/stores/fontSize';
-import { useIsAuthenticated } from '@/stores/session';
+import { useIsAuthenticated, useSessionStore } from '@/stores/session';
 import { useReadingProgressStore } from '@/features/reader/readingProgress';
 import { useToastStore } from '@/stores/toast';
 import { Avatar, Button, EmptyState, Image, PageShell, ReadingProgress, Skeleton } from '@/ui';
@@ -35,8 +35,14 @@ export function ReaderPage({ slug }: ReaderPageProps) {
   const showToast = useToastStore((state) => state.show);
   const [scrolled, setScrolled] = useState(false);
 
-  const progress = useReadingProgressTracking(slug, Boolean(storyQuery.data));
   const isAuthed = useIsAuthenticated();
+  const sessionStatus = useSessionStore((state) => state.status);
+  // Wait for the boot refresh before persisting anything, otherwise the first guest render can
+  // record a 0% marker before the account's progress arrives (Phase 2 cross-device sync).
+  const progress = useReadingProgressTracking(
+    slug,
+    Boolean(storyQuery.data) && sessionStatus !== 'unknown',
+  );
   const recordProgress = useReadingProgressStore((state) => state.record);
   const markCompleteProgress = useReadingProgressStore((state) => state.markComplete);
 
@@ -49,11 +55,26 @@ export function ReaderPage({ slug }: ReaderPageProps) {
     const tale = storyQuery.data;
     if (!isAuthed || !tale?.viewer) return;
     const local = useReadingProgressStore.getState().bySlug[slug];
-    if (local) return;
+    // A 0% marker can be written before the authenticated response arrives; treat it as unset.
+    if (local && local.percent > 0) return;
     if (tale.viewer.completed) {
       markCompleteProgress(slug);
-    } else if (tale.viewer.progressPercent > 0) {
+      return;
+    }
+    if (tale.viewer.progressPercent > 0) {
       recordProgress(slug, { percent: tale.viewer.progressPercent });
+      // Resume where the account left off on this device too (best effort, after layout settles).
+      window.setTimeout(() => {
+        if (window.scrollY > 0) return;
+        const html = document.documentElement;
+        const max = Math.max(html.scrollHeight, document.body.scrollHeight) - window.innerHeight;
+        if (max > 0) {
+          window.scrollTo({
+            top: Math.round(((tale.viewer?.progressPercent ?? 0) / 100) * max),
+            behavior: 'auto',
+          });
+        }
+      }, 350);
     }
   }, [isAuthed, markCompleteProgress, recordProgress, slug, storyQuery.data]);
 

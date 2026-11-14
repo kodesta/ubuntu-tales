@@ -215,9 +215,21 @@ export async function waitForSignedIn(page: Page): Promise<void> {
 }
 
 export async function waitForGuest(page: Page): Promise<void> {
-  await expect(
-    page.locator('header').first().getByRole('link', { name: 'Sign in', exact: true }),
-  ).toBeVisible({ timeout: 20_000 });
+  // A first-visit guest is redirected to /welcome, which hides the global header; a returning
+  // guest shows the "Sign in" link. Either state proves the session is gone.
+  await expect
+    .poll(
+      async () => {
+        if (/\/welcome(\?|$)/.test(page.url())) return 'welcome';
+        const signIn = page
+          .locator('header')
+          .first()
+          .getByRole('link', { name: 'Sign in', exact: true });
+        return (await signIn.isVisible().catch(() => false)) ? 'sign-in' : 'pending';
+      },
+      { timeout: 20_000 },
+    )
+    .not.toBe('pending');
 }
 
 /** Signs the page's context in with `account` and opens `path`, waiting for the signed-in shell. */

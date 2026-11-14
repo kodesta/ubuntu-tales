@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 import {
   DEV_PASSWORD,
+  awaitBootRefresh,
   getSampleStories,
   registerAccount,
   waitForSignedIn,
@@ -70,9 +71,10 @@ test.describe('phase 2 guest merge via AuthModal', () => {
     await expect(page.getByText('Zulu').first()).toBeVisible();
 
     // Reading place moved too: the reader resumes from the merged progress.
+    const waitForBoot = await awaitBootRefresh(page);
     await page.goto(`/stories/${story.slug}`, { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await waitForSignedIn(page);
+    await waitForBoot();
     await expect
       .poll(async () =>
         Number(await page.getByRole('progressbar').first().getAttribute('aria-valuenow')),

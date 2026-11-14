@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 import {
   API_URL,
   apiRequest,
+  awaitBootRefresh,
   getMe,
   getProgressItems,
   getSampleStories,
@@ -29,9 +30,10 @@ test.describe('phase 2 personal features', () => {
     const sessionA = await loginViaApi(account.email, account.password);
 
     await signInBrowserContext(page.context(), sessionA.refreshToken);
+    const waitForBoot = await awaitBootRefresh(page);
     await page.goto(`/stories/${story.slug}`, { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await waitForSignedIn(page);
+    await waitForBoot();
 
     const readerBar = page.locator('main header').first();
     await readerBar.getByRole('button', { name: 'Save to your reading list' }).click();
@@ -90,8 +92,10 @@ test.describe('phase 2 personal features', () => {
       const sessionB = await loginViaApi(account.email, account.password);
       await signInBrowserContext(contextB, sessionB.refreshToken);
       const pageB = await contextB.newPage();
+      const waitForBootB = await awaitBootRefresh(pageB);
       await pageB.goto(`/stories/${story.slug}`, { waitUntil: 'domcontentloaded' });
-      await waitForSignedIn(pageB);
+      await expect(pageB.getByRole('heading', { level: 1 })).toBeVisible();
+      await waitForBootB();
       await expect
         .poll(async () =>
           Number(await pageB.getByRole('progressbar').first().getAttribute('aria-valuenow')),

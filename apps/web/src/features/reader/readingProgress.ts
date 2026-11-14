@@ -34,9 +34,12 @@ export const useReadingProgressStore = create<ReadingProgressState>()(
       bySlug: {},
       record: (slug, update) => {
         if (!slug) return;
-        const percent = clampPercent(update.percent);
+        const requested = clampPercent(update.percent);
         set((state) => {
           const previous = state.bySlug[slug];
+          // Reading progress is "furthest point reached" (design doc §5.2), so a fresh mount at
+          // the top of the page must never erase an account/local position with 0.
+          const percent = Math.max(previous?.percent ?? 0, requested);
           if (
             previous &&
             previous.percent === percent &&
