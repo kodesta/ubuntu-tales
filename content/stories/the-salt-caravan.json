@@ -1,0 +1,136 @@
+{
+  "slug": "the-salt-caravan",
+  "title": "The Salt Caravan",
+  "summary": "On the long road to the salt pans, a young driver learns that a grudge weighs more than any load of salt.",
+  "moral": "Share the water; the desert will take the grudge anyway.",
+  "tribeSlug": "hausa",
+  "categorySlug": "wisdom",
+  "narratorSlug": "amina-diallo",
+  "regionLabel": "WEST AFRICA",
+  "attribution": "A traditional Hausa tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/the-salt-caravan.svg",
+    "alt": "Camels carrying salt blocks across rolling dunes towards a low sun, with patterned cloth bands above",
+    "accent": "#B1813A",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-10-11T06:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.61,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "The salt caravan left the town before first light, when the air was still cool and the camels complained softly under their loads."
+          },
+          {
+            "id": "s_0002",
+            "text": "It would travel for many days to the pans, and many days back, and the success of the journey was measured by two things: the salt that arrived, and the people who did."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "A young driver named Suleiman had been given charge of two camels and a share of the water."
+          },
+          {
+            "id": "s_0004",
+            "text": "He was proud of this."
+          },
+          {
+            "id": "s_0005",
+            "text": "He walked beside his camels with the rope over his shoulder and looked at the older drivers to see how they did it."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0006",
+            "text": "At the noon halt on the third day, he noticed that his family’s old rival, Danladi, was waterless."
+          },
+          {
+            "id": "s_0007",
+            "text": "Danladi’s skin bag had split."
+          },
+          {
+            "id": "s_0008",
+            "text": "He was sitting in the shade of his camel, not asking anyone for help, and the other drivers were looking elsewhere."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0009",
+            "text": "Suleiman’s father had told him never to help Danladi, because of a debt from before Suleiman was born."
+          },
+          {
+            "id": "s_0010",
+            "text": "Suleiman looked at his own full bag, and then at the old man’s dry mouth, and then at the long road ahead, which did not care about debts."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0011",
+            "text": "He carried the water over and let Danladi drink."
+          },
+          {
+            "id": "s_0012",
+            "text": "Danladi stared at him a long time and then said, “Your father will hear of this.”"
+          },
+          {
+            "id": "s_0013",
+            "text": "Suleiman said, “My father has not walked this road in ten years."
+          },
+          {
+            "id": "s_0014",
+            "text": "I have.”"
+          },
+          {
+            "id": "s_0015",
+            "text": "The caravan moved on that afternoon with a lighter silence."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0016",
+            "text": "At the pans, when the salt was loaded, the caravan leader took Suleiman aside."
+          },
+          {
+            "id": "s_0017",
+            "text": "“You wondered why I put you beside Danladi,” he said."
+          },
+          {
+            "id": "s_0018",
+            "text": "“The desert does not care whose grandfather quarrelled with whose."
+          },
+          {
+            "id": "s_0019",
+            "text": "Water shared is water saved."
+          },
+          {
+            "id": "s_0020",
+            "text": "The heaviest load on the road to the salt pans is a grudge, and you put yours down.”"
+          }
+        ]
+      }
+    ]
+  }
+}

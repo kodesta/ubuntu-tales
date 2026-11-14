@@ -1,0 +1,132 @@
+{
+  "slug": "waaqa-and-the-first-rain",
+  "title": "Waaqa and the First Rain",
+  "summary": "When the sky was still close to the earth, a woman’s pestle struck it, and Waaqa withdrew — but left the rain as a gift.",
+  "moral": "Do not strike at the sky; ask it for water instead.",
+  "tribeSlug": "oromo",
+  "categorySlug": "creation",
+  "narratorSlug": "naserian-leltika",
+  "regionLabel": "EAST AFRICA",
+  "attribution": "A traditional Oromo tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/waaqa-and-the-first-rain.svg",
+    "alt": "Blue-grey rain falling in long lines from flat clouds onto a green sprout and distant peaks",
+    "accent": "#A85E2C",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-09-30T06:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.45,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "The Oromo say that in the beginning Waaqa placed the sky very near the earth, so near that a tall person could touch it with a stick."
+          },
+          {
+            "id": "s_0002",
+            "text": "The sky was warm and generous, and it kept the earth from growing cold at night."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "The people lived well beneath it."
+          },
+          {
+            "id": "s_0004",
+            "text": "They had cattle and grain and enough water."
+          },
+          {
+            "id": "s_0005",
+            "text": "The trouble began when a woman was pounding grain in her mortar with a long wooden pestle, and the sky was hanging low above her head."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0006",
+            "text": "She lifted the pestle high and struck the sky by accident."
+          },
+          {
+            "id": "s_0007",
+            "text": "There was a sound like thunder, and the sky shuddered and began to rise."
+          },
+          {
+            "id": "s_0008",
+            "text": "The woman dropped her pestle and held up her hands."
+          },
+          {
+            "id": "s_0009",
+            "text": "“I did not mean it,” she cried."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0010",
+            "text": "Waaqa rose a little, and the earth grew cooler."
+          },
+          {
+            "id": "s_0011",
+            "text": "Waaqa rose a little more, and the people could no longer reach up and touch it."
+          },
+          {
+            "id": "s_0012",
+            "text": "The woman wept, because she had undone a kindness with one careless blow."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0013",
+            "text": "But Waaqa did not leave the earth without help."
+          },
+          {
+            "id": "s_0014",
+            "text": "“Since I can no longer be near you,” Waaqa said, “I will send my water down."
+          },
+          {
+            "id": "s_0015",
+            "text": "Ask for it with your fields and your herds, and with a clean heart."
+          },
+          {
+            "id": "s_0016",
+            "text": "I will hear you from higher up.”"
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0017",
+            "text": "And that is why the rain comes from a sky that no hand can reach, and why the old people say you should not strike at the sky in anger or in carelessness."
+          },
+          {
+            "id": "s_0018",
+            "text": "Ask, and be ready to be answered."
+          },
+          {
+            "id": "s_0019",
+            "text": "The woman’s pestle is still in the story, and the rain is still the answer."
+          }
+        ]
+      }
+    ]
+  }
+}

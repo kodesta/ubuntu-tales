@@ -27,6 +27,13 @@ Target stack: **React (Vite) frontend**, **NestJS backend**, **PostgreSQL** data
 | `08-security-privacy.md` | Threat model, auth hardening, upload safety, privacy law (POPIA/GDPR/NDPR) |
 | `09-testing-quality.md` | Test pyramid, tooling, coverage gates, e2e scenarios, performance budgets |
 | `10-implementation-roadmap.md` | Phased, dependency-ordered task list with acceptance criteria |
+| `DEVIATIONS.md` | What the current build deliberately defers or adapts, and why (required by global rule 5) |
+
+## Additional design docs
+
+| File | Purpose |
+| --- | --- |
+| `../design/substack-experience.md` | Binding visual/experience specification for the Substack-inspired editorial rebuild (ADR-013); supersedes "port the concept 1:1" while the concept app is unavailable |
 
 ## Global rules for every agent
 

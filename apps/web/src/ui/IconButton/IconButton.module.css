@@ -1,0 +1,53 @@
+.iconButton {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-soft);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.iconButton:hover {
+  color: var(--ink);
+}
+
+.iconButton[aria-pressed='true'] {
+  background: var(--terracotta-wash);
+  color: var(--terracotta);
+}
+
+.ghost:hover {
+  background: var(--paper-sunk);
+}
+
+.paper {
+  border-color: var(--line);
+  background: var(--paper-raised);
+}
+
+.paper:hover {
+  border-color: var(--line-strong);
+}
+
+.solid {
+  background: var(--ink);
+  color: var(--paper-raised);
+}
+
+.solid:hover {
+  background: var(--ink-soft);
+  color: var(--paper-raised);
+}
+
+.sm {
+  width: 36px;
+  height: 36px;
+}

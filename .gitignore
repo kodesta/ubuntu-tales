@@ -1,0 +1,38 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+packages/*/dist/
+
+# env & secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# test / tooling output
+coverage/
+playwright-report/
+test-results/
+.vitest/
+eslint-report.json
+
+# generated
+packages/api-client/openapi.json
+apps/web/src/routeTree.gen.ts
+
+# logs & os
+*.log
+.DS_Store
+
+# playwright browsers
+.playwright-browsers/
+
+# tanstack router plugin temp
+.tanstack/

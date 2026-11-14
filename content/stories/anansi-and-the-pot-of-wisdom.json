@@ -1,0 +1,140 @@
+{
+  "slug": "anansi-and-the-pot-of-wisdom",
+  "title": "Anansi and the Pot of Wisdom",
+  "summary": "Anansi is given a pot holding all the wisdom in the world, and discovers that the pot is much easier to fill than it is to carry.",
+  "moral": "Wisdom carried alone is a pot too heavy for one back.",
+  "tribeSlug": "ashanti",
+  "categorySlug": "trickster",
+  "narratorSlug": "kofi-mensah",
+  "regionLabel": "WEST AFRICA",
+  "attribution": "A traditional Ashanti tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/anansi-and-the-pot-of-wisdom.svg",
+    "alt": "A spider with a clay pot climbing a tall tree, web lines radiating across the forest",
+    "accent": "#A8502F",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-10-19T07:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.81,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "Nyame, the sky god, kept all the wisdom in the world in a clay pot."
+          },
+          {
+            "id": "s_0002",
+            "text": "Anansi the spider came to the sky and talked so long and so well that Nyame agreed to lend him the pot."
+          },
+          {
+            "id": "s_0003",
+            "text": "“Only mind you do not spill it,” said Nyame, “for there is no second pot.”"
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0004",
+            "text": "Anansi carried the pot home and put it on the ground very carefully."
+          },
+          {
+            "id": "s_0005",
+            "text": "He sat down beside it and thought about how he was now the wisest creature in the world."
+          },
+          {
+            "id": "s_0006",
+            "text": "Then he thought that he should hide the pot where no one else could find it, and he decided that a very tall tree was the best hiding place in the forest."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0007",
+            "text": "He tied the pot to his stomach and began to climb."
+          },
+          {
+            "id": "s_0008",
+            "text": "But a spider climbing a tree with a pot on his stomach can only see his own feet, and his feet were behind the pot."
+          },
+          {
+            "id": "s_0009",
+            "text": "He slipped."
+          },
+          {
+            "id": "s_0010",
+            "text": "The pot swung."
+          },
+          {
+            "id": "s_0011",
+            "text": "He gripped with three legs and could not move."
+          },
+          {
+            "id": "s_0012",
+            "text": "He tried to climb with the pot on his back, and could not do that either, because his back was a spider’s back."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0013",
+            "text": "His small son, Ntikuma, came along the path and watched him for a while."
+          },
+          {
+            "id": "s_0014",
+            "text": "“Father,” he said at last, “why do you not tie the pot behind you, and climb face-up, so that you can see where you are going?”"
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0015",
+            "text": "Anansi stopped."
+          },
+          {
+            "id": "s_0016",
+            "text": "He was furious, because the advice was good and it had come from a child who still had his first teeth."
+          },
+          {
+            "id": "s_0017",
+            "text": "He was so angry that he dropped the pot."
+          },
+          {
+            "id": "s_0018",
+            "text": "It broke on the roots of the tree, and every scrap of wisdom in the world scattered into the forest."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0019",
+            "text": "Now wisdom is not lost."
+          },
+          {
+            "id": "s_0020",
+            "text": "It lies where it fell: in the roots, in the riverbank, in the market, in the mouths of children."
+          },
+          {
+            "id": "s_0021",
+            "text": "That is why no one person has all of it, and why we must keep telling stories to one another, if only to collect what the pot spilled."
+          }
+        ]
+      }
+    ]
+  }
+}

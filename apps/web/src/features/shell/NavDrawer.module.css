@@ -1,0 +1,87 @@
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-height: 100%;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  font-weight: 500;
+}
+
+.link:hover {
+  color: var(--terracotta-dark);
+}
+
+.icon {
+  color: var(--muted);
+}
+
+.rule {
+  margin-block: var(--space-1);
+}
+
+.roots {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tribeLine {
+  color: var(--ink-soft);
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+}
+
+.tribeLine strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.inlineLink {
+  color: var(--terracotta);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.foot {
+  margin-top: auto;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.note {
+  color: var(--faint);
+  font-family: var(--font-serif);
+  font-size: var(--text-meta);
+  font-style: italic;
+  line-height: 1.5;
+}

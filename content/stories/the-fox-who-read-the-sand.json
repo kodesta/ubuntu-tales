@@ -1,0 +1,120 @@
+{
+  "slug": "the-fox-who-read-the-sand",
+  "title": "The Fox Who Read the Sand",
+  "summary": "A hunter follows the pale fox down to the cliffs and learns to read the tracks that the wind leaves in the sand.",
+  "moral": "The world writes down what it knows; only the patient learn to read it.",
+  "tribeSlug": "dogon",
+  "categorySlug": "folklore",
+  "narratorSlug": "amina-diallo",
+  "regionLabel": "WEST AFRICA",
+  "attribution": "A traditional Dogon tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/the-fox-who-read-the-sand.svg",
+    "alt": "A pale fox crossing patterned sand beneath a grid of stars and a dark cliff silhouette",
+    "accent": "#8C5A3C",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-10-08T06:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.52,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "The Dogon country is a country of stone and sand, where the cliffs of Bandiagara stand above the plain like a wall built before memory."
+          },
+          {
+            "id": "s_0002",
+            "text": "The old people say that in the earliest days the pale fox walked there alone, and that it always walked at an angle to the paths of everyone else."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "A hunter was following a trail of antelope tracks one evening when he saw the first prints of the fox."
+          },
+          {
+            "id": "s_0004",
+            "text": "The tracks crossed and recrossed, went down into a dry gully and came up again without ever leading to a den."
+          },
+          {
+            "id": "s_0005",
+            "text": "The hunter followed them until the light began to fail."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0006",
+            "text": "At the foot of the cliff he found the fox sitting on a flat stone, watching him."
+          },
+          {
+            "id": "s_0007",
+            "text": "The fox did not run."
+          },
+          {
+            "id": "s_0008",
+            "text": "It lifted one paw, drew it through the sand in a slow curved line, and then sat back as if it had asked a question."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0009",
+            "text": "The hunter had never learned to read anything but the tracks of animals he wished to eat."
+          },
+          {
+            "id": "s_0010",
+            "text": "He knelt and looked at the line in the sand for a long time."
+          },
+          {
+            "id": "s_0011",
+            "text": "Then he saw that the curve was the shape of the dry gully, and the small dots beside it were the places where water had once stood."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0012",
+            "text": "The fox rose and walked on."
+          },
+          {
+            "id": "s_0013",
+            "text": "The hunter followed it for the rest of the night, and by morning he understood a little of what the old people meant: the sand keeps a record of what has passed, and the fox is only reading it aloud."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0014",
+            "text": "After that the hunter became one of the men who are consulted on questions, because he could look at a patch of ground and say where the herd had gone and when."
+          },
+          {
+            "id": "s_0015",
+            "text": "He never claimed to be wise."
+          },
+          {
+            "id": "s_0016",
+            "text": "He said only that he had learned to listen to the ground, and that the fox had been the first teacher."
+          }
+        ]
+      }
+    ]
+  }
+}

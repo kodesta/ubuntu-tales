@@ -1,0 +1,24 @@
+name: ubuntu-tales
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: ut-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ubuntu_tales
+      POSTGRES_PASSWORD: ubuntu_tales
+      POSTGRES_DB: ubuntu_tales
+    ports:
+      - '5433:5432'
+    volumes:
+      - ut-pgdata:/var/lib/postgresql/data
+      - ../postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ubuntu_tales -d ubuntu_tales']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  ut-pgdata:

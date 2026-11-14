@@ -1,0 +1,19 @@
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.line {
+  flex: 1;
+  height: 0;
+  border-top: 1px solid var(--line);
+}
+
+.diamond {
+  color: var(--faint);
+  font-family: var(--font-serif);
+  font-size: var(--text-micro);
+  line-height: 1;
+}

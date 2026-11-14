@@ -1,0 +1,44 @@
+{
+  "name": "@ubuntu-tales/api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "dotenv -e ../../.env -- nest start --watch",
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "openapi:emit": "echo 'OpenAPI emit is wired in Phase 2 (task 0.8)'"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^11.1.0",
+    "@nestjs/platform-fastify": "^11.1.0",
+    "@prisma/client": "^6.8.0",
+    "@ubuntu-tales/db": "workspace:*",
+    "@ubuntu-tales/shared": "workspace:*",
+    "fastify": "^5.3.3",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.1.0",
+    "@swc/core": "^1.11.24",
+    "@types/node": "^22.15.0",
+    "@types/supertest": "^6.0.2",
+    "@ubuntu-tales/config": "workspace:*",
+    "dotenv-cli": "^8.0.0",
+    "eslint": "^9.27.0",
+    "supertest": "^7.1.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "unplugin-swc": "^1.5.1",
+    "vitest": "^3.1.2"
+  }
+}

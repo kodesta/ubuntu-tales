@@ -1,0 +1,86 @@
+/*
+ * Ubuntu Tales design tokens — the single source of colour, type, rhythm and shape.
+ * Binding spec: docs/design/substack-experience.md §4. Component CSS must only use these tokens.
+ */
+:root {
+  /* paper & ink */
+  --paper: #fbf7f0;
+  --paper-raised: #fffdf9;
+  --paper-sunk: #f4ecdf;
+  --ink: #1e1a17;
+  --ink-soft: #453d36;
+  --muted: #7a6e63;
+  --faint: #9a8e82;
+  --line: #e5dbcc;
+  --line-strong: #d3c5b2;
+
+  /* brand */
+  --terracotta: #b4472c;
+  --terracotta-dark: #8d3520;
+  --terracotta-wash: #f6e4dc;
+  --saffron: #df9a2b;
+  --saffron-wash: #fbf0da;
+  --forest: #2f5d4e;
+  --forest-wash: #e3ece7;
+  --clay: #8c5a3c;
+
+  /* semantic */
+  --success: #2f6b4f;
+  --danger: #a02e2e;
+  --focus: #b4472c;
+
+  /* type */
+  --font-serif: 'Lora Variable', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans:
+    'DM Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --text-display: clamp(2.6rem, 6vw, 4.6rem);
+  --text-h1: clamp(2rem, 4.4vw, 3.2rem);
+  --text-h2: clamp(1.5rem, 2.6vw, 2rem);
+  --text-h3: 1.25rem;
+  --text-post-title: clamp(2.1rem, 4.6vw, 3.35rem);
+  --text-dek: clamp(1.1rem, 1.8vw, 1.3rem);
+  --text-body: 1.1875rem; /* 19px — story body */
+  --text-ui: 0.9375rem;
+  --text-meta: 0.8125rem;
+  --text-micro: 0.75rem;
+
+  /* rhythm */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --radius-xs: 2px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+
+  --shadow-none: none;
+  --shadow-pop: 0 16px 40px -20px rgb(30 26 23 / 35%);
+  --ring: 0 0 0 2px var(--paper), 0 0 0 4px var(--focus);
+
+  --content-width: 1120px;
+  --reader-width: 680px;
+  --header-height: 64px;
+
+  /* --- structural tokens derived from the scale (layout only, no new colours) --- */
+  --page-gutter: clamp(16px, 4vw, 40px);
+  --bottom-nav-height: 64px;
+  --measure: 68ch;
+  --hairline: 1px solid var(--line);
+  --hairline-strong: 1px solid var(--line-strong);
+  --scrim: rgb(30 26 23 / 45%);
+  --paper-blur: rgb(251 247 240 / 92%);
+  --transition-fast: 150ms ease;
+  --transition-slow: 220ms ease;
+
+  /* tribe accents are injected per publication as --accent (from API data) */
+  --accent: var(--terracotta);
+  --accent-ink: var(--paper-raised);
+}

@@ -1,0 +1,148 @@
+{
+  "slug": "the-hare-and-the-hyenas-bag",
+  "title": "The Hare and the Hyena’s Bag",
+  "summary": "The hare tricks a greedy hyena into carrying him home in a bag, and the road teaches the hyena a lesson about measuring a favour.",
+  "moral": "The one who asks for the whole road ends up carrying the traveller.",
+  "tribeSlug": "mandinka",
+  "categorySlug": "trickster",
+  "narratorSlug": "amina-diallo",
+  "regionLabel": "WEST AFRICA",
+  "attribution": "A traditional Mandinka tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/the-hare-and-the-hyenas-bag.svg",
+    "alt": "A hare peering from a woven bag slung across a hyena’s back beneath a baobab",
+    "accent": "#B8742C",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-09-12T07:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.43,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "A hyena found a bag of grain beside the road and was deciding how to carry it home when the hare came along, walking as if he had all day."
+          },
+          {
+            "id": "s_0002",
+            "text": "“That is a heavy bag,” the hare said."
+          },
+          {
+            "id": "s_0003",
+            "text": "“Shall I help you carry it?"
+          },
+          {
+            "id": "s_0004",
+            "text": "I am small, but I am clever about weight.”"
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0005",
+            "text": "The hyena did not like the word clever."
+          },
+          {
+            "id": "s_0006",
+            "text": "“I will carry it myself,” she said."
+          },
+          {
+            "id": "s_0007",
+            "text": "“And I will carry you too, if you keep talking, because you look lighter than the bag.”"
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0008",
+            "text": "The hare climbed in."
+          },
+          {
+            "id": "s_0009",
+            "text": "The hyena tied the bag shut and put it on her back, pleased with herself, and started up the road."
+          },
+          {
+            "id": "s_0010",
+            "text": "After a while the hare, inside the bag, began to complain that the grain was pressing into him."
+          },
+          {
+            "id": "s_0011",
+            "text": "“Put me on top,” he said."
+          },
+          {
+            "id": "s_0012",
+            "text": "“I will keep watch for thieves.”"
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0013",
+            "text": "The hyena opened the bag and put the hare on top of the grain."
+          },
+          {
+            "id": "s_0014",
+            "text": "The hare kept watch, and after a while he said, “There is a thief behind us."
+          },
+          {
+            "id": "s_0015",
+            "text": "Let me off, and I will chase him.”"
+          },
+          {
+            "id": "s_0016",
+            "text": "The hyena let him off, and the hare ran off, and that was the last she saw of him for a while."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0017",
+            "text": "At the top of the road the hyena met the hare again, walking as if he had all day."
+          },
+          {
+            "id": "s_0018",
+            "text": "“You left me with the bag,” she growled."
+          },
+          {
+            "id": "s_0019",
+            "text": "“Yes,” said the hare."
+          },
+          {
+            "id": "s_0020",
+            "text": "“But I also kept the thieves away, and I carried the weight of the bag from the moment I sat on it."
+          },
+          {
+            "id": "s_0021",
+            "text": "You measured the favour wrong.”"
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0022",
+            "text": "The hyena went home with the grain and no answer, which is the worst way to end an argument."
+          },
+          {
+            "id": "s_0023",
+            "text": "The old people say she has been wary of small animals carrying bags ever since, and the hare still walks as if he has all day — which, somehow, he does."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "slug": "unogwaja-and-the-lions-well",
+  "title": "uNogwaja and the Lion’s Well",
+  "summary": "The hare shows a boastful lion his own reflection in a deep well, and frees the animals of the valley without raising a single claw.",
+  "moral": "The one who laughs at a reflection may fall into the water beneath it.",
+  "tribeSlug": "zulu",
+  "categorySlug": "animal",
+  "narratorSlug": "thandiwe-nkosi",
+  "regionLabel": "SOUTHERN AFRICA",
+  "attribution": "A traditional Zulu tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/unogwaja-and-the-lions-well.svg",
+    "alt": "A hare beside a dark round well while a lion’s silhouette leans over the water",
+    "accent": "#B4472C",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-10-29T06:15:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.7,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "The lion of the valley had grown tired of hunting."
+          },
+          {
+            "id": "s_0002",
+            "text": "He declared that all the animals must come to his cave each morning and bow, and that he would choose one of them for his meal."
+          },
+          {
+            "id": "s_0003",
+            "text": "The animals were afraid, so they came, and each morning one of them did not go home."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0004",
+            "text": "uNogwaja the hare listened to the weeping and thought about the lion for three days."
+          },
+          {
+            "id": "s_0005",
+            "text": "Then he walked to the cave and bowed lower than anyone."
+          },
+          {
+            "id": "s_0006",
+            "text": "“Great one,” he said, “there is another lion in this valley, a larger one, and he says the water in the well belongs to him and not to you.”"
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0007",
+            "text": "The lion roared until the leaves shook."
+          },
+          {
+            "id": "s_0008",
+            "text": "“Show me this lion,” he demanded. uNogwaja led him to the old stone well at the edge of the grass."
+          },
+          {
+            "id": "s_0009",
+            "text": "The water lay still and dark at the bottom, and when the lion leaned over, a great golden face looked back at him."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0010",
+            "text": "“You see?”"
+          },
+          {
+            "id": "s_0011",
+            "text": "said the hare quietly."
+          },
+          {
+            "id": "s_0012",
+            "text": "“He is copying you."
+          },
+          {
+            "id": "s_0013",
+            "text": "He is even opening his mouth the way you do.”"
+          },
+          {
+            "id": "s_0014",
+            "text": "The lion growled, and the reflection growled."
+          },
+          {
+            "id": "s_0015",
+            "text": "The lion swiped at it with one paw, and the reflection swiped back, and the lion could not bear to be mocked."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0016",
+            "text": "He leapt into the well to teach the other lion a lesson."
+          },
+          {
+            "id": "s_0017",
+            "text": "There was a great splash, and a great wet roar, and then only the sound of water finding its level again. uNogwaja sat at the edge and combed his whiskers."
+          },
+          {
+            "id": "s_0018",
+            "text": "“A little closer,” he said to no one in particular, “is a dangerous place to stand.”"
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0019",
+            "text": "The animals came to the well at sunset and saw that the lion was gone."
+          },
+          {
+            "id": "s_0020",
+            "text": "The hare did not take any credit."
+          },
+          {
+            "id": "s_0021",
+            "text": "He only told them that a boastful lion had met a very patient one, and that from that day the well belonged to everyone."
+          }
+        ]
+      }
+    ]
+  }
+}

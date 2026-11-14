@@ -1,0 +1,166 @@
+// Ubuntu Tales — Phase 1 read path (see docs/production-plan/02 §3 and DEVIATIONS.md 0.4).
+//
+// This slice models only the public catalogue: categories, tribes, narrators, stories and the
+// editorial story-of-the-day. Identity, progress, submissions and media tables are deferred to
+// their phases; additive fields and tables are allowed when a later task needs them.
+//
+// Images are served as root-relative static paths in Phase 1 (`/covers/*.svg`); the plan's
+// MediaAsset/RustFS pipeline returns in Phase 3. Fields are named `*Url` so a media-asset
+// migration can add asset relations alongside them without a breaking rename.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ───────────── Enums ─────────────
+
+enum Region {
+  NORTH_AFRICA
+  WEST_AFRICA
+  CENTRAL_AFRICA
+  EAST_AFRICA
+  SOUTHERN_AFRICA
+}
+
+enum StoryStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum AccessLevel {
+  FREE
+  PREMIUM
+}
+
+/// Kept for the Phase 2 reactions feature and the public /config payload; no reaction table yet.
+enum ReactionType {
+  JOY
+  GREAT
+  GOOD
+  THINKING
+  HAPPY
+}
+
+// ───────────── Catalogue ─────────────
+
+/// A tribe / people. Presented as a "publication" in the Substack-inspired UI.
+model Tribe {
+  id                  String   @id @default(uuid(7)) @db.Uuid
+  slug                String   @unique
+  name                String   @unique
+  region              Region
+  countries           String[] @default([])
+  countriesLabel      String
+  tagline             String?  @db.VarChar(200)
+  description         String?
+  accentColor         String   @db.VarChar(7)
+  themeVariant        String?
+  /// Publication mark (static SVG until the media pipeline exists).
+  imageUrl            String?
+  imageAlt            String?
+  imageAccent         String?  @db.VarChar(7)
+  sortOrder           Int      @default(0)
+  isActive            Boolean  @default(true)
+  /// Presentation-only follower count.
+  subscriberCount     Int      @default(0)
+  /// Denormalised; recomputed by the seed (and on publish/unpublish in later phases).
+  publishedStoryCount Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  stories Story[]
+
+  @@index([region, isActive])
+  @@index([isActive, sortOrder])
+}
+
+model Category {
+  id        String  @id @default(uuid(7)) @db.Uuid
+  slug      String  @unique
+  name      String
+  badge     String
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+
+  stories Story[]
+
+  @@index([isActive, sortOrder])
+}
+
+/// A griot / narrator — the "author" of a tale in the editorial experience.
+model Narrator {
+  id           String   @id @default(uuid(7)) @db.Uuid
+  slug         String   @unique
+  name         String
+  bio          String?
+  roleLabel    String?
+  accentColor  String?  @db.VarChar(7)
+  avatarUrl    String?
+  avatarAlt    String?
+  avatarAccent String?  @db.VarChar(7)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  stories Story[]
+}
+
+model Story {
+  id              String      @id @default(uuid(7)) @db.Uuid
+  slug            String      @unique
+  locale          String      @default("en") @db.VarChar(10)
+  title           String      @db.VarChar(160)
+  summary         String      @db.VarChar(400)
+  moral           String?     @db.VarChar(300)
+  /// Structured body: { version: 1, paragraphs: [{ id, sentences: [{ id, text }] }] } (ADR-011).
+  body            Json
+  wordCount       Int
+  readTimeMinutes Int
+  tribeId         String      @db.Uuid
+  categoryId      String      @db.Uuid
+  narratorId      String?     @db.Uuid
+  /// Display override, e.g. "IGBO, NIGERIA"; falls back to the tribe region label.
+  regionLabel     String?
+  coverUrl        String
+  coverAlt        String
+  coverAccent     String      @db.VarChar(7)
+  attribution     String?
+  /// The read-path slice only seeds published content; DRAFT is used by the admin console later.
+  status          StoryStatus @default(PUBLISHED)
+  accessLevel     AccessLevel @default(FREE)
+  isFeatured      Boolean     @default(false)
+  publishedAt     DateTime?
+  popularityScore Float       @default(0)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  tribe   Tribe     @relation(fields: [tribeId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  narrator Narrator? @relation(fields: [narratorId], references: [id])
+  featuredOn StoryOfTheDay[]
+
+  @@index([status, publishedAt(sort: Desc)])
+  @@index([status, popularityScore(sort: Desc)])
+  @@index([status, title])
+  @@index([tribeId, status])
+  @@index([categoryId, status])
+  @@index([narratorId, status])
+  @@index([locale, status])
+}
+
+model StoryOfTheDay {
+  id      String   @id @default(uuid(7)) @db.Uuid
+  date    DateTime @db.Date
+  locale  String   @default("en") @db.VarChar(10)
+  storyId String   @db.Uuid
+
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([date, locale])
+  @@index([storyId])
+}

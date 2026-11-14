@@ -1,0 +1,30 @@
+{
+  "name": "@ubuntu-tales/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@ubuntu-tales/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@ubuntu-tales/config": "workspace:*",
+    "eslint": "^9.27.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  }
+}

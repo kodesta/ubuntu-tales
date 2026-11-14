@@ -1,0 +1,45 @@
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.meta {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+}
+
+.micro {
+  font-size: var(--text-micro);
+}
+
+.eyebrow {
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.soft {
+  color: var(--ink-soft);
+}
+
+.faint {
+  color: var(--faint);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.separator {
+  margin-inline: var(--space-2);
+  color: var(--faint);
+}

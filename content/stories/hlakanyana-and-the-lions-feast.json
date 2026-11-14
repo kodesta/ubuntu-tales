@@ -1,0 +1,144 @@
+{
+  "slug": "hlakanyana-and-the-lions-feast",
+  "title": "Hlakanyana and the Lion’s Feast",
+  "summary": "The small trickster Hlakanyana talks his way into a lion’s feast by promising a gift he has not yet invented.",
+  "moral": "Cleverness opens the door; it is patience that keeps the fire.",
+  "tribeSlug": "xhosa",
+  "categorySlug": "trickster",
+  "narratorSlug": "thandiwe-nkosi",
+  "regionLabel": "SOUTHERN AFRICA",
+  "attribution": "A traditional Xhosa tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/hlakanyana-and-the-lions-feast.svg",
+    "alt": "A small quick figure with a feather standing before a lion’s great silhouette and a low moon",
+    "accent": "#A34F31",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-09-17T06:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.55,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "Hlakanyana was so small that the grass looked like a forest to him, and so quick that people said he must have four legs and two tongues."
+          },
+          {
+            "id": "s_0002",
+            "text": "He heard that the lion of the district was giving a feast and had said no small creature could come, because a small creature makes a small gift."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "Hlakanyana thought about this for a while."
+          },
+          {
+            "id": "s_0004",
+            "text": "Then he tied a feather to his head, took a stick, and went to the lion’s gate."
+          },
+          {
+            "id": "s_0005",
+            "text": "“I have a gift for you,” he announced."
+          },
+          {
+            "id": "s_0006",
+            "text": "“I have brought you a goat so heavy that I could not carry it."
+          },
+          {
+            "id": "s_0007",
+            "text": "It is waiting at the top of the hill.”"
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0008",
+            "text": "The lion was greedy and proud, and the thought of a goat at the top of the hill pleased him."
+          },
+          {
+            "id": "s_0009",
+            "text": "“Then we will go and fetch it after the food,” he said."
+          },
+          {
+            "id": "s_0010",
+            "text": "He invited Hlakanyana to sit beside him, which was exactly what Hlakanyana had wanted."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0011",
+            "text": "The feast was served."
+          },
+          {
+            "id": "s_0012",
+            "text": "Hlakanyana ate everything he was given and everything that was given to the animals next to him, because he was small and could pass from place to place without being noticed."
+          },
+          {
+            "id": "s_0013",
+            "text": "By the time the sun went down, he was round as a calabash."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0014",
+            "text": "Then the lion stood up and said, “Now, Hlakanyana, where is my goat?”"
+          },
+          {
+            "id": "s_0015",
+            "text": "Hlakanyana jumped onto the table and bowed."
+          },
+          {
+            "id": "s_0016",
+            "text": "“The goat,” he said, “is at the top of the hill."
+          },
+          {
+            "id": "s_0017",
+            "text": "But I see that you have already eaten it — you must have sent someone ahead."
+          },
+          {
+            "id": "s_0018",
+            "text": "Good."
+          },
+          {
+            "id": "s_0019",
+            "text": "Then you owe me nothing, and I owe you nothing, and we are both full.”"
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0020",
+            "text": "He was over the fence and into the grass before the lion had finished roaring."
+          },
+          {
+            "id": "s_0021",
+            "text": "The lion never caught him, because no one catches a story that is already running."
+          },
+          {
+            "id": "s_0022",
+            "text": "The animals tell it still, and they say that Hlakanyana’s belly was round that night, but his legs were faster than his belly."
+          }
+        ]
+      }
+    ]
+  }
+}

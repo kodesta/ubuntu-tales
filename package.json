@@ -1,0 +1,36 @@
+{
+  "name": "ubuntu-tales",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "setup": "pnpm install && pnpm db:generate",
+    "dev": "pnpm build:deps && turbo dev --parallel",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "infra:up": "docker compose -f infra/compose/docker-compose.dev.yml up -d",
+    "infra:down": "docker compose -f infra/compose/docker-compose.dev.yml down",
+    "infra:reset": "docker compose -f infra/compose/docker-compose.dev.yml down -v && pnpm infra:up",
+    "db:generate": "pnpm --filter @ubuntu-tales/db db:generate",
+    "db:migrate": "pnpm --filter @ubuntu-tales/db db:migrate",
+    "db:seed": "pnpm --filter @ubuntu-tales/db db:seed",
+    "db:reset": "pnpm --filter @ubuntu-tales/db db:reset",
+    "db:studio": "pnpm --filter @ubuntu-tales/db db:studio",
+    "build:deps": "turbo build --filter=@ubuntu-tales/shared --filter=@ubuntu-tales/db"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.57.0",
+    "axe-core": "^4.14.0",
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
+  }
+}
