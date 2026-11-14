@@ -1,4 +1,6 @@
 import { Link } from '@tanstack/react-router';
+
+import { useTribeStore } from '@/stores/tribe';
 import { Menu, Search } from 'lucide-react';
 
 import { IconButton } from '../IconButton/IconButton';
@@ -20,6 +22,8 @@ const NAV_ITEMS = [
 
 /** Sticky 64px editorial header: brand, primary nav (desktop), search and the drawer trigger. */
 export function Header({ onOpenMenu, onOpenSearch }: HeaderProps) {
+  const chosenTribe = useTribeStore((state) => state.name);
+
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -48,9 +52,15 @@ export function Header({ onOpenMenu, onOpenSearch }: HeaderProps) {
           <IconButton label="Search tales" onClick={onOpenSearch}>
             <Search size={20} aria-hidden="true" />
           </IconButton>
-          <Link to="/tribes" search={{ onboarding: 1 }} className={styles.rootsLink}>
-            Choose your roots
-          </Link>
+          {chosenTribe ? (
+            <Link to="/tribes" className={styles.rootsLink}>
+              {chosenTribe} roots
+            </Link>
+          ) : (
+            <Link to="/tribes" search={{ onboarding: 1 }} className={styles.rootsLink}>
+              Choose your roots
+            </Link>
+          )}
         </div>
       </div>
     </header>
