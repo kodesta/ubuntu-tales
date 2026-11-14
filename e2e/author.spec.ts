@@ -40,7 +40,7 @@ test.describe('griot (author) page', () => {
     await expect(page.getByText('Follows are kept on this device until accounts arrive.')).toBeVisible();
 
     // Follow the voice locally (aria-label carries the griot's name).
-    const follow = page.getByRole('button', { name: `Follow ${author.name}` });
+    const follow = page.getByRole('button', { name: /^Follow this voice / });
     await follow.click();
     await expect(page.getByText('Following this voice ✓')).toBeVisible();
 

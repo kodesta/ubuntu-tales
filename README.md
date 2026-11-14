@@ -31,7 +31,8 @@ Requirements: Node 22+, pnpm 10+, Docker.
 ```bash
 pnpm install
 cp .env.example .env
-pnpm build:deps          # build shared contracts + Prisma client package
+pnpm db:generate         # generate the Prisma client
+pnpm build:deps          # build shared contracts + the db package
 pnpm infra:up            # PostgreSQL 17 on localhost:5433
 pnpm db:migrate          # create schema
 pnpm db:seed             # load the catalogue

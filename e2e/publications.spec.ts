@@ -57,7 +57,7 @@ test.describe('publications index and publication page', () => {
     ).toBeVisible();
 
     // Subscribe is local-only but must flip state and persist to `ut.follows`.
-    const subscribe = page.getByRole('button', { name: 'Follow Zulu' });
+    const subscribe = page.getByRole('button', { name: /^Subscribe Zulu$/ });
     await expect(subscribe).toContainText('Subscribe');
     await subscribe.click();
     await expect(page.getByText('Subscribed ✓')).toBeVisible();

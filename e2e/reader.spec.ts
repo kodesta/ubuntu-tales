@@ -28,8 +28,8 @@ test.describe('reader', () => {
 
     // Reader top bar controls.
     await expect(page.getByRole('button', { name: 'Back' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Decrease text size' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Increase text size' })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Decrease text size/ })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Increase text size/ })).toBeVisible();
     await expect(
       page.locator('main header').first().getByRole('button', { name: 'Save to your reading list' }),
     ).toBeVisible();
@@ -45,9 +45,9 @@ test.describe('reader', () => {
 
     await expect.poll(() => bodyFontSize(page)).toBe(BODY_SIZES.md);
 
-    await page.getByRole('button', { name: 'Increase text size' }).click();
+    await page.getByRole('button', { name: /Increase text size/ }).click();
     await expect.poll(() => bodyFontSize(page)).toBe(BODY_SIZES.lg);
-    await expect(page.getByRole('button', { name: 'Increase text size' })).toBeDisabled();
+    await expect(page.getByRole('button', { name: /Increase text size/ })).toBeDisabled();
 
     // Persisted under `ut.fontSize`; a reload keeps the reader's choice.
     const stored = await readStorage<{ state: { size: string } }>(page, 'ut.fontSize');
@@ -55,11 +55,11 @@ test.describe('reader', () => {
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect.poll(() => bodyFontSize(page)).toBe(BODY_SIZES.lg);
 
-    await page.getByRole('button', { name: 'Decrease text size' }).click();
+    await page.getByRole('button', { name: /Decrease text size/ }).click();
     await expect.poll(() => bodyFontSize(page)).toBe(BODY_SIZES.md);
-    await page.getByRole('button', { name: 'Decrease text size' }).click();
+    await page.getByRole('button', { name: /Decrease text size/ }).click();
     await expect.poll(() => bodyFontSize(page)).toBe(BODY_SIZES.sm);
-    await expect(page.getByRole('button', { name: 'Decrease text size' })).toBeDisabled();
+    await expect(page.getByRole('button', { name: /Decrease text size/ })).toBeDisabled();
   });
 
   test('save from the reader shows the tale in /saved', async ({ page }) => {

@@ -23,7 +23,7 @@
     "db:seed": "pnpm --filter @ubuntu-tales/db db:seed",
     "db:reset": "pnpm --filter @ubuntu-tales/db db:reset",
     "db:studio": "pnpm --filter @ubuntu-tales/db db:studio",
-    "build:deps": "turbo build --filter=@ubuntu-tales/shared --filter=@ubuntu-tales/db"
+    "build:deps": "pnpm db:generate && turbo build --filter=@ubuntu-tales/shared --filter=@ubuntu-tales/db"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

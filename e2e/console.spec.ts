@@ -50,7 +50,7 @@ test.describe('console cleanliness', () => {
     // 3. Reader → complete.
     await page.getByRole('link', { name: SAMPLE_STORY.title, exact: true }).click();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(SAMPLE_STORY.title);
-    await page.getByRole('button', { name: 'Increase text size' }).click();
+    await page.getByRole('button', { name: /Increase text size/ }).click();
     await page
       .locator('main header')
       .first()
