@@ -2,6 +2,7 @@ import { useNavigate } from '@tanstack/react-router';
 import type { AuthResponse } from '@ubuntu-tales/shared';
 import { useCallback } from 'react';
 
+import { useOnboardingStore } from '@/stores/onboarding';
 import { useToastStore } from '@/stores/toast';
 
 import { rememberDevEmailToken } from './dev';
@@ -40,6 +41,9 @@ export function useCompleteAuthentication(): (
       } catch {
         // Guest merge is a courtesy, never a blocker for a session that already exists.
       }
+
+      // A signed-in reader never needs the first-visit welcome again.
+      useOnboardingStore.getState().complete();
 
       if (auth.devEmailToken) rememberDevEmailToken(auth.devEmailToken);
 
