@@ -71,7 +71,12 @@ const ROUTES = [
     seed: baseSeed,
     note: 'Home reading list: today’s tale hero, personalised band, feed, sidebar, discover rail.',
   },
-  { name: 'tribes', path: '/tribes', seed: baseSeed, note: 'Publications index masthead, search, region pills, 2-up cards.' },
+  {
+    name: 'tribes',
+    path: '/tribes',
+    seed: baseSeed,
+    note: 'Publications index masthead, search, region pills, 2-up cards.',
+  },
   {
     name: 'tribes-zulu',
     path: '/tribes/zulu',
@@ -84,7 +89,12 @@ const ROUTES = [
     seed: baseSeed,
     note: 'Reader: 680px measure, drop-cap-free Lora body, byline, cover, sticky top bar.',
   },
-  { name: 'library', path: '/library', seed: baseSeed, note: 'The library archive: tabs, category pills, hairline tale rows.' },
+  {
+    name: 'library',
+    path: '/library',
+    seed: baseSeed,
+    note: 'The library archive: tabs, category pills, hairline tale rows.',
+  },
   {
     name: 'library-voices',
     path: '/library?tab=authors',
@@ -96,6 +106,12 @@ const ROUTES = [
     path: '/saved',
     seed: { ...baseSeed, 'ut.saved': persisted({ entries: savedSeed }) },
     note: 'Reading list: two saved tales, filters, on-device note.',
+  },
+  {
+    name: 'author',
+    path: '/authors/adewale-okunola',
+    seed: baseSeed,
+    note: 'Griot profile: accent masthead, avatar monogram, stats, tales told, publications sidebar.',
   },
   {
     name: 'complete',
@@ -185,7 +201,13 @@ for (const device of DEVICES) {
       await page.goto(route.path, { waitUntil: 'domcontentloaded', timeout: 30_000 });
       await waitForStablePage(page);
       await page.screenshot({ path: target, fullPage: false, animations: 'disabled' });
-      manifest.push({ ...route, device: device.name, file, width: device.viewport.width, height: device.viewport.height });
+      manifest.push({
+        ...route,
+        device: device.name,
+        file,
+        width: device.viewport.width,
+        height: device.viewport.height,
+      });
       console.log(`[screenshots] ${file}`);
     } catch (error) {
       console.error(`[screenshots] FAILED ${route.path} (${device.name}):`, error.message);
@@ -279,9 +301,22 @@ const html = `<!doctype html>
 await writeFile(path.join(OUT_DIR, 'index.html'), html, 'utf8');
 await writeFile(
   path.join(OUT_DIR, 'manifest.json'),
-  JSON.stringify({ generatedAt: new Date().toISOString(), webUrl: WEB_URL, apiUrl: API_URL, screenshots: manifest }, null, 2),
+  JSON.stringify(
+    {
+      generatedAt: new Date().toISOString(),
+      webUrl: WEB_URL,
+      apiUrl: API_URL,
+      screenshots: manifest,
+    },
+    null,
+    2,
+  ),
   'utf8',
 );
 
-console.log(`\n[screenshots] ${manifest.length} screenshots written to ${path.relative(ROOT, OUT_DIR)}`);
-console.log(`[screenshots] contact sheet: ${path.relative(ROOT, path.join(OUT_DIR, 'index.html'))}`);
+console.log(
+  `\n[screenshots] ${manifest.length} screenshots written to ${path.relative(ROOT, OUT_DIR)}`,
+);
+console.log(
+  `[screenshots] contact sheet: ${path.relative(ROOT, path.join(OUT_DIR, 'index.html'))}`,
+);

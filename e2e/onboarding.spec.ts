@@ -1,11 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import {
-  LOW_STORY_TRIBE,
-  readStorage,
-  seedLocalStorage,
-  waitForApp,
-} from './support/state';
+import { LOW_STORY_TRIBE, readStorage, seedLocalStorage, waitForApp } from './support/state';
 
 /**
  * Journey 1 (testing plan §4.1): first visit → welcome → choose your roots (low-story publication
@@ -72,7 +67,9 @@ test.describe('onboarding', () => {
     await expect(page).toHaveURL(/\/$/);
     await waitForApp(page);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your reading list.');
-    await expect(page.getByRole('heading', { name: 'Choose your roots to personalise this feed.' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Choose your roots to personalise this feed.' }),
+    ).toBeVisible();
 
     // Revisiting /welcome after onboarding redirects home (design doc §7.1).
     await page.goto('/welcome', { waitUntil: 'domcontentloaded' });

@@ -87,6 +87,15 @@ Copy `.env.example` → `.env`. Values are local development defaults only. Neve
   reader, griot (author) pages, local reading list. *(Media pipeline and OG share pages deferred.)*
 - **Next:** Phase 2 accounts, saved stories and progress sync.
 
+## Verification
+
+- Unit/integration: `pnpm test` (89 tests across shared, api and web).
+- End-to-end: `pnpm exec playwright test` with the API, web and seeded database running
+  (`PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright-browsers"`). See [`e2e/README.md`](e2e/README.md).
+- Accessibility: axe-core scan with zero violations across 9 routes × 2 viewports.
+- Evidence: [`docs/qa/phase-1-report.md`](docs/qa/phase-1-report.md) (GO verdict),
+  [`screenshot contact sheet`](docs/qa/screenshots/index.html), API smoke log and layout audit.
+
 ## Contributing
 
 - One roadmap task per PR where possible; update the deviations register when diverging.

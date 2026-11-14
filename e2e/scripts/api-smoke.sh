@@ -15,11 +15,11 @@ PASS=0
 FAIL=0
 
 assert_json() {
-  local name="$1" path="$2" expr="$3"
+  local name="$1" path="$2" expr="$3" expected="${4:-200}"
   local body status
   body="$(mktemp)"
   status="$(curl -sS -o "$body" -w '%{http_code}' "$API$path" 2>/dev/null)"
-  if [ "$status" = "200" ] && EXPR="$expr" node -e '
+  if [ "$status" = "$expected" ] && EXPR="$expr" node -e '
     const fs = require("node:fs");
     const d = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
     const ok = Function("d", "return (" + process.env.EXPR + ");")(d);
@@ -28,7 +28,7 @@ assert_json() {
     echo "PASS  $name  GET $path"
     PASS=$((PASS + 1))
   else
-    echo "FAIL  $name  GET $path  (HTTP $status)"
+    echo "FAIL  $name  GET $path  (HTTP $status, expected $expected)"
     head -c 300 "$body" 2>/dev/null | tr '\n' ' '
     echo
     FAIL=$((FAIL + 1))
@@ -64,8 +64,8 @@ assert_json "categories" "/categories" "Array.isArray(d) && d.length === 5 && d.
 
 assert_json "stories paginated" "/stories?limit=3" "Array.isArray(d.items) && d.items.length === 3 && typeof d.nextCursor === 'string' && d.items.every(s => typeof s.slug === 'string' && s.tribe && s.category && s.cover && typeof s.readTimeMinutes === 'number')"
 assert_json "stories category filter" "/stories?category=animal&limit=100" "d.items.length === 3 && d.items.every(s => s.category.slug === 'animal')"
-assert_json "story detail" "/stories/unogwaja-and-the-lions-well" "d.slug === 'unogwaja-and-the-lions-well' && Array.isArray(d.body) && d.body.length > 0 && d.body[0].sentences.length > 0 && d.narrator && d.tribe.slug === 'zulu'"
-assert_json "story detail 404 shape" "/stories/not-a-tale" "d.status === 404 && d.code === 'NOT_FOUND'"
+assert_json "story detail" "/stories/unogwaja-and-the-lions-well" "d.slug === 'unogwaja-and-the-lions-well' && d.body.version >= 1 && Array.isArray(d.body.paragraphs) && d.body.paragraphs.length > 0 && d.body.paragraphs[0].sentences.length > 0 && d.narrator && d.tribe.slug === 'zulu'"
+assert_json "story detail 404 shape" "/stories/not-a-tale" "d.status === 404 && d.code === 'NOT_FOUND' && d.instance === '/api/v1/stories/not-a-tale'" 404
 assert_json "search suggestions" "/stories/search-suggestions?q=zulu" "Array.isArray(d) && d.length > 0 && d.some(s => s.type === 'tribe' && s.slug === 'zulu')"
 assert_json "story of the day" "/stories/story-of-the-day" "typeof d.slug === 'string' && typeof d.title === 'string'"
 assert_json "recommendations" "/stories/unogwaja-and-the-lions-well/recommendations" "Array.isArray(d) && d.length > 0 && d.every(s => s.slug !== 'unogwaja-and-the-lions-well')"

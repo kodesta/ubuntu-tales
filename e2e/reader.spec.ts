@@ -5,7 +5,10 @@ import { SAMPLE_STORY, openWithState, readStorage } from './support/state';
 const BODY_SIZES = { sm: '17px', md: '19px', lg: '22px' } as const;
 
 function bodyFontSize(page: import('@playwright/test').Page) {
-  return page.locator('[data-sentence-id]').first().evaluate((el) => getComputedStyle(el).fontSize);
+  return page
+    .locator('[data-sentence-id]')
+    .first()
+    .evaluate((el) => getComputedStyle(el).fontSize);
 }
 
 test.describe('reader', () => {
@@ -31,13 +34,18 @@ test.describe('reader', () => {
     await expect(page.getByRole('button', { name: /Decrease text size/ })).toBeVisible();
     await expect(page.getByRole('button', { name: /Increase text size/ })).toBeVisible();
     await expect(
-      page.locator('main header').first().getByRole('button', { name: 'Save to your reading list' }),
+      page
+        .locator('main header')
+        .first()
+        .getByRole('button', { name: 'Save to your reading list' }),
     ).toBeVisible();
     await expect(page.getByRole('button', { name: 'Share this tale' })).toBeVisible();
     await expect(page.getByRole('group', { name: 'Reading text size' })).toBeVisible();
 
     // Reading progress hairline is present and labelled.
-    await expect(page.getByRole('progressbar', { name: new RegExp(SAMPLE_STORY.title) })).toBeVisible();
+    await expect(
+      page.getByRole('progressbar', { name: new RegExp(SAMPLE_STORY.title) }),
+    ).toBeVisible();
   });
 
   test('A− / A+ changes and persists the body size', async ({ page }) => {
@@ -80,7 +88,9 @@ test.describe('reader', () => {
 
     await page.goto('/saved', { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your reading list.');
-    await expect(page.getByRole('article').getByRole('link', { name: SAMPLE_STORY.title })).toBeVisible();
+    await expect(
+      page.getByRole('article').getByRole('link', { name: SAMPLE_STORY.title }),
+    ).toBeVisible();
     await expect(page.getByText('1 tale kept on this device')).toBeVisible();
   });
 
@@ -106,10 +116,15 @@ test.describe('reader', () => {
     expect(reactions?.state.bySlug[SAMPLE_STORY.slug]).toBe('JOY');
 
     await page.reload({ waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('button', { name: /^Joy/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('button', { name: /^Joy/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
 
     // Recommendations and ways onward.
-    await expect(page.getByRole('heading', { name: 'Three more tales for the fire.' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Three more tales for the fire.' }),
+    ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Back to the reading list' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Share wisdom' })).toBeVisible();
 

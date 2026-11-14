@@ -83,7 +83,9 @@ test.describe('console cleanliness', () => {
 
     // React/router dev warnings are not shipped to production bundles but should still be rare.
     if (warnings.length > 0) {
-      console.log(`[console] ${warnings.length} warning(s): ${warnings.map((w) => w.text).join(' | ')}`);
+      console.log(
+        `[console] ${warnings.length} warning(s): ${warnings.map((w) => w.text).join(' | ')}`,
+      );
     }
   });
 });

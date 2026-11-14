@@ -69,10 +69,7 @@ test.describe('library (archive)', () => {
   test('audio tab shows the empty narration state', async ({ page }) => {
     await openWithState(page, '/library?tab=audio');
 
-    await expect(page.getByRole('tab', { name: 'Audio' })).toHaveAttribute(
-      'aria-selected',
-      'true',
-    );
+    await expect(page.getByRole('tab', { name: 'Audio' })).toHaveAttribute('aria-selected', 'true');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('The library.');
     await expect(page.getByText('Narrations are being recorded.')).toBeVisible();
     await page.getByRole('button', { name: 'Read the tales' }).click();

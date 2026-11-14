@@ -30,14 +30,20 @@ test.describe('griot (author) page', () => {
     await openWithState(page, `/authors/${author.slug}`);
 
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(author.name);
-    await expect(page.getByRole('heading', { name: `Tales told by ${author.name}.` })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: `Tales told by ${author.name}.` }),
+    ).toBeVisible();
     await expect(page.getByText('The griots')).toBeVisible();
     const rows = page.locator('main section[aria-labelledby="griot-tales"] article');
     await expect(rows).toHaveCount(detail.stories.length);
     await expect(
-      page.locator('aside[aria-labelledby="griot-publications"]').getByRole('heading', { name: 'Publications' }),
+      page
+        .locator('aside[aria-labelledby="griot-publications"]')
+        .getByRole('heading', { name: 'Publications' }),
     ).toBeVisible();
-    await expect(page.getByText('Follows are kept on this device until accounts arrive.')).toBeVisible();
+    await expect(
+      page.getByText('Follows are kept on this device until accounts arrive.'),
+    ).toBeVisible();
 
     // Follow the voice locally (aria-label carries the griot's name).
     const follow = page.getByRole('button', { name: /^Follow this voice / });

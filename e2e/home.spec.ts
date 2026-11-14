@@ -44,9 +44,13 @@ test.describe('home feed and URL-driven discovery', () => {
 
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your reading list.');
     await expect(page.getByRole('heading', { name: /Results for “lion”/ })).toBeVisible();
-    const firstResult = page.locator('section[aria-labelledby="search-results-title"] article').first();
+    const firstResult = page
+      .locator('section[aria-labelledby="search-results-title"] article')
+      .first();
     await expect(firstResult).toBeVisible();
-    expect(await page.locator('section[aria-labelledby="search-results-title"] article').count()).toBeGreaterThan(0);
+    expect(
+      await page.locator('section[aria-labelledby="search-results-title"] article').count(),
+    ).toBeGreaterThan(0);
 
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect(page).toHaveURL(/q=lion/);
@@ -99,6 +103,8 @@ test.describe('home feed and URL-driven discovery', () => {
     await suggestion.click();
 
     await expect(page).toHaveURL(/\/stories\/anansi-and-the-pot-of-wisdom$/);
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Anansi and the Pot of Wisdom');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      'Anansi and the Pot of Wisdom',
+    );
   });
 });

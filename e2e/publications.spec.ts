@@ -53,7 +53,9 @@ test.describe('publications index and publication page', () => {
     await expect(page.getByRole('heading', { name: 'From the archive' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'About this publication' })).toBeVisible();
     await expect(
-      page.getByText('This is a community publication. Tales are traditional and retold with care.'),
+      page.getByText(
+        'This is a community publication. Tales are traditional and retold with care.',
+      ),
     ).toBeVisible();
 
     // Subscribe is local-only but must flip state and persist to `ut.follows`.

@@ -61,17 +61,17 @@ WEB_URL=http://localhost:5173 API_URL=http://localhost:4100/api/v1 pnpm exec pla
 
 ## What is covered
 
-| Spec | Journeys |
-| --- | --- |
-| `onboarding.spec.ts` | first visit → `/welcome`; choose tribe → low-story dialog → "Begin reading" → personalised home; skip onboarding; onboarded redirect; `ut.tribe`/`ut.follows` persistence |
-| `home.spec.ts` | today's tale + publications feed + wisdom notes + discover rail; `/?q=` search result state (with reload); `/?category=` filter state; search overlay → suggestion → reader |
-| `publications.spec.ts` | `/tribes` count/search/region filters; publication page masthead, numbered archive, about, subscribe persistence; unknown publication 404 |
-| `reader.spec.ts` | reader chrome (no global header/bottom nav), sentence spans, reading progress; A−/A+ clamp + `ut.fontSize` persistence; save → `/saved`; finish → `/complete` → reaction persistence + recommendations; unknown tale 404 |
-| `library.spec.ts` | `/library` tabs from URL, cursor-paginated infinite scroll (12 → 18), category filter URL state, audio empty state, voices list → griot page |
-| `saved.spec.ts` | `/saved` rows from local snapshots, URL filters, disabled Offline, unsave + toast, empty state, progress hairline |
-| `author.spec.ts` | griot profile identity/tales/affiliations, follow this voice, unknown griot 404 |
-| `a11y.spec.ts` | axe-core (WCAG 2.0/2.1/2.2 A+AA) on `/welcome`, `/`, `/tribes`, reader, `/library`, `/saved`, voices tab — serious/critical must be 0 |
-| `console.spec.ts` | full click-through journey with console error + uncaught page-error capture |
+| Spec                   | Journeys                                                                                                                                                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `onboarding.spec.ts`   | first visit → `/welcome`; choose tribe → low-story dialog → "Begin reading" → personalised home; skip onboarding; onboarded redirect; `ut.tribe`/`ut.follows` persistence                                                |
+| `home.spec.ts`         | today's tale + publications feed + wisdom notes + discover rail; `/?q=` search result state (with reload); `/?category=` filter state; search overlay → suggestion → reader                                              |
+| `publications.spec.ts` | `/tribes` count/search/region filters; publication page masthead, numbered archive, about, subscribe persistence; unknown publication 404                                                                                |
+| `reader.spec.ts`       | reader chrome (no global header/bottom nav), sentence spans, reading progress; A−/A+ clamp + `ut.fontSize` persistence; save → `/saved`; finish → `/complete` → reaction persistence + recommendations; unknown tale 404 |
+| `library.spec.ts`      | `/library` tabs from URL, cursor-paginated infinite scroll (12 → 18), category filter URL state, audio empty state, voices list → griot page                                                                             |
+| `saved.spec.ts`        | `/saved` rows from local snapshots, URL filters, disabled Offline, unsave + toast, empty state, progress hairline                                                                                                        |
+| `author.spec.ts`       | griot profile identity/tales/affiliations, follow this voice, unknown griot 404                                                                                                                                          |
+| `a11y.spec.ts`         | axe-core (WCAG 2.0/2.1/2.2 A+AA) on `/welcome`, `/`, `/tribes`, reader, `/library`, `/saved`, voices tab — serious/critical must be 0                                                                                    |
+| `console.spec.ts`      | full click-through journey with console error + uncaught page-error capture                                                                                                                                              |
 
 Tests are independent: Playwright gives each test a fresh browser context, and `e2e/support/state.ts`
 seeds `localStorage` (`ut.onboarded`, `ut.tribe`, `ut.follows`, `ut.saved`, `ut.fontSize`,
@@ -99,3 +99,16 @@ node e2e/scripts/capture-screenshots.mjs
 
 The script seeds local state per route, waits for fonts/images, and (re)writes
 `docs/qa/screenshots/index.html` — the contact sheet used by the Phase 1 report.
+
+## Additional evidence scripts
+
+```bash
+# axe-core audit of every key route at both breakpoints → docs/qa/axe-results.json + axe-summary.md
+node e2e/scripts/axe-audit.mjs
+
+# layout/touch-target/broken-image audit → docs/qa/layout-audit.json
+node e2e/scripts/layout-audit.mjs
+```
+
+`a11y.spec.ts` is the release gate (serious/critical must be 0); the standalone scripts are evidence
+generators for the Phase 1 report and do not fail the build.

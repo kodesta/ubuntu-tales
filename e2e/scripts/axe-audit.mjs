@@ -41,13 +41,21 @@ const savedEntries = storiesPayload.items.map((story, index) => ({
 }));
 
 const ROUTES = [
-  { label: 'welcome', path: '/welcome', seed: { ...baseSeed, 'ut.onboarded': persisted({ onboarded: false }) } },
+  {
+    label: 'welcome',
+    path: '/welcome',
+    seed: { ...baseSeed, 'ut.onboarded': persisted({ onboarded: false }) },
+  },
   { label: 'home', path: '/', seed: baseSeed },
   { label: 'tribes', path: '/tribes', seed: baseSeed },
   { label: 'reader', path: `/stories/${STORY_SLUG}`, seed: baseSeed },
   { label: 'library', path: '/library', seed: baseSeed },
   { label: 'library-voices', path: '/library?tab=authors', seed: baseSeed },
-  { label: 'saved', path: '/saved', seed: { ...baseSeed, 'ut.saved': persisted({ entries: savedEntries }) } },
+  {
+    label: 'saved',
+    path: '/saved',
+    seed: { ...baseSeed, 'ut.saved': persisted({ entries: savedEntries }) },
+  },
   { label: 'complete', path: `/stories/${STORY_SLUG}/complete`, seed: baseSeed },
   { label: 'not-found', path: '/a-path-that-grew-over', seed: baseSeed },
 ];
@@ -119,7 +127,12 @@ for (const device of [
       );
     } catch (error) {
       console.error(`[axe] FAILED ${route.label} (${device.name}):`, error.message);
-      reports.push({ device: device.name, label: route.label, path: route.path, error: error.message });
+      reports.push({
+        device: device.name,
+        label: route.label,
+        path: route.path,
+        error: error.message,
+      });
     } finally {
       await context.close();
     }
