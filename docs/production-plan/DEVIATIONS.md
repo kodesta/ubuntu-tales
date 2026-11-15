@@ -177,3 +177,14 @@ deviations apply:
 | 2.5 Reading progress and stats | ✅ text progress, completion, streak, continue list; audio deltas later |
 | 2.6 Celebration, reactions, recommendations | ✅ API-synced reactions/counts, API recommendations and stats |
 | 2.7 Google sign-in | ⏸ deferred (optional for launch) |
+
+### Phase 2 verification
+
+QA sign-off: **GO** ([`docs/qa/phase-2-report.md`](../../docs/qa/phase-2-report.md)).
+116/116 Playwright journeys (desktop + mobile), 63/63 session/security contract assertions,
+37/37 API smoke assertions, 274/274 unit/integration tests, 0 axe violations across 34 scans.
+Four defects were found and fixed during QA: guest-merge cache race, signed-in reading-progress
+restore, an unreachable AuthModal trigger (now wired from the guest reading list), and a
+label-in-name regression on the reaction buttons. The only open findings are low-severity touch
+target sizes (carried from Phase 1) and launch-time coverage notes (WebKit/Firefox, visual
+baselines, Lighthouse, manual screen-reader pass, production `COOKIE_SECURE` + dev-token gating).
