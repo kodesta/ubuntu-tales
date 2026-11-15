@@ -1,0 +1,212 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--text-display);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.personal {
+  color: var(--muted);
+  font-family: var(--font-serif);
+  font-size: var(--text-dek);
+  line-height: 1.4;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  min-width: 0;
+}
+
+.today {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sectionEyebrow {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sectionRule {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin-right: var(--space-2);
+  background: var(--line-strong);
+}
+
+/* --- your tribe band --- */
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-xs) var(--radius-sm) var(--radius-sm) var(--radius-xs);
+  background: var(--paper-raised);
+}
+
+.bandHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.bandIntro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.bandTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.textLink {
+  color: var(--terracotta);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 500;
+}
+
+.textLink:hover {
+  color: var(--terracotta-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.bandStories {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* --- choose roots prompt --- */
+.prompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper-sunk);
+}
+
+.promptText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 56ch;
+}
+
+.promptTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.promptBody {
+  color: var(--muted);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+}
+
+/* --- feed --- */
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.feedNote {
+  padding-block: var(--space-2);
+  color: var(--muted);
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.rows > * + * {
+  border-top: 1px solid var(--line);
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .bandStories {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    gap: var(--space-8);
+  }
+
+  .aside {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-5));
+  }
+}

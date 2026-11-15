@@ -1,0 +1,24 @@
+.track {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--paper-sunk);
+}
+
+.normal {
+  height: 3px;
+}
+
+.hairline {
+  height: 2px;
+  border-radius: 0;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width var(--transition-slow);
+}

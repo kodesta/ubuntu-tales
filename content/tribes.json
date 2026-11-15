@@ -1,0 +1,290 @@
+[
+  {
+    "slug": "zulu",
+    "name": "Zulu",
+    "region": "SOUTHERN_AFRICA",
+    "countries": ["ZA"],
+    "countriesLabel": "South Africa",
+    "tagline": "Voices from the eastern grasslands.",
+    "description": "From the green hills of KwaZulu-Natal come tales of clever hares, patient chameleons and the first words spoken under the sky. These stories carry the old Nguni habit of teaching through laughter, and they are still told around fires where the cattle are close.",
+    "accentColor": "#B4472C",
+    "themeVariant": "grassland",
+    "sortOrder": 1,
+    "subscriberCount": 12400,
+    "image": {
+      "url": "/covers/publication-zulu.svg",
+      "alt": "Publication mark for the Zulu tales",
+      "accent": "#B4472C"
+    }
+  },
+  {
+    "slug": "shona",
+    "name": "Shona",
+    "region": "SOUTHERN_AFRICA",
+    "countries": ["ZW"],
+    "countriesLabel": "Zimbabwe",
+    "tagline": "Stories from the highveld and the stone hills.",
+    "description": "Shona storytellers have long kept their tales in the space between the field and the evening fire, where the day's work is turned into a lesson. Here you will find the patient farmer, the bright birds of the plateau and the wisdom of leaving a little for those who come after you.",
+    "accentColor": "#C4692F",
+    "themeVariant": "highveld",
+    "sortOrder": 2,
+    "subscriberCount": 6800,
+    "image": {
+      "url": "/covers/publication-shona.svg",
+      "alt": "Publication mark for the Shona tales",
+      "accent": "#C4692F"
+    }
+  },
+  {
+    "slug": "yoruba",
+    "name": "Yoruba",
+    "region": "WEST_AFRICA",
+    "countries": ["NG", "BJ"],
+    "countriesLabel": "Nigeria · Benin",
+    "tagline": "Tales of wit, gods and the market square.",
+    "description": "Yoruba tales move easily from the crowded market to the edge of the spirit world, carried by a people whose storytelling is full of riddles, praise names and sudden turns. These are stories about cleverness, appetite and the bargains people make when they think no one is watching.",
+    "accentColor": "#D08A2E",
+    "themeVariant": "market-square",
+    "sortOrder": 3,
+    "subscriberCount": 15800,
+    "image": {
+      "url": "/covers/publication-yoruba.svg",
+      "alt": "Publication mark for the Yoruba tales",
+      "accent": "#D08A2E"
+    }
+  },
+  {
+    "slug": "ashanti",
+    "name": "Ashanti",
+    "region": "WEST_AFRICA",
+    "countries": ["GH"],
+    "countriesLabel": "Ghana",
+    "tagline": "The spider's stories, spun under the cocoa trees.",
+    "description": "Ashanti storytelling belongs to Anansi, the spider who talks his way into every feast and out of every trap. Around Kumasi these tales are told with a straight face and a glint in the eye, because the laughter is part of the teaching.",
+    "accentColor": "#A8502F",
+    "themeVariant": "forest-court",
+    "sortOrder": 4,
+    "subscriberCount": 9700,
+    "image": {
+      "url": "/covers/publication-ashanti.svg",
+      "alt": "Publication mark for the Ashanti tales",
+      "accent": "#A8502F"
+    }
+  },
+  {
+    "slug": "maasai",
+    "name": "Maasai",
+    "region": "EAST_AFRICA",
+    "countries": ["KE", "TZ"],
+    "countriesLabel": "Kenya · Tanzania",
+    "tagline": "Under the acacia, where the herds walk.",
+    "description": "Maasai tales are told by herders who measure the year in rain and movement, and who know that a person is only as tall as the promise they keep. In these stories the sky is close, the cattle are never far, and the acacia has seen everything.",
+    "accentColor": "#C0562E",
+    "themeVariant": "savanna",
+    "sortOrder": 5,
+    "subscriberCount": 11200,
+    "image": {
+      "url": "/covers/publication-maasai.svg",
+      "alt": "Publication mark for the Maasai tales",
+      "accent": "#C0562E"
+    }
+  },
+  {
+    "slug": "dogon",
+    "name": "Dogon",
+    "region": "WEST_AFRICA",
+    "countries": ["ML"],
+    "countriesLabel": "Mali",
+    "tagline": "Wisdom carved into the cliffs of Bandiagara.",
+    "description": "In the Dogon country of Mali, story and astronomy sit down together on the same stone. These tales carry the long memory of a cliff-dwelling people: the fox who reads the sand, the first words, and the quiet order beneath the stars.",
+    "accentColor": "#8C5A3C",
+    "themeVariant": "cliff",
+    "sortOrder": 6,
+    "subscriberCount": 3100,
+    "image": {
+      "url": "/covers/publication-dogon.svg",
+      "alt": "Publication mark for the Dogon tales",
+      "accent": "#8C5A3C"
+    }
+  },
+  {
+    "slug": "san-khoikhoi",
+    "name": "San / Khoikhoi",
+    "region": "SOUTHERN_AFRICA",
+    "countries": ["BW", "NA", "ZA"],
+    "countriesLabel": "Botswana · Namibia · South Africa",
+    "tagline": "The first stories, carried across the sand.",
+    "description": "San and Khoikhoi traditions are among the oldest storytelling voices in southern Africa, full of animals who think, trick and teach. They ask the listener to walk softly, look closely, and remember that every creature has its own way of knowing the world.",
+    "accentColor": "#B9773A",
+    "themeVariant": "kalahari",
+    "sortOrder": 7,
+    "subscriberCount": 1900,
+    "image": {
+      "url": "/covers/publication-san-khoikhoi.svg",
+      "alt": "Publication mark for the San and Khoikhoi tales",
+      "accent": "#B9773A"
+    }
+  },
+  {
+    "slug": "kuba",
+    "name": "Kuba",
+    "region": "CENTRAL_AFRICA",
+    "countries": ["CD"],
+    "countriesLabel": "Democratic Republic of the Congo",
+    "tagline": "Court tales from the forest kingdom.",
+    "description": "The Kuba kingdom grew its stories the way it grew its cloth: patiently, in patterns, with a proud sense of occasion. These court tales speak of drums that call a people together, clever decisions and the beauty of an answer given at the right moment.",
+    "accentColor": "#9C4A2E",
+    "themeVariant": "court",
+    "sortOrder": 8,
+    "subscriberCount": 4400,
+    "image": {
+      "url": "/covers/publication-kuba.svg",
+      "alt": "Publication mark for the Kuba tales",
+      "accent": "#9C4A2E"
+    }
+  },
+  {
+    "slug": "tonga",
+    "name": "Tonga",
+    "region": "SOUTHERN_AFRICA",
+    "countries": ["ZM", "ZW"],
+    "countriesLabel": "Zambia · Zimbabwe",
+    "tagline": "The river keeps every name it is given.",
+    "description": "Along the Zambezi, the Tonga tell stories shaped by water: floods that arrive on time, canoes that know the current, and baobabs that have watched the river change its mind. These are tales of patience, neighbours and the long memory of the land.",
+    "accentColor": "#A9682F",
+    "themeVariant": "river",
+    "sortOrder": 9,
+    "subscriberCount": 1400,
+    "image": {
+      "url": "/covers/publication-tonga.svg",
+      "alt": "Publication mark for the Tonga tales",
+      "accent": "#A9682F"
+    }
+  },
+  {
+    "slug": "igbo",
+    "name": "Igbo",
+    "region": "WEST_AFRICA",
+    "countries": ["NG"],
+    "countriesLabel": "Nigeria",
+    "tagline": "The forest keeps its own memory.",
+    "description": "Igbo tales are told in the company of the forest, the market and the spirits who share both with the living. They are full of tortoises who talk too much, wisdom held in small creatures, and the belief that a story explained too neatly has not really been understood.",
+    "accentColor": "#7C4A2E",
+    "themeVariant": "forest",
+    "sortOrder": 10,
+    "subscriberCount": 13900,
+    "image": {
+      "url": "/covers/publication-igbo.svg",
+      "alt": "Publication mark for the Igbo tales",
+      "accent": "#7C4A2E"
+    }
+  },
+  {
+    "slug": "xhosa",
+    "name": "Xhosa",
+    "region": "SOUTHERN_AFRICA",
+    "countries": ["ZA"],
+    "countriesLabel": "South Africa",
+    "tagline": "Tales from the Amatola hills.",
+    "description": "Xhosa storytellers love Hlakanyana, the small trickster whose cleverness is always a little too large for his body. These tales come from the rolling hills and river valleys of the Eastern Cape, where a lesson is often delivered with a laugh rather than a raised voice.",
+    "accentColor": "#A34F31",
+    "themeVariant": "hills",
+    "sortOrder": 11,
+    "subscriberCount": 8100,
+    "image": {
+      "url": "/covers/publication-xhosa.svg",
+      "alt": "Publication mark for the Xhosa tales",
+      "accent": "#A34F31"
+    }
+  },
+  {
+    "slug": "mandinka",
+    "name": "Mandinka",
+    "region": "WEST_AFRICA",
+    "countries": ["GM", "ML", "SN", "GW"],
+    "countriesLabel": "The Gambia · Mali · Senegal · Guinea-Bissau",
+    "tagline": "Griot country, where the kora speaks first.",
+    "description": "Mandinka griots have carried history in song for generations, keeping the names of kings and the deeds of ancestors in the strings of the kora. Their tales of the hare and the hyena are lighter, but they are built on the same craft: memory made to be passed on.",
+    "accentColor": "#B8742C",
+    "themeVariant": "river-grass",
+    "sortOrder": 12,
+    "subscriberCount": 2700,
+    "image": {
+      "url": "/covers/publication-mandinka.svg",
+      "alt": "Publication mark for the Mandinka tales",
+      "accent": "#B8742C"
+    }
+  },
+  {
+    "slug": "kikuyu",
+    "name": "Kikuyu",
+    "region": "EAST_AFRICA",
+    "countries": ["KE"],
+    "countriesLabel": "Kenya",
+    "tagline": "The sacred fig, the mountain, and the first people.",
+    "description": "Kikuyu tradition begins with Ngai on the mountain and a fig tree that must never be cut. These are tales of creation, land and belonging, told by a people whose names for the world are tied closely to the soil beneath them.",
+    "accentColor": "#BF6A2F",
+    "themeVariant": "highland",
+    "sortOrder": 13,
+    "subscriberCount": 6700,
+    "image": {
+      "url": "/covers/publication-kikuyu.svg",
+      "alt": "Publication mark for the Kikuyu tales",
+      "accent": "#BF6A2F"
+    }
+  },
+  {
+    "slug": "amhara",
+    "name": "Amhara",
+    "region": "EAST_AFRICA",
+    "countries": ["ET"],
+    "countriesLabel": "Ethiopia",
+    "tagline": "Old highland wit, told with a judge's patience.",
+    "description": "From the Ethiopian highlands come tales that enjoy a good argument and a better judgment, where the clever answer matters more than the loud one. Amhara storytelling is old, layered and often very funny about human pride.",
+    "accentColor": "#8E4B2A",
+    "themeVariant": "highland-court",
+    "sortOrder": 14,
+    "subscriberCount": 5200,
+    "image": {
+      "url": "/covers/publication-amhara.svg",
+      "alt": "Publication mark for the Amhara tales",
+      "accent": "#8E4B2A"
+    }
+  },
+  {
+    "slug": "oromo",
+    "name": "Oromo",
+    "region": "EAST_AFRICA",
+    "countries": ["ET", "KE"],
+    "countriesLabel": "Ethiopia · Kenya",
+    "tagline": "Under Waaqa's wide sky.",
+    "description": "Oromo storytelling looks up: to Waaqa, the sky, to the rain that decides the year and to the first people who learned how to ask for it. These tales carry pastoral wisdom about patience, gratitude and living within the weather you are given.",
+    "accentColor": "#A85E2C",
+    "themeVariant": "plateau",
+    "sortOrder": 15,
+    "subscriberCount": 5900,
+    "image": {
+      "url": "/covers/publication-oromo.svg",
+      "alt": "Publication mark for the Oromo tales",
+      "accent": "#A85E2C"
+    }
+  },
+  {
+    "slug": "hausa",
+    "name": "Hausa",
+    "region": "WEST_AFRICA",
+    "countries": ["NG", "NE"],
+    "countriesLabel": "Nigeria · Niger",
+    "tagline": "Caravan tales from the edge of the Sahel.",
+    "description": "Hausa stories have travelled with caravans across the Sahel, shaped by long roads, market towns and the discipline of sharing water. They are tales of trade, patience and the honest answer that is worth more than a clever one.",
+    "accentColor": "#B1813A",
+    "themeVariant": "sahel",
+    "sortOrder": 16,
+    "subscriberCount": 10200,
+    "image": {
+      "url": "/covers/publication-hausa.svg",
+      "alt": "Publication mark for the Hausa tales",
+      "accent": "#B1813A"
+    }
+  }
+]

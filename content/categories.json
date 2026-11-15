@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "animal",
+    "name": "Animal tales",
+    "badge": "ANIMAL TALE",
+    "sortOrder": 1
+  },
+  {
+    "slug": "trickster",
+    "name": "Trickster tales",
+    "badge": "TRICKSTER TALE",
+    "sortOrder": 2
+  },
+  {
+    "slug": "wisdom",
+    "name": "Wisdom tales",
+    "badge": "WISDOM TALE",
+    "sortOrder": 3
+  },
+  {
+    "slug": "folklore",
+    "name": "Folklore",
+    "badge": "FOLKLORE",
+    "sortOrder": 4
+  },
+  {
+    "slug": "creation",
+    "name": "Creation myths",
+    "badge": "CREATION MYTH",
+    "sortOrder": 5
+  }
+]

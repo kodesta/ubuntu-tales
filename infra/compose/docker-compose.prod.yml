@@ -1,0 +1,99 @@
+name: ubuntu-tales-prod
+
+# Production-shaped stack (production plan 07 §3). Secrets come from the environment at deploy
+# time; this file is never run with development defaults.
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-ubuntu_tales}
+    volumes:
+      - ut-pgdata:/var/lib/postgresql/data
+      - ../postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB:-ubuntu_tales}']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    image: ${API_IMAGE}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      API_HOST: 0.0.0.0
+      API_PORT: 4100
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      WEB_ORIGIN: ${WEB_ORIGIN}
+      COOKIE_SECURE: 'true'
+      EMAIL_LOG_ONLY: 'false'
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_FROM: ${SMTP_FROM}
+      MEDIA_ROOT: /data/media
+    volumes:
+      - ut-media:/data/media:rw
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:4100/api/v1/health/live').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web:
+    image: ${WEB_IMAGE}
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+  edge:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - api
+      - web
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      DOMAIN: ${DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+      API_UPSTREAM: api:4100
+      WEB_ROOT: /srv
+    volumes:
+      - ../caddy:/etc/caddy:ro
+      - ut-caddy-data:/data
+      - ut-caddy-config:/config
+      - ut-web:/srv:ro
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:80/']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  ut-pgdata:
+  ut-media:
+  ut-caddy-data:
+  ut-caddy-config:
+  ut-web:

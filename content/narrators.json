@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "thandiwe-nkosi",
+    "name": "Thandiwe Nkosi",
+    "roleLabel": "Griot · the Eastern Grasslands",
+    "bio": "Thandiwe grew up between the foothills of the uKhahlamba mountains and the green sugar fields, where her grandmother traded riddles for chores. She tells the old Zulu tales the way they were told to her: slowly, with the listener leaning in.",
+    "accentColor": "#B4472C"
+  },
+  {
+    "slug": "naledi-molefe",
+    "name": "Naledi Molefe",
+    "roleLabel": "Griot · the Kalahari",
+    "bio": "Naledi learned the stories of the San and Khoikhoi from her great-uncle, who read the dunes the way other people read a page. She carries the old animal tales and the long silences that belong with them.",
+    "accentColor": "#B9773A"
+  },
+  {
+    "slug": "adewale-okunola",
+    "name": "Adewale Okunola",
+    "roleLabel": "Griot · the Bight of Benin",
+    "bio": "Adewale keeps the market-square tales of Lagos and Ibadan, where every bargain hides a riddle and every riddle hides a lesson. He tells them the way a trader tells a price: plainly, and with a smile you should not quite trust.",
+    "accentColor": "#D08A2E"
+  },
+  {
+    "slug": "kofi-mensah",
+    "name": "Kofi Mensah",
+    "roleLabel": "Griot · the Forest Roads",
+    "bio": "Kofi follows the old forest roads from Kumasi down towards the Congo Basin, collecting the spider stories and drum names that travel with traders. He believes a good tale should leave the listener hungry for the next one.",
+    "accentColor": "#A8502F"
+  },
+  {
+    "slug": "amina-diallo",
+    "name": "Amina Diallo",
+    "roleLabel": "Griot · the Sahel",
+    "bio": "Amina was raised at the edge of the Sahel, where her father's caravan told stories to keep the long nights at a distance. She knows the tales of the hare and the hyena, and the quiet wisdom that outlasts a drought.",
+    "accentColor": "#B8742C"
+  },
+  {
+    "slug": "naserian-leltika",
+    "name": "Naserian Leltika",
+    "roleLabel": "Griot · the Rift Valley",
+    "bio": "Naserian comes from a family of herders who measure the year in rain and movement. She learned to tell stories while walking the cattle home, when the light goes gold and the listeners have nowhere else to be.",
+    "accentColor": "#C0562E"
+  },
+  {
+    "slug": "tsegaye-alemu",
+    "name": "Tsegaye Alemu",
+    "roleLabel": "Griot · the Ethiopian Highlands",
+    "bio": "Tsegaye grew up in the highlands, where an old tale is often a court case in disguise. He tells the Amhara stories with a judge's patience and a farmer's humour, and he never gives away the ending before its time.",
+    "accentColor": "#8E4B2A"
+  }
+]

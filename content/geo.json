@@ -1,0 +1,20 @@
+{
+  "_comment": "Approximate locations of each publication's homeland for the /explore map. Coordinates are the cultural centre of the people, not a border claim.",
+  "zulu": { "lat": -28.5, "lng": 31.5, "place": "KwaZulu-Natal, South Africa" },
+  "shona": { "lat": -19.0, "lng": 30.5, "place": "Zimbabwe plateau" },
+  "yoruba": { "lat": 7.8, "lng": 4.5, "place": "Ifẹ̀ and the south-west, Nigeria" },
+  "ashanti": { "lat": 6.7, "lng": -1.6, "place": "Kumasi, Ghana" },
+  "maasai": { "lat": -2.5, "lng": 36.8, "place": "Kajiado and the Rift, Kenya" },
+  "dogon": { "lat": 14.4, "lng": -3.4, "place": "Bandiagara escarpment, Mali" },
+  "san-khoikhoi": { "lat": -22.5, "lng": 19.5, "place": "Kalahari, Botswana and Namibia" },
+  "kuba": { "lat": -4.3, "lng": 21.5, "place": "Kasai, Democratic Republic of the Congo" },
+  "tonga": { "lat": -17.6, "lng": 27.2, "place": "Southern Zambia and Zimbabwe" },
+  "igbo": { "lat": 6.2, "lng": 7.0, "place": "Enugu and the south-east, Nigeria" },
+  "xhosa": { "lat": -32.6, "lng": 26.8, "place": "Eastern Cape, South Africa" },
+  "mandinka": { "lat": 13.4, "lng": -15.5, "place": "The Gambia and the Senegambia" },
+  "kikuyu": { "lat": -0.4, "lng": 36.9, "place": "Nyeri and the central highlands, Kenya" },
+  "amhara": { "lat": 12.0, "lng": 39.0, "place": "Gondar and the highlands, Ethiopia" },
+  "oromo": { "lat": 8.5, "lng": 39.5, "place": "Oromia, Ethiopia" },
+  "hausa": { "lat": 12.0, "lng": 8.5, "place": "Kano and the sahel, Nigeria" },
+  "swahili": { "lat": -6.5, "lng": 39.0, "place": "The Swahili coast, Tanzania and Kenya" }
+}

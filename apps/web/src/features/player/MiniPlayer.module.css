@@ -1,0 +1,101 @@
+.player {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--bottom-nav-height);
+  z-index: 40;
+  background: var(--paper-raised);
+  border-top: var(--hairline);
+  box-shadow: var(--shadow-pop);
+}
+
+.progressTrack {
+  height: 2px;
+  background: var(--line);
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--accent, var(--terracotta));
+  transition: width var(--transition-fast);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-2) var(--page-gutter);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cover,
+.coverFallback {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+  background: var(--paper-sunk);
+  flex: 0 0 auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.byline {
+  font-size: var(--text-micro);
+  color: var(--muted);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 0 0 auto;
+}
+
+.playButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: var(--terracotta);
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.playButton:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+@media (min-width: 900px) {
+  .player {
+    bottom: 0;
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "slug": "the-first-drum",
+  "title": "The First Drum",
+  "summary": "A young carver hears a hollow tree humming in the forest and makes the first drum, a voice that can call a whole people home.",
+  "moral": "A hollow thing can still carry a great voice.",
+  "tribeSlug": "kuba",
+  "categorySlug": "folklore",
+  "narratorSlug": "kofi-mensah",
+  "regionLabel": "CENTRAL AFRICA",
+  "attribution": "A traditional Kuba tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/the-first-drum.svg",
+    "alt": "A tall drum with geometric Kuba cloth patterns beside a forest of upright trees",
+    "accent": "#9C4A2E",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-10-02T07:15:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.47,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "In the forest kingdom of the Kuba, the people say there was a time when a message took a whole day to travel from the river to the court."
+          },
+          {
+            "id": "s_0002",
+            "text": "The king could give an order at sunrise and wait for its answer until the light had gone from the sky."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "A young carver named Mbangwa was looking for good wood when he heard a sound in the forest: a low note, almost like a voice, humming in a hollow tree."
+          },
+          {
+            "id": "s_0004",
+            "text": "He put his ear against the trunk."
+          },
+          {
+            "id": "s_0005",
+            "text": "The tree was full of bees, and the wind was passing over the opening, and the tree was singing."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0006",
+            "text": "Mbangwa did not cut the tree down that day."
+          },
+          {
+            "id": "s_0007",
+            "text": "He went home and thought about the sound for two months."
+          },
+          {
+            "id": "s_0008",
+            "text": "Then he came back with a fierce little fire, and he burned the heart of the wood out slowly, and he stretched an antelope hide across the top of the hollow trunk while the wood was still warm."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0009",
+            "text": "When he struck it, the whole forest answered."
+          },
+          {
+            "id": "s_0010",
+            "text": "The birds went up."
+          },
+          {
+            "id": "s_0011",
+            "text": "The bees came out."
+          },
+          {
+            "id": "s_0012",
+            "text": "Monkeys ran through the branches for half a day."
+          },
+          {
+            "id": "s_0013",
+            "text": "Mbangwa struck it again, and heard a note that could be heard across the river."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0014",
+            "text": "He carried the drum to the court and laid it before the king."
+          },
+          {
+            "id": "s_0015",
+            "text": "The king was cautious."
+          },
+          {
+            "id": "s_0016",
+            "text": "“A drum that can be heard across the river can also be heard by enemies,” he said."
+          },
+          {
+            "id": "s_0017",
+            "text": "“What will you do about that?”"
+          },
+          {
+            "id": "s_0018",
+            "text": "Mbangwa had already thought of it."
+          },
+          {
+            "id": "s_0019",
+            "text": "He showed the king two patterns of striking: one that announced guests, and one that announced danger."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0020",
+            "text": "The Kuba learned to speak with the drum, and the drum began to carry names, news, and the memory of who had come before."
+          },
+          {
+            "id": "s_0021",
+            "text": "The old people say that a drum is never only a drum."
+          },
+          {
+            "id": "s_0022",
+            "text": "It is a tree that learned to speak, and a people that learned to listen."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,44 +1,47 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# dependencies
+node_modules/
+.pnpm-store/
 
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+# builds
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+packages/*/dist/
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+# env & secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
 
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# test / tooling output
+coverage/
+playwright-report/
+test-results/
+.vitest/
+eslint-report.json
 
-# Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/mcp.json
-.history/*
+# generated
+packages/api-client/openapi.json
+apps/web/src/routeTree.gen.ts
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
-
-# System files
+# logs & os
+*.log
 .DS_Store
-Thumbs.db
+
+# playwright browsers
+.playwright-browsers/
+
+# tanstack router plugin temp
+.tanstack/
+
+# local tooling and generated media
+.tools/
+var/
+
+# deployment secrets
+deploy/.env.production
+deploy/admin-credentials.txt
+deploy/*.local

@@ -1,0 +1,25 @@
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28em;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+.diamond {
+  color: var(--terracotta);
+  font-size: 0.52em;
+  line-height: 1;
+  transform: translateY(-0.32em);
+}
+
+.md {
+  font-size: 1.25rem;
+}
+
+.sm {
+  font-size: 1rem;
+}

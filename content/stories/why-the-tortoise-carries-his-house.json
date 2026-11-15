@@ -1,0 +1,152 @@
+{
+  "slug": "why-the-tortoise-carries-his-house",
+  "title": "Why the Tortoise Carries His House",
+  "summary": "When the animals are invited to a feast, the tortoise cannot bear to leave his fine new house behind — so he makes a bargain he cannot undo.",
+  "moral": "The home you cannot set down is the home that sets down your feet.",
+  "tribeSlug": "igbo",
+  "categorySlug": "animal",
+  "narratorSlug": "adewale-okunola",
+  "regionLabel": "WEST AFRICA",
+  "attribution": "A traditional Igbo tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/why-the-tortoise-carries-his-house.svg",
+    "alt": "A tortoise whose patterned shell forms a small round house among tall forest trees",
+    "accent": "#7C4A2E",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-09-22T06:45:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.67,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "In those days the tortoise Mbe had a beautiful house with a smooth clay floor and a door that faced the morning."
+          },
+          {
+            "id": "s_0002",
+            "text": "He had built it himself, slowly, and he was very proud of it."
+          },
+          {
+            "id": "s_0003",
+            "text": "He was also invited, that season, to a great feast in the market of the next village."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0004",
+            "text": "Mbe wanted the animals to see him, but he did not want to leave his house where someone might sleep on the floor or lean against the door."
+          },
+          {
+            "id": "s_0005",
+            "text": "He worried about it all the way to the market."
+          },
+          {
+            "id": "s_0006",
+            "text": "He worried so much that he could not enjoy the food, which was unusual for Mbe."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0007",
+            "text": "A stranger beside him at the feast watched him looking back at the road."
+          },
+          {
+            "id": "s_0008",
+            "text": "“You have a fine house,” the stranger said."
+          },
+          {
+            "id": "s_0009",
+            "text": "“And the road is long."
+          },
+          {
+            "id": "s_0010",
+            "text": "Why not bring it with you?”"
+          },
+          {
+            "id": "s_0011",
+            "text": "It was a joke."
+          },
+          {
+            "id": "s_0012",
+            "text": "Mbe did not hear it as one."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0013",
+            "text": "He called his friends together and told them his plan."
+          },
+          {
+            "id": "s_0014",
+            "text": "He would fold the house around himself like a cape and travel with it."
+          },
+          {
+            "id": "s_0015",
+            "text": "The animals laughed, and Mbe took their laughter as encouragement, which was his first mistake."
+          },
+          {
+            "id": "s_0016",
+            "text": "The second was asking the strongest of them to help him fold the walls."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0017",
+            "text": "They folded the house, and it became a shell; and when Mbe stood inside it, it closed over him and left a place only for his head and his four feet."
+          },
+          {
+            "id": "s_0018",
+            "text": "He could walk."
+          },
+          {
+            "id": "s_0019",
+            "text": "He could eat what he found."
+          },
+          {
+            "id": "s_0020",
+            "text": "He could not climb a hill quickly, or turn round easily, or set the house down unless he first found a soft place and a friend to help him."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0021",
+            "text": "The animals laughed again, but they stopped laughing when they saw that Mbe had gone on walking, year after year, with his house on his back."
+          },
+          {
+            "id": "s_0022",
+            "text": "That is why the tortoise is slow."
+          },
+          {
+            "id": "s_0023",
+            "text": "He is not lazy."
+          },
+          {
+            "id": "s_0024",
+            "text": "He is simply carrying more than the others, and he has never found a good place to put it down."
+          }
+        ]
+      }
+    ]
+  }
+}

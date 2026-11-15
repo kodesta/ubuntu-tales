@@ -1,0 +1,172 @@
+.shell {
+  border-block: 1px solid var(--line);
+  background: var(--paper-sunk);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  padding-block: var(--space-4);
+  text-align: center;
+}
+
+.eyebrow {
+  color: var(--terracotta);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 20ch;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: var(--text-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.lede {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--ink-soft);
+  font-family: var(--font-serif);
+  font-size: var(--text-dek);
+  font-style: italic;
+}
+
+.accentDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+}
+
+.sectionLabel {
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.reactionSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.readersLine {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+.statsLine {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+}
+
+/* ---------- wisdom ---------- */
+.wisdom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  padding-block: var(--space-5);
+  border-block: 1px solid var(--line);
+  width: 100%;
+}
+
+.wisdomQuote {
+  max-width: 26ch;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: var(--text-h1);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.wisdomSource {
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+}
+
+/* ---------- actions ---------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+/* ---------- recommendations ---------- */
+.recommendations {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+  margin-top: var(--space-4);
+  text-align: left;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+.moreLink {
+  color: var(--terracotta);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 500;
+}
+
+.moreLink:hover {
+  color: var(--terracotta-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .page {
+    gap: var(--space-7);
+    padding-block: var(--space-6);
+  }
+}

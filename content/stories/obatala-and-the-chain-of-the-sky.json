@@ -1,0 +1,128 @@
+{
+  "slug": "obatala-and-the-chain-of-the-sky",
+  "title": "Obatala and the Chain of the Sky",
+  "summary": "Obatala climbs down the golden chain with a calabash of sand and a rooster, and the first dry land rises out of the water.",
+  "moral": "The world is made by those who climb down and begin.",
+  "tribeSlug": "yoruba",
+  "categorySlug": "creation",
+  "narratorSlug": "adewale-okunola",
+  "regionLabel": "WEST AFRICA",
+  "attribution": "A traditional Yoruba tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/obatala-and-the-chain-of-the-sky.svg",
+    "alt": "A golden chain hanging from the sky to a mound of earth, with a calabash and a white rooster beside it",
+    "accent": "#D08A2E",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-11-04T06:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.64,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "In the beginning, the world was water and the sky was above it, and Olodumare, the owner of the sky, looked down and saw that below there was no place to stand."
+          },
+          {
+            "id": "s_0002",
+            "text": "He called Obatala, who was thoughtful and careful, and told him to go and make land."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "Obatala was given a golden chain, a calabash holding a handful of sand, and a white rooster with a strong voice."
+          },
+          {
+            "id": "s_0004",
+            "text": "The chain was lowered and lowered until it hung across the empty water, and Obatala climbed down with the calabash on his shoulder and the rooster under his arm."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0005",
+            "text": "When he reached the end of the chain, he poured the sand onto the water."
+          },
+          {
+            "id": "s_0006",
+            "text": "The rooster scratched at it and spread it with its feet."
+          },
+          {
+            "id": "s_0007",
+            "text": "The sand grew."
+          },
+          {
+            "id": "s_0008",
+            "text": "It spread out in every direction, and places appeared where a person could stand: a hill, a plain, the muddy beginning of a shore."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0009",
+            "text": "Obatala climbed back up the chain for more sand, but he had already travelled far."
+          },
+          {
+            "id": "s_0010",
+            "text": "Some say he grew tired."
+          },
+          {
+            "id": "s_0011",
+            "text": "Some say he stopped at a place where palm wine was waiting, and that this is why the land is not perfectly flat."
+          },
+          {
+            "id": "s_0012",
+            "text": "However it happened, the making of the world was slowed, and Obatala’s helpers took up the work."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0013",
+            "text": "Still, the land was made."
+          },
+          {
+            "id": "s_0014",
+            "text": "The chain was left hanging between sky and earth, and the first people came down it, one after another, finding their footing on the world Obatala had begun."
+          },
+          {
+            "id": "s_0015",
+            "text": "They learned to plant, to build, and to greet the morning."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0016",
+            "text": "The old ones say the chain is still there, though no eye has ever seen it since."
+          },
+          {
+            "id": "s_0017",
+            "text": "They say every person who begins something difficult is climbing it."
+          },
+          {
+            "id": "s_0018",
+            "text": "Land is made by those who climb down and begin, not by those who stand at the top and argue about the water."
+          }
+        ]
+      }
+    ]
+  }
+}

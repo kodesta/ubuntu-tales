@@ -1,0 +1,112 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+}
+
+.heading {
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.followList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.followLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+}
+
+.followLink:hover .followName {
+  color: var(--terracotta-dark);
+}
+
+.followName {
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  color: var(--ink-soft);
+}
+
+.prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.promptText {
+  color: var(--muted);
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-sunk);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.aboutTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.aboutBody {
+  color: var(--ink-soft);
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  line-height: 1.55;
+}
+
+.aboutLink {
+  margin-top: var(--space-1);
+  color: var(--terracotta);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 500;
+}
+
+.aboutLink:hover {
+  color: var(--terracotta-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}

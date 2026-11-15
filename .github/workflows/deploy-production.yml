@@ -1,0 +1,80 @@
+name: Deploy production
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push API
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: infra/docker/Dockerfile.api
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}-api:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}-api:latest
+          provenance: true
+          sbom: true
+
+      - name: Build and push web
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: infra/docker/Dockerfile.web
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}-web:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}-web:latest
+          provenance: true
+          sbom: true
+
+      - name: Sign images (cosign keyless)
+        run: |
+          if command -v cosign >/dev/null; then
+            cosign sign --yes ghcr.io/${{ github.repository }}-api:${GITHUB_REF_NAME}
+            cosign sign --yes ghcr.io/${{ github.repository }}-web:${GITHUB_REF_NAME}
+          else
+            echo "Install sigstore/cosign-installer to sign images before public launch."
+          fi
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trivy scan (block on CRITICAL)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ghcr.io/${{ github.repository }}-api:${{ github.ref_name }}
+          exit-code: '1'
+          severity: 'CRITICAL'
+          ignore-unfixed: true
+      - name: Deploy (manual approval gate)
+        run: |
+          echo "Production deploy requires the 'production' environment approval."
+          echo "Follow docs/runbooks/deploy.md: backup → migrate → canary/roll → smoke → observe."
+      - name: Rollback on failure
+        if: failure()
+        run: echo "Follow docs/runbooks/rollback.md immediately."

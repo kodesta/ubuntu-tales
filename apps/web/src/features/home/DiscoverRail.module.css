@@ -1,0 +1,29 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.rail {
+  display: flex;
+  gap: var(--space-4);
+  width: 100%;
+  padding-bottom: var(--space-3);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.rail > * {
+  scroll-snap-align: start;
+}
+
+@media (max-width: 640px) {
+  .rail {
+    margin-right: calc(var(--page-gutter) * -1);
+    padding-right: var(--page-gutter);
+  }
+}

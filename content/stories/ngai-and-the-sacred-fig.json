@@ -1,0 +1,124 @@
+{
+  "slug": "ngai-and-the-sacred-fig",
+  "title": "Ngai and the Sacred Fig",
+  "summary": "Ngai shows the first man and woman a fig tree on the mountain, and gives them the land on one condition: that the tree be left standing.",
+  "moral": "The land is borrowed from those who come after us.",
+  "tribeSlug": "kikuyu",
+  "categorySlug": "creation",
+  "narratorSlug": "naserian-leltika",
+  "regionLabel": "EAST AFRICA",
+  "attribution": "A traditional Kikuyu tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/ngai-and-the-sacred-fig.svg",
+    "alt": "A great fig tree in front of a snow-capped mountain with rays of morning light",
+    "accent": "#BF6A2F",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-09-08T06:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.74,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "The Kikuyu say that Ngai, who is above, looked down one morning and saw that Mount Kirinyaga was the finest place on earth."
+          },
+          {
+            "id": "s_0002",
+            "text": "He made his home on the mountain, and from its slopes he looked out over the highlands."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "To the first man, Gikuyu, Ngai gave a wife, Mumbi, and showed them a wide and beautiful country: the forests, the rivers, the rich black soil, the places where the mist gathers."
+          },
+          {
+            "id": "s_0004",
+            "text": "“This is yours to care for,” he said."
+          },
+          {
+            "id": "s_0005",
+            "text": "“Go and make your home.”"
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0006",
+            "text": "Gikuyu and Mumbi went down the mountain and found the land full of game and wild fruit."
+          },
+          {
+            "id": "s_0007",
+            "text": "In the middle of it stood a great fig tree, taller than any other, with a spread of shade so wide that a whole herd could rest beneath it."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0008",
+            "text": "“Why is this one tree left standing?”"
+          },
+          {
+            "id": "s_0009",
+            "text": "Gikuyu asked."
+          },
+          {
+            "id": "s_0010",
+            "text": "Ngai’s answer came through the birds and the wind: “That tree is mine."
+          },
+          {
+            "id": "s_0011",
+            "text": "It is where I may be greeted."
+          },
+          {
+            "id": "s_0012",
+            "text": "Do not cut it, and do not burn it, and your children’s children will always have a place to speak with me.”"
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0013",
+            "text": "So the fig tree was left."
+          },
+          {
+            "id": "s_0014",
+            "text": "The people cleared the brush around it, and built their homesteads nearby, and the tree became the place where elders gathered to settle matters and where travellers stopped to greet the mountain before going on their way."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0015",
+            "text": "The old people say that a land is not owned; it is held in trust."
+          },
+          {
+            "id": "s_0016",
+            "text": "The fig tree is the sign of that trust, and so is the mountain under which every Kikuyu family’s story begins."
+          },
+          {
+            "id": "s_0017",
+            "text": "The land is borrowed from those who come after us, and the tree is the receipt."
+          }
+        ]
+      }
+    ]
+  }
+}

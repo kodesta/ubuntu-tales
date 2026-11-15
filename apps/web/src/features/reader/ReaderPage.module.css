@@ -1,0 +1,193 @@
+.page {
+  min-height: 100dvh;
+  padding-bottom: var(--space-8);
+}
+
+.article {
+  width: 100%;
+  max-width: calc(var(--reader-width) + var(--page-gutter) * 2);
+  margin-inline: auto;
+  padding: var(--space-6) var(--page-gutter) var(--space-9);
+}
+
+/* ---------- article header ---------- */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.accentDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+}
+
+.publicationLink {
+  color: var(--ink-soft);
+}
+
+.publicationLink:hover {
+  color: var(--terracotta);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.separator {
+  color: var(--faint);
+}
+
+.title {
+  /* Long titles must wrap — never truncate a tale title in the reader (design doc §5). */
+  overflow-wrap: break-word;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: var(--text-post-title);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.dek {
+  max-width: 44ch;
+  color: var(--ink-soft);
+  font-family: var(--font-serif);
+  font-size: var(--text-dek);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-block: 1px solid var(--line);
+}
+
+.bylineIdentity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.bylineText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.bylineName {
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.bylineRole {
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  line-height: 1.3;
+}
+
+.bylineMeta {
+  margin-left: auto;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+}
+
+/* ---------- cover ---------- */
+.coverFigure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+}
+
+.coverCaption {
+  padding-left: var(--space-1);
+  color: var(--faint);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- body ---------- */
+.body {
+  margin-top: var(--space-5);
+}
+
+/* ---------- skeleton ---------- */
+.skeletonPage {
+  min-height: 100dvh;
+}
+
+.skeletonBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: calc(var(--reader-width) + var(--page-gutter) * 2);
+  min-height: var(--header-height);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.skeletonBarLine {
+  width: 140px;
+}
+
+.skeletonArticle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: var(--reader-width);
+  margin-inline: auto;
+  padding: var(--space-6) var(--page-gutter) var(--space-8);
+}
+
+@media (min-width: 900px) {
+  .article {
+    padding-top: var(--space-7);
+  }
+}
+
+.listenBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-5) 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--paper-sunk);
+  border-left: 3px solid var(--accent, var(--terracotta));
+  border-radius: var(--radius-xs);
+}
+
+.listenHint {
+  font-size: var(--text-meta);
+  color: var(--muted);
+}

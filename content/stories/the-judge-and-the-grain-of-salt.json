@@ -1,0 +1,148 @@
+{
+  "slug": "the-judge-and-the-grain-of-salt",
+  "title": "The Judge and the Grain of Salt",
+  "summary": "Two traders claim the same sack of salt, and a highland judge settles the matter with nothing but a cup of clean water.",
+  "moral": "Truth dissolves slowly, but it always leaves a taste.",
+  "tribeSlug": "amhara",
+  "categorySlug": "wisdom",
+  "narratorSlug": "tsegaye-alemu",
+  "regionLabel": "EAST AFRICA",
+  "attribution": "A traditional Amhara tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/the-judge-and-the-grain-of-salt.svg",
+    "alt": "Salt blocks and a shallow cup on a highland terrace beneath a wide sun and layered ridges",
+    "accent": "#8E4B2A",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-09-03T06:30:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.4,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "Two traders came before the judge of the district, each leading a donkey, each claiming the same sack of salt."
+          },
+          {
+            "id": "s_0002",
+            "text": "“I bought it at the market,” said the first."
+          },
+          {
+            "id": "s_0003",
+            "text": "“He stole it from my load while I slept,” said the second."
+          },
+          {
+            "id": "s_0004",
+            "text": "“I bought it,” said the first again, louder."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0005",
+            "text": "The judge was old and had heard a great many loud men."
+          },
+          {
+            "id": "s_0006",
+            "text": "He asked each of them the same questions: where they had bought the salt, what they had paid, which road they had taken."
+          },
+          {
+            "id": "s_0007",
+            "text": "Their answers were almost alike."
+          },
+          {
+            "id": "s_0008",
+            "text": "The first, however, was a man who could not stop describing his own cleverness, and the second was a man who said very little."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0009",
+            "text": "The judge ordered the sack untied and a handful of salt taken from the top."
+          },
+          {
+            "id": "s_0010",
+            "text": "He called for a cup of clean water and dropped the salt into it."
+          },
+          {
+            "id": "s_0011",
+            "text": "Then he asked each trader to bring his own small stock of salt, the salt he sold every day."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0012",
+            "text": "The first trader brought a fine white salt, coarse as the judge’s thumb."
+          },
+          {
+            "id": "s_0013",
+            "text": "The second brought a greyer salt, ground finer, with a smell of the road about it."
+          },
+          {
+            "id": "s_0014",
+            "text": "The judge dissolved a pinch of each in two more cups, and set all three cups on the table in the sun."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0015",
+            "text": "“Now,” he said, “speak the truth."
+          },
+          {
+            "id": "s_0016",
+            "text": "One of these cups will taste like the load."
+          },
+          {
+            "id": "s_0017",
+            "text": "The one whose salt matches the sack is the one who has been carrying it.”"
+          },
+          {
+            "id": "s_0018",
+            "text": "The first trader looked at the cups and grew quiet."
+          },
+          {
+            "id": "s_0019",
+            "text": "The second drank his cup slowly, and the judge saw him smile."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0020",
+            "text": "The salt had settled the matter."
+          },
+          {
+            "id": "s_0021",
+            "text": "The first trader paid a fine and went home ashamed, and the second went on his way with his load."
+          },
+          {
+            "id": "s_0022",
+            "text": "The old people say the judge never raised his voice."
+          },
+          {
+            "id": "s_0023",
+            "text": "He only gave the truth a little water, and it spoke for itself."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "slug": "the-grain-left-standing",
+  "title": "The Grain Left Standing",
+  "summary": "A farmer leaves a corner of his field unharvested, and his mocking neighbour learns what the birds and the dry season know.",
+  "moral": "Leave something for the ground, the birds and the neighbour who comes after you.",
+  "tribeSlug": "shona",
+  "categorySlug": "wisdom",
+  "narratorSlug": "thandiwe-nkosi",
+  "regionLabel": "SOUTHERN AFRICA",
+  "attribution": "A traditional Shona tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/the-grain-left-standing.svg",
+    "alt": "Rows of golden grain holding their heads high beside a low thatched granary",
+    "accent": "#C4692F",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-10-24T06:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.58,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "Tafara had the best field on the highveld: rich red soil, and rain that seemed to find it first."
+          },
+          {
+            "id": "s_0002",
+            "text": "Each harvest, when the other farmers stripped their fields to the last stalk, Tafara walked along the edge of his and left a broad strip of grain standing."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "His neighbour, Chikomo, laughed at him."
+          },
+          {
+            "id": "s_0004",
+            "text": "“Are your eyes tired of looking at your own harvest, that you cannot be bothered to finish it?”"
+          },
+          {
+            "id": "s_0005",
+            "text": "he called across the boundary."
+          },
+          {
+            "id": "s_0006",
+            "text": "“Next year you will have nothing left to eat, and your birds will remember you fondly.”"
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0007",
+            "text": "Tafara answered politely and kept on leaving the strip."
+          },
+          {
+            "id": "s_0008",
+            "text": "The birds came, as birds will, and the field mice, and the insects that had nowhere else to go."
+          },
+          {
+            "id": "s_0009",
+            "text": "The grain gave them shade and seed, and the roots of the standing stalks held the soil when the first heavy rains came."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0010",
+            "text": "That year the rains came late and then all at once."
+          },
+          {
+            "id": "s_0011",
+            "text": "Chikomo’s bare field washed downhill in a wide brown sheet, carrying his seed and his soil with it."
+          },
+          {
+            "id": "s_0012",
+            "text": "Tafara’s field held."
+          },
+          {
+            "id": "s_0013",
+            "text": "The strip that had been left standing slowed the water, and the earth beneath it stayed where it belonged."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0014",
+            "text": "When the dry weeks came, the birds that had been fed in Tafara’s field moved across the farmland and picked the beetles from every crop, including Chikomo’s."
+          },
+          {
+            "id": "s_0015",
+            "text": "The harvest was not one man’s harvest that year; it belonged to the valley, and the valley knew who had left something for it."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0016",
+            "text": "Chikomo came to ask Tafara how he knew to do this."
+          },
+          {
+            "id": "s_0017",
+            "text": "Tafara shook his head."
+          },
+          {
+            "id": "s_0018",
+            "text": "“I did not know,” he said."
+          },
+          {
+            "id": "s_0019",
+            "text": "“My father left a strip, and my grandmother left a strip before him."
+          },
+          {
+            "id": "s_0020",
+            "text": "A field is not a warehouse."
+          },
+          {
+            "id": "s_0021",
+            "text": "It is a friend, and a friend is given something to keep.”"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,374 @@
+.page {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: var(--space-5) 0 var(--space-3);
+}
+
+.mapControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.segmented {
+  display: inline-flex;
+  border: var(--hairline-strong);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.segment,
+.segmentActive {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  min-height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: var(--text-meta);
+  cursor: pointer;
+}
+
+.segment + .segment,
+.segmentActive + .segment,
+.segment + .segmentActive,
+.segmentActive + .segmentActive {
+  border-left: var(--hairline);
+}
+
+.segmentActive {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.count {
+  font-size: var(--text-meta);
+  color: var(--muted);
+  margin: 0 0 var(--space-4);
+}
+
+.mapWrap {
+  background: var(--paper-sunk);
+  border: var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.map {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 62vh;
+  border-radius: var(--radius-xs);
+}
+
+.land {
+  fill: var(--paper);
+  stroke: var(--line-strong);
+  stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.africa {
+  fill: var(--saffron-wash);
+  stroke: var(--saffron);
+  stroke-width: 0.9;
+}
+
+.pinGroup {
+  cursor: pointer;
+  outline: none;
+}
+
+.pinGroup:focus-visible .pin,
+.pinGroup:focus-visible .pinActive {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+
+.pin {
+  stroke: var(--paper-raised);
+  stroke-width: 1.5;
+  transition: r 150ms ease;
+}
+
+.pinActive {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+
+.pinHalo {
+  opacity: 0.22;
+}
+
+.mapHint {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-micro);
+  color: var(--muted);
+  text-align: center;
+}
+
+.layout {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+.sectionTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  margin: 0 0 var(--space-3);
+}
+
+.places {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.place,
+.placeActive {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  width: 100%;
+  text-align: left;
+  padding: var(--space-3);
+  min-height: 44px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+
+.place:hover {
+  background: var(--paper-sunk);
+}
+
+.placeActive {
+  background: var(--paper-sunk);
+  box-shadow: inset 3px 0 0 var(--terracotta);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  flex: 0 0 auto;
+}
+
+.placeText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.placeName {
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  color: var(--ink);
+}
+
+.placeMeta {
+  font-size: var(--text-micro);
+  color: var(--muted);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.publication {
+  padding: var(--space-5);
+  background: var(--paper-raised);
+  border: var(--hairline);
+  border-radius: var(--radius-sm);
+}
+
+.placeEyebrow {
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 var(--space-2);
+}
+
+.placeTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  margin: 0 0 var(--space-2);
+}
+
+.placeTitle a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.placeTitle a:hover {
+  color: var(--terracotta);
+}
+
+.tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-2);
+}
+
+.description {
+  font-size: var(--text-ui);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-4);
+}
+
+.storiesTitle {
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 var(--space-2);
+}
+
+.stories {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.storyRow {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: inherit;
+  min-height: 44px;
+}
+
+.storyRow:hover {
+  background: var(--paper-sunk);
+}
+
+.storyThumb {
+  width: 56px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+  background: var(--paper-sunk);
+  flex: 0 0 auto;
+}
+
+.storyText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.storyTitle {
+  font-family: var(--font-serif);
+  color: var(--ink);
+  font-size: var(--text-ui);
+}
+
+.storyMeta {
+  font-size: var(--text-micro);
+  color: var(--muted);
+}
+
+.allLink {
+  font-size: var(--text-ui);
+  color: var(--terracotta);
+}
+
+.emptyNote {
+  color: var(--muted);
+  font-size: var(--text-ui);
+}
+
+.regions {
+  padding: var(--space-4) var(--space-5);
+  border-top: var(--hairline);
+}
+
+.regionList {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.region,
+.regionActive {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  min-height: 40px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: var(--text-ui);
+  cursor: pointer;
+  text-align: left;
+}
+
+.region:hover {
+  background: var(--paper-sunk);
+}
+
+.regionActive {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.regionCount {
+  font-size: var(--text-micro);
+  opacity: 0.75;
+}
+
+.mapNote {
+  font-size: var(--text-micro);
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}

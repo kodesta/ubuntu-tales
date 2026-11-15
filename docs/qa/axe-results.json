@@ -1,0 +1,244 @@
+{
+  "generatedAt": "2026-11-14T23:49:37.542Z",
+  "webUrl": "http://localhost:5173",
+  "routes": [
+    {
+      "device": "mobile",
+      "label": "welcome",
+      "path": "/welcome",
+      "url": "http://localhost:5173/welcome",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "home",
+      "path": "/",
+      "url": "http://localhost:5173/",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "tribes",
+      "path": "/tribes",
+      "url": "http://localhost:5173/tribes",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "reader",
+      "path": "/stories/unogwaja-and-the-lions-well",
+      "url": "http://localhost:5173/stories/unogwaja-and-the-lions-well",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "library",
+      "path": "/library",
+      "url": "http://localhost:5173/library",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "library-voices",
+      "path": "/library?tab=authors",
+      "url": "http://localhost:5173/library?tab=authors",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "saved-guest",
+      "path": "/saved",
+      "url": "http://localhost:5173/saved",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "complete-guest",
+      "path": "/stories/unogwaja-and-the-lions-well/complete",
+      "url": "http://localhost:5173/stories/unogwaja-and-the-lions-well/complete",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "not-found",
+      "path": "/a-path-that-grew-over",
+      "url": "http://localhost:5173/a-path-that-grew-over",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "login",
+      "path": "/login",
+      "url": "http://localhost:5173/login",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "signup",
+      "path": "/signup",
+      "url": "http://localhost:5173/signup",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "verify-email",
+      "path": "/verify-email?sent=1",
+      "url": "http://localhost:5173/verify-email?sent=1",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "forgot-password",
+      "path": "/forgot-password",
+      "url": "http://localhost:5173/forgot-password",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "profile",
+      "path": "/profile",
+      "url": "http://localhost:5173/profile",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "settings",
+      "path": "/settings",
+      "url": "http://localhost:5173/settings",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "home-signed-in",
+      "path": "/",
+      "url": "http://localhost:5173/",
+      "violations": []
+    },
+    {
+      "device": "mobile",
+      "label": "saved-signed-in",
+      "path": "/saved",
+      "url": "http://localhost:5173/saved",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "welcome",
+      "path": "/welcome",
+      "url": "http://localhost:5173/welcome",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "home",
+      "path": "/",
+      "url": "http://localhost:5173/",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "tribes",
+      "path": "/tribes",
+      "url": "http://localhost:5173/tribes",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "reader",
+      "path": "/stories/unogwaja-and-the-lions-well",
+      "url": "http://localhost:5173/stories/unogwaja-and-the-lions-well",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "library",
+      "path": "/library",
+      "url": "http://localhost:5173/library",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "library-voices",
+      "path": "/library?tab=authors",
+      "url": "http://localhost:5173/library?tab=authors",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "saved-guest",
+      "path": "/saved",
+      "url": "http://localhost:5173/saved",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "complete-guest",
+      "path": "/stories/unogwaja-and-the-lions-well/complete",
+      "url": "http://localhost:5173/stories/unogwaja-and-the-lions-well/complete",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "not-found",
+      "path": "/a-path-that-grew-over",
+      "url": "http://localhost:5173/a-path-that-grew-over",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "login",
+      "path": "/login",
+      "url": "http://localhost:5173/login",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "signup",
+      "path": "/signup",
+      "url": "http://localhost:5173/signup",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "verify-email",
+      "path": "/verify-email?sent=1",
+      "url": "http://localhost:5173/verify-email?sent=1",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "forgot-password",
+      "path": "/forgot-password",
+      "url": "http://localhost:5173/forgot-password",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "profile",
+      "path": "/profile",
+      "url": "http://localhost:5173/profile",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "settings",
+      "path": "/settings",
+      "url": "http://localhost:5173/settings",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "home-signed-in",
+      "path": "/",
+      "url": "http://localhost:5173/",
+      "violations": []
+    },
+    {
+      "device": "desktop",
+      "label": "saved-signed-in",
+      "path": "/saved",
+      "url": "http://localhost:5173/saved",
+      "violations": []
+    }
+  ]
+}

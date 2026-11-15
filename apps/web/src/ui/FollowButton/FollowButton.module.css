@@ -1,0 +1,9 @@
+.followButton {
+  flex: none;
+}
+
+.following {
+  background: var(--paper-raised);
+  border-color: var(--line-strong);
+  color: var(--forest);
+}

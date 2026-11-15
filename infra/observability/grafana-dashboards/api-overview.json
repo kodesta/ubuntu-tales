@@ -1,0 +1,50 @@
+{
+  "title": "Ubuntu Tales — API overview",
+  "uid": "ut-api-overview",
+  "schemaVersion": 39,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Requests per second",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+      "targets": [{ "expr": "sum(rate(http_requests_total{job=\"ubuntu-tales-api\"}[5m])) by (route)", "legendFormat": "{{route}}" }]
+    },
+    {
+      "type": "timeseries",
+      "title": "p95 latency (budget 200 ms)",
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
+      "targets": [{ "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=\"ubuntu-tales-api\"}[5m])) by (le))", "legendFormat": "p95" }]
+    },
+    {
+      "type": "stat",
+      "title": "Error rate",
+      "gridPos": { "x": 0, "y": 8, "w": 6, "h": 5 },
+      "targets": [{ "expr": "sum(rate(http_requests_total{job=\"ubuntu-tales-api\",status=~\"5..\"}[5m])) / sum(rate(http_requests_total{job=\"ubuntu-tales-api\"}[5m]))" }]
+    },
+    {
+      "type": "stat",
+      "title": "DB connections",
+      "gridPos": { "x": 6, "y": 8, "w": 6, "h": 5 },
+      "targets": [{ "expr": "pg_stat_activity_count{datname=\"ubuntu_tales\"}" }]
+    },
+    {
+      "type": "timeseries",
+      "title": "Reading completions (hourly)",
+      "gridPos": { "x": 12, "y": 8, "w": 12, "h": 5 },
+      "targets": [{ "expr": "sum(increase(ubuntu_tales_story_completed_total[1h]))", "legendFormat": "completions" }]
+    },
+    {
+      "type": "timeseries",
+      "title": "Media volume free space",
+      "gridPos": { "x": 0, "y": 13, "w": 12, "h": 7 },
+      "targets": [{ "expr": "node_filesystem_avail_bytes{mountpoint=\"/data\"}", "legendFormat": "free" }]
+    },
+    {
+      "type": "timeseries",
+      "title": "Job queue depth",
+      "gridPos": { "x": 12, "y": 13, "w": 12, "h": 7 },
+      "targets": [{ "expr": "sum(ubuntu_tales_queue_waiting{queue=~\".*\"}) by (queue)", "legendFormat": "{{queue}}" }]
+    }
+  ]
+}

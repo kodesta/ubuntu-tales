@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-11-14T23:56:55.387Z",
+  "webUrl": "http://localhost:5173",
+  "accountEmail": "qa-evidence-1794700562435-1wbxae@ubuntutales.local",
+  "screenshots": [
+    {
+      "name": "login",
+      "path": "/login",
+      "guest": true,
+      "note": "Sign-in page: editorial split, form, dev reader chips.",
+      "device": "mobile",
+      "file": "login-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "signup",
+      "path": "/signup",
+      "guest": true,
+      "note": "Open-account page: optional roots/consents, assurances.",
+      "device": "mobile",
+      "file": "signup-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "verify-email",
+      "path": "/verify-email?sent=1",
+      "note": "Verification letter sent state for a newly opened account.",
+      "device": "mobile",
+      "file": "verify-email-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "profile",
+      "path": "/profile",
+      "note": "Account page: identity, stats, editable details, roots.",
+      "device": "mobile",
+      "file": "profile-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "settings",
+      "path": "/settings",
+      "note": "Settings: password, devices, on-device data, privacy.",
+      "device": "mobile",
+      "file": "settings-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "home-signed-in",
+      "path": "/",
+      "note": "Signed-in home with the account menu open (avatar, profile/settings/sign-out).",
+      "device": "mobile",
+      "file": "home-signed-in-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "saved-signed-in",
+      "path": "/saved",
+      "note": "Account reading list: saved tales with a progress hairline and filters.",
+      "device": "mobile",
+      "file": "saved-signed-in-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "complete-reactions",
+      "path": "/stories/ijapa-and-the-feast-above-the-clouds/complete",
+      "note": "End of tale signed in: reaction counts, wisdom, account stats and recommendations.",
+      "device": "mobile",
+      "file": "complete-reactions-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "login",
+      "path": "/login",
+      "guest": true,
+      "note": "Sign-in page: editorial split, form, dev reader chips.",
+      "device": "desktop",
+      "file": "login-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "signup",
+      "path": "/signup",
+      "guest": true,
+      "note": "Open-account page: optional roots/consents, assurances.",
+      "device": "desktop",
+      "file": "signup-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "verify-email",
+      "path": "/verify-email?sent=1",
+      "note": "Verification letter sent state for a newly opened account.",
+      "device": "desktop",
+      "file": "verify-email-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "profile",
+      "path": "/profile",
+      "note": "Account page: identity, stats, editable details, roots.",
+      "device": "desktop",
+      "file": "profile-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "settings",
+      "path": "/settings",
+      "note": "Settings: password, devices, on-device data, privacy.",
+      "device": "desktop",
+      "file": "settings-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "home-signed-in",
+      "path": "/",
+      "note": "Signed-in home with the account menu open (avatar, profile/settings/sign-out).",
+      "device": "desktop",
+      "file": "home-signed-in-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "saved-signed-in",
+      "path": "/saved",
+      "note": "Account reading list: saved tales with a progress hairline and filters.",
+      "device": "desktop",
+      "file": "saved-signed-in-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "complete-reactions",
+      "path": "/stories/ijapa-and-the-feast-above-the-clouds/complete",
+      "note": "End of tale signed in: reaction counts, wisdom, account stats and recommendations.",
+      "device": "desktop",
+      "file": "complete-reactions-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    }
+  ]
+}

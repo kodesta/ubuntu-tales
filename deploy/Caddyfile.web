@@ -1,0 +1,25 @@
+# Static web host for tales.fabapi.xyz (Cloudflare Tunnel terminates TLS in front of this).
+:4180 {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+		Cross-Origin-Opener-Policy "same-origin"
+		Content-Security-Policy "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: https:; media-src 'self' https://talesapi.fabapi.xyz blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://talesapi.fabapi.xyz; manifest-src 'self'; worker-src 'self' blob:"
+		-Server
+	}
+
+	@hashed path /assets/*
+	header @hashed Cache-Control "public, max-age=31536000, immutable"
+
+	header /sw.js Cache-Control "no-cache"
+	header /index.html Cache-Control "no-cache"
+
+	root * /srv
+	try_files {path} /index.html
+	file_server
+}

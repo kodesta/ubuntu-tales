@@ -1,0 +1,140 @@
+{
+  "slug": "the-river-that-remembers",
+  "title": "The River That Remembers",
+  "summary": "An old woman teaches a ferryman that the Zambezi keeps the names of everyone who has ever asked it for passage.",
+  "moral": "The river remembers what we ask of it, and what we give back.",
+  "tribeSlug": "tonga",
+  "categorySlug": "folklore",
+  "narratorSlug": "thandiwe-nkosi",
+  "regionLabel": "SOUTHERN AFRICA",
+  "attribution": "A traditional Tonga tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/the-river-that-remembers.svg",
+    "alt": "A baobab beside broad river bands, a small canoe and a low sun",
+    "accent": "#A9682F",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-09-27T06:00:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.49,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "The Zambezi does not widen easily; it gathers its water and then takes it away in a hurry."
+          },
+          {
+            "id": "s_0002",
+            "text": "The Tonga tell of a ferryman who knew every current from the rapids to the shallows, and who had carried people across for so long that he no longer remembered a life before the canoe."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "One evening an old woman came to the bank with a clay pot on her head and asked to cross."
+          },
+          {
+            "id": "s_0004",
+            "text": "There was a storm coming, and the ferryman told her to wait until morning."
+          },
+          {
+            "id": "s_0005",
+            "text": "“The river is angry,” he said."
+          },
+          {
+            "id": "s_0006",
+            "text": "The old woman shook her head."
+          },
+          {
+            "id": "s_0007",
+            "text": "“The river is not angry,” she said."
+          },
+          {
+            "id": "s_0008",
+            "text": "“It is remembering."
+          },
+          {
+            "id": "s_0009",
+            "text": "Let us go.”"
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0010",
+            "text": "They crossed with the water pushing at the canoe from every side."
+          },
+          {
+            "id": "s_0011",
+            "text": "The ferryman paddled as he had never paddled before, and the old woman spoke quietly to the river, and every name she spoke seemed to calm a stretch of the water just ahead of them."
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0012",
+            "text": "On the far bank the ferryman asked her whose names she had been saying."
+          },
+          {
+            "id": "s_0013",
+            "text": "“The names of the people who crossed here before you,” said the old woman."
+          },
+          {
+            "id": "s_0014",
+            "text": "“Your river keeps them."
+          },
+          {
+            "id": "s_0015",
+            "text": "It keeps the ones who asked for passage and the ones who gave nothing, and it does not tell them apart unless you do.”"
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0016",
+            "text": "The ferryman thought about this."
+          },
+          {
+            "id": "s_0017",
+            "text": "After that he kept a gourd on the bank, and everyone who crossed left a little grain, a little milk, or a little salt in it."
+          },
+          {
+            "id": "s_0018",
+            "text": "When the gourd was full, he carried it to the old woman’s village, and the village fed the ferryman and his family in return."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0019",
+            "text": "The river still remembers."
+          },
+          {
+            "id": "s_0020",
+            "text": "At the place where the ferryman kept his gourd the water is said to be gentler than anywhere else on that bend."
+          },
+          {
+            "id": "s_0021",
+            "text": "The old people say this is not because the river is kind, but because it has been greeted properly."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "slug": "the-acacia-and-the-herdsmans-promise",
+  "title": "The Acacia and the Herdsman’s Promise",
+  "summary": "A young herder promises the acacia a share of every milking if the tree will shade his cattle through the long dry season.",
+  "moral": "A promise given to a tree is still a promise.",
+  "tribeSlug": "maasai",
+  "categorySlug": "folklore",
+  "narratorSlug": "naserian-leltika",
+  "regionLabel": "EAST AFRICA",
+  "attribution": "A traditional Maasai tale, retold for Ubuntu Tales.",
+  "cover": {
+    "url": "/covers/the-acacia-and-the-herdsmans-promise.svg",
+    "alt": "A flat-topped acacia against a wide sun, with cattle silhouettes crossing the savanna",
+    "accent": "#C0562E",
+    "width": 1200,
+    "height": 800
+  },
+  "publishedAt": "2026-10-14T06:30:00.000Z",
+  "isFeatured": false,
+  "popularityScore": 0.77,
+  "body": {
+    "version": 1,
+    "paragraphs": [
+      {
+        "id": "p_01",
+        "sentences": [
+          {
+            "id": "s_0001",
+            "text": "When the long dry season came, the grass turned the colour of old rope and the waterholes shrank from one valley to the next."
+          },
+          {
+            "id": "s_0002",
+            "text": "A young herder named Lelesiit drove his cattle far from home, searching for a place where they could rest."
+          }
+        ]
+      },
+      {
+        "id": "p_02",
+        "sentences": [
+          {
+            "id": "s_0003",
+            "text": "At noon, he found one tree with a wide flat crown, an acacia that spread its branches like a roof."
+          },
+          {
+            "id": "s_0004",
+            "text": "He stopped beneath it and let the cattle shade themselves."
+          },
+          {
+            "id": "s_0005",
+            "text": "The tree stood at the edge of a dry and ancient watercourse, and its shadow was the only cool thing for a day’s walk in any direction."
+          }
+        ]
+      },
+      {
+        "id": "p_03",
+        "sentences": [
+          {
+            "id": "s_0006",
+            "text": "The herder was grateful, and he was also afraid, because a man alone with thirsty cattle gives promises easily."
+          },
+          {
+            "id": "s_0007",
+            "text": "He poured a little milk at the foot of the tree and said, “If you keep my herd alive until the rains, a share of every milking will be yours, and my children will know your name.”"
+          }
+        ]
+      },
+      {
+        "id": "p_04",
+        "sentences": [
+          {
+            "id": "s_0008",
+            "text": "The acacia did nothing that a tree can do."
+          },
+          {
+            "id": "s_0009",
+            "text": "It held its shade."
+          },
+          {
+            "id": "s_0010",
+            "text": "The herd rested and did not lose flesh, and on the third night the clouds built up and the rain came down out of the dark."
+          },
+          {
+            "id": "s_0011",
+            "text": "The cattle drank, and the grass came up green through the dust."
+          }
+        ]
+      },
+      {
+        "id": "p_05",
+        "sentences": [
+          {
+            "id": "s_0012",
+            "text": "When the herder returned home, he remembered his promise."
+          },
+          {
+            "id": "s_0013",
+            "text": "Some of the other men laughed at him."
+          },
+          {
+            "id": "s_0014",
+            "text": "“It is only a tree,” they said."
+          },
+          {
+            "id": "s_0015",
+            "text": "“Save your milk.”"
+          },
+          {
+            "id": "s_0016",
+            "text": "But Lelesiit poured a little of every milking at the root of the acacia near his home, and he told his children to do the same."
+          }
+        ]
+      },
+      {
+        "id": "p_06",
+        "sentences": [
+          {
+            "id": "s_0017",
+            "text": "And the acacia has never lost its thorns, and has never needed anyone’s thanks, but it still opens its branches wide for the herds."
+          },
+          {
+            "id": "s_0018",
+            "text": "The old people say this is why a promise must be kept even when the one you promised it to can never ask you to keep it."
+          }
+        ]
+      }
+    ]
+  }
+}

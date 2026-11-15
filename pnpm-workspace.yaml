@@ -1,0 +1,14 @@
+packages:
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@prisma/client'
+  - '@prisma/engines'
+  - '@swc/core'
+  - esbuild
+  - prisma
+  - sharp
+  - '@ffmpeg-installer/ffmpeg'
+  - '@ffmpeg-installer/linux-x64'
+  - 'unrs-resolver'

@@ -1,0 +1,142 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.stepBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+}
+
+.stepLabel {
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+
+.skipButton {
+  min-height: 36px;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.skipButton:hover {
+  color: var(--ink);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+.search {
+  max-width: 480px;
+}
+
+.count {
+  color: var(--faint);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  letter-spacing: 0.04em;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.grid > li {
+  min-width: 0;
+}
+
+.footerNote {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+}
+
+.footerLink {
+  color: var(--terracotta);
+  font-weight: 500;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.spacerForBar {
+  height: 88px;
+}
+
+.dialogActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* Sticky Begin reading bar (onboarding only). */
+.stickyBar {
+  position: fixed;
+  right: 0;
+  bottom: var(--bottom-nav-height);
+  left: 0;
+  z-index: 65;
+  border-top: 1px solid var(--line);
+  background: var(--paper-raised);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.stickyInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: var(--space-3) var(--page-gutter);
+}
+
+.stickyText {
+  color: var(--ink-soft);
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  line-height: 1.4;
+}
+
+.stickyText strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .stickyBar {
+    bottom: 0;
+  }
+}

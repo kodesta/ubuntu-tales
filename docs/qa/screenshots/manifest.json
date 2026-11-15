@@ -1,0 +1,1079 @@
+{
+  "generatedAt": "2026-11-14T22:39:51.810Z",
+  "webUrl": "http://localhost:5173",
+  "apiUrl": "http://localhost:4100/api/v1",
+  "screenshots": [
+    {
+      "name": "welcome",
+      "path": "/welcome",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": false
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": null,
+            "name": null
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": []
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "First-visit onboarding (/welcome): editorial split, cover composition, tale-of-the-day card.",
+      "device": "mobile",
+      "file": "welcome-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "home",
+      "path": "/",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Home reading list: today’s tale hero, personalised band, feed, sidebar, discover rail.",
+      "device": "mobile",
+      "file": "home-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "tribes",
+      "path": "/tribes",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Publications index masthead, search, region pills, 2-up cards.",
+      "device": "mobile",
+      "file": "tribes-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "tribes-zulu",
+      "path": "/tribes/zulu",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Zulu publication page: accent masthead, numbered archive, subscribe.",
+      "device": "mobile",
+      "file": "tribes-zulu-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "reader",
+      "path": "/stories/unogwaja-and-the-lions-well",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Reader: 680px measure, drop-cap-free Lora body, byline, cover, sticky top bar.",
+      "device": "mobile",
+      "file": "reader-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "library",
+      "path": "/library",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "The library archive: tabs, category pills, hairline tale rows.",
+      "device": "mobile",
+      "file": "library-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "library-voices",
+      "path": "/library?tab=authors",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Library Voices tab: griot rows with portraits, roles and affiliations.",
+      "device": "mobile",
+      "file": "library-voices-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "saved",
+      "path": "/saved",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        },
+        "ut.saved": {
+          "state": {
+            "entries": [
+              {
+                "story": {
+                  "id": "01a1dc0d-d1c3-7c51-a363-21227a2a8000",
+                  "slug": "when-the-chameleon-carried-the-word",
+                  "title": "When the Chameleon Carried the Word",
+                  "summary": "uNkulunkulu sends the slow chameleon with a word of life, but a hurried lizard runs ahead with another word that changes everything.",
+                  "moral": "A word carried in haste cannot be called back; a gentle word outlives it.",
+                  "category": {
+                    "id": "01a1dc0a-e3df-7ea3-b926-7c8d58db3053",
+                    "slug": "creation",
+                    "name": "Creation myths",
+                    "badge": "CREATION MYTH"
+                  },
+                  "tribe": {
+                    "id": "01a1dc0d-d15d-7662-af56-138ba7f6214c",
+                    "slug": "zulu",
+                    "name": "Zulu",
+                    "accentColor": "#B4472C"
+                  },
+                  "regionLabel": "SOUTHERN AFRICA",
+                  "readTimeMinutes": 4,
+                  "hasAudio": false,
+                  "cover": {
+                    "url": "/covers/when-the-chameleon-carried-the-word.svg",
+                    "alt": "A slow chameleon on a branch before a wide saffron sun, with hills layered in terracotta",
+                    "accent": "#B4472C",
+                    "width": 1200,
+                    "height": 800
+                  },
+                  "publishedAt": "2026-11-14T06:00:00.000Z",
+                  "narrator": {
+                    "id": "01a1dc0d-d177-7920-ac27-f8c8eedfdc7f",
+                    "slug": "thandiwe-nkosi",
+                    "name": "Thandiwe Nkosi",
+                    "bio": "Thandiwe grew up between the foothills of the uKhahlamba mountains and the green sugar fields, where her grandmother traded riddles for chores. She tells the old Zulu tales the way they were told to her: slowly, with the listener leaning in.",
+                    "roleLabel": "Griot · the Eastern Grasslands",
+                    "accentColor": "#B4472C"
+                  },
+                  "isFeatured": true
+                },
+                "savedAt": "2026-11-14T22:39:07.609Z"
+              },
+              {
+                "story": {
+                  "id": "01a1dc0d-d19c-7e20-a389-f55df96b1823",
+                  "slug": "ijapa-and-the-feast-above-the-clouds",
+                  "title": "Ìjàpá and the Feast Above the Clouds",
+                  "summary": "Ìjàpá the tortoise borrows a feather from every bird to attend a feast in the sky, and learns that a borrowed kindness comes with a price.",
+                  "moral": "A feast eaten alone leaves a shell cracked where all can see.",
+                  "category": {
+                    "id": "01a1dc0a-e3db-7802-bc69-692089e2ac6b",
+                    "slug": "trickster",
+                    "name": "Trickster tales",
+                    "badge": "TRICKSTER TALE"
+                  },
+                  "tribe": {
+                    "id": "01a1dc0d-d162-71b3-9799-b2075cf94405",
+                    "slug": "yoruba",
+                    "name": "Yoruba",
+                    "accentColor": "#D08A2E"
+                  },
+                  "regionLabel": "WEST AFRICA",
+                  "readTimeMinutes": 4,
+                  "hasAudio": false,
+                  "cover": {
+                    "url": "/covers/ijapa-and-the-feast-above-the-clouds.svg",
+                    "alt": "A flock of birds rising in a dark V above a tortoise whose shell shows a bright crack",
+                    "accent": "#D08A2E",
+                    "width": 1200,
+                    "height": 800
+                  },
+                  "publishedAt": "2026-11-11T07:30:00.000Z",
+                  "narrator": {
+                    "id": "01a1dc0d-d179-7f92-bb41-105037b30223",
+                    "slug": "adewale-okunola",
+                    "name": "Adewale Okunola",
+                    "bio": "Adewale keeps the market-square tales of Lagos and Ibadan, where every bargain hides a riddle and every riddle hides a lesson. He tells them the way a trader tells a price: plainly, and with a smile you should not quite trust.",
+                    "roleLabel": "Griot · the Bight of Benin",
+                    "accentColor": "#D08A2E"
+                  },
+                  "isFeatured": true
+                },
+                "savedAt": "2026-11-14T22:38:07.610Z"
+              }
+            ]
+          },
+          "version": 0
+        }
+      },
+      "note": "Reading list: two saved tales, filters, on-device note.",
+      "device": "mobile",
+      "file": "saved-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "author",
+      "path": "/authors/adewale-okunola",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Griot profile: accent masthead, avatar monogram, stats, tales told, publications sidebar.",
+      "device": "mobile",
+      "file": "author-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "complete",
+      "path": "/stories/unogwaja-and-the-lions-well/complete",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        },
+        "ut.reactions": {
+          "state": {
+            "bySlug": {
+              "unogwaja-and-the-lions-well": "JOY"
+            }
+          },
+          "version": 0
+        },
+        "ut.progress": {
+          "state": {
+            "bySlug": {
+              "unogwaja-and-the-lions-well": {
+                "percent": 100,
+                "updatedAt": "2026-11-14T22:39:07.610Z"
+              }
+            }
+          },
+          "version": 0
+        }
+      },
+      "note": "End of tale: Ubuntu!, reaction picker, wisdom quote, recommendations.",
+      "device": "mobile",
+      "file": "complete-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "not-found",
+      "path": "/a-path-that-grew-over",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Editorial 404 inside the app shell.",
+      "device": "mobile",
+      "file": "not-found-mobile-390x844.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "welcome",
+      "path": "/welcome",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": false
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": null,
+            "name": null
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": []
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "First-visit onboarding (/welcome): editorial split, cover composition, tale-of-the-day card.",
+      "device": "desktop",
+      "file": "welcome-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "home",
+      "path": "/",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Home reading list: today’s tale hero, personalised band, feed, sidebar, discover rail.",
+      "device": "desktop",
+      "file": "home-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "tribes",
+      "path": "/tribes",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Publications index masthead, search, region pills, 2-up cards.",
+      "device": "desktop",
+      "file": "tribes-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "tribes-zulu",
+      "path": "/tribes/zulu",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Zulu publication page: accent masthead, numbered archive, subscribe.",
+      "device": "desktop",
+      "file": "tribes-zulu-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "reader",
+      "path": "/stories/unogwaja-and-the-lions-well",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Reader: 680px measure, drop-cap-free Lora body, byline, cover, sticky top bar.",
+      "device": "desktop",
+      "file": "reader-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "library",
+      "path": "/library",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "The library archive: tabs, category pills, hairline tale rows.",
+      "device": "desktop",
+      "file": "library-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "library-voices",
+      "path": "/library?tab=authors",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Library Voices tab: griot rows with portraits, roles and affiliations.",
+      "device": "desktop",
+      "file": "library-voices-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "saved",
+      "path": "/saved",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        },
+        "ut.saved": {
+          "state": {
+            "entries": [
+              {
+                "story": {
+                  "id": "01a1dc0d-d1c3-7c51-a363-21227a2a8000",
+                  "slug": "when-the-chameleon-carried-the-word",
+                  "title": "When the Chameleon Carried the Word",
+                  "summary": "uNkulunkulu sends the slow chameleon with a word of life, but a hurried lizard runs ahead with another word that changes everything.",
+                  "moral": "A word carried in haste cannot be called back; a gentle word outlives it.",
+                  "category": {
+                    "id": "01a1dc0a-e3df-7ea3-b926-7c8d58db3053",
+                    "slug": "creation",
+                    "name": "Creation myths",
+                    "badge": "CREATION MYTH"
+                  },
+                  "tribe": {
+                    "id": "01a1dc0d-d15d-7662-af56-138ba7f6214c",
+                    "slug": "zulu",
+                    "name": "Zulu",
+                    "accentColor": "#B4472C"
+                  },
+                  "regionLabel": "SOUTHERN AFRICA",
+                  "readTimeMinutes": 4,
+                  "hasAudio": false,
+                  "cover": {
+                    "url": "/covers/when-the-chameleon-carried-the-word.svg",
+                    "alt": "A slow chameleon on a branch before a wide saffron sun, with hills layered in terracotta",
+                    "accent": "#B4472C",
+                    "width": 1200,
+                    "height": 800
+                  },
+                  "publishedAt": "2026-11-14T06:00:00.000Z",
+                  "narrator": {
+                    "id": "01a1dc0d-d177-7920-ac27-f8c8eedfdc7f",
+                    "slug": "thandiwe-nkosi",
+                    "name": "Thandiwe Nkosi",
+                    "bio": "Thandiwe grew up between the foothills of the uKhahlamba mountains and the green sugar fields, where her grandmother traded riddles for chores. She tells the old Zulu tales the way they were told to her: slowly, with the listener leaning in.",
+                    "roleLabel": "Griot · the Eastern Grasslands",
+                    "accentColor": "#B4472C"
+                  },
+                  "isFeatured": true
+                },
+                "savedAt": "2026-11-14T22:39:07.609Z"
+              },
+              {
+                "story": {
+                  "id": "01a1dc0d-d19c-7e20-a389-f55df96b1823",
+                  "slug": "ijapa-and-the-feast-above-the-clouds",
+                  "title": "Ìjàpá and the Feast Above the Clouds",
+                  "summary": "Ìjàpá the tortoise borrows a feather from every bird to attend a feast in the sky, and learns that a borrowed kindness comes with a price.",
+                  "moral": "A feast eaten alone leaves a shell cracked where all can see.",
+                  "category": {
+                    "id": "01a1dc0a-e3db-7802-bc69-692089e2ac6b",
+                    "slug": "trickster",
+                    "name": "Trickster tales",
+                    "badge": "TRICKSTER TALE"
+                  },
+                  "tribe": {
+                    "id": "01a1dc0d-d162-71b3-9799-b2075cf94405",
+                    "slug": "yoruba",
+                    "name": "Yoruba",
+                    "accentColor": "#D08A2E"
+                  },
+                  "regionLabel": "WEST AFRICA",
+                  "readTimeMinutes": 4,
+                  "hasAudio": false,
+                  "cover": {
+                    "url": "/covers/ijapa-and-the-feast-above-the-clouds.svg",
+                    "alt": "A flock of birds rising in a dark V above a tortoise whose shell shows a bright crack",
+                    "accent": "#D08A2E",
+                    "width": 1200,
+                    "height": 800
+                  },
+                  "publishedAt": "2026-11-11T07:30:00.000Z",
+                  "narrator": {
+                    "id": "01a1dc0d-d179-7f92-bb41-105037b30223",
+                    "slug": "adewale-okunola",
+                    "name": "Adewale Okunola",
+                    "bio": "Adewale keeps the market-square tales of Lagos and Ibadan, where every bargain hides a riddle and every riddle hides a lesson. He tells them the way a trader tells a price: plainly, and with a smile you should not quite trust.",
+                    "roleLabel": "Griot · the Bight of Benin",
+                    "accentColor": "#D08A2E"
+                  },
+                  "isFeatured": true
+                },
+                "savedAt": "2026-11-14T22:38:07.610Z"
+              }
+            ]
+          },
+          "version": 0
+        }
+      },
+      "note": "Reading list: two saved tales, filters, on-device note.",
+      "device": "desktop",
+      "file": "saved-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "author",
+      "path": "/authors/adewale-okunola",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Griot profile: accent masthead, avatar monogram, stats, tales told, publications sidebar.",
+      "device": "desktop",
+      "file": "author-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "complete",
+      "path": "/stories/unogwaja-and-the-lions-well/complete",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        },
+        "ut.reactions": {
+          "state": {
+            "bySlug": {
+              "unogwaja-and-the-lions-well": "JOY"
+            }
+          },
+          "version": 0
+        },
+        "ut.progress": {
+          "state": {
+            "bySlug": {
+              "unogwaja-and-the-lions-well": {
+                "percent": 100,
+                "updatedAt": "2026-11-14T22:39:07.610Z"
+              }
+            }
+          },
+          "version": 0
+        }
+      },
+      "note": "End of tale: Ubuntu!, reaction picker, wisdom quote, recommendations.",
+      "device": "desktop",
+      "file": "complete-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "not-found",
+      "path": "/a-path-that-grew-over",
+      "seed": {
+        "ut.onboarded": {
+          "state": {
+            "onboarded": true
+          },
+          "version": 0
+        },
+        "ut.tribe": {
+          "state": {
+            "slug": "zulu",
+            "name": "Zulu"
+          },
+          "version": 0
+        },
+        "ut.follows": {
+          "state": {
+            "slugs": [
+              "zulu",
+              "yoruba"
+            ]
+          },
+          "version": 0
+        },
+        "ut.fontSize": {
+          "state": {
+            "size": "md"
+          },
+          "version": 0
+        }
+      },
+      "note": "Editorial 404 inside the app shell.",
+      "device": "desktop",
+      "file": "not-found-desktop-1440x900.png",
+      "width": 1440,
+      "height": 900
+    }
+  ]
+}

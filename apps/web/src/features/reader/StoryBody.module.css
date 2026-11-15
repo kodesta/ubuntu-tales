@@ -1,0 +1,31 @@
+.body {
+  /* `--body-size` is injected by the reader from the persisted font-size preference. */
+  max-width: var(--measure);
+  margin-inline: auto;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: var(--body-size, var(--text-body));
+  font-weight: 400;
+  line-height: 1.75;
+  /* Story text must always be selectable (design doc §7.5, plan §5.2). */
+  user-select: text;
+}
+
+.paragraph {
+  margin-bottom: 1.4em;
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.sentence {
+  /* Inline spans only: sentence boundaries for read-along, never a visual break. */
+  display: inline;
+}
+
+.sentenceActive {
+  background: var(--terracotta-wash);
+  box-shadow: 0 0 0 2px var(--terracotta-wash);
+  border-radius: var(--radius-xs);
+}

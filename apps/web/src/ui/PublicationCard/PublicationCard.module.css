@@ -1,0 +1,121 @@
+.card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.card:hover {
+  border-color: var(--line-strong);
+}
+
+.selected {
+  border-color: var(--accent);
+  background: var(--paper-raised);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.link {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.link:hover .name {
+  color: var(--terracotta-dark);
+}
+
+.tagline {
+  color: var(--ink-soft);
+  font-family: var(--font-serif);
+  font-size: var(--text-ui);
+  line-height: 1.45;
+}
+
+.stats {
+  margin-top: var(--space-1);
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  letter-spacing: 0.02em;
+}
+
+.follow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  padding-top: var(--space-1);
+}
+
+.select {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: var(--space-4);
+  width: 100%;
+  text-align: left;
+}
+
+.check {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  color: var(--paper-raised);
+}
+
+.checkActive {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+/* rail variant: vertical card in the Discover rail */
+.rail {
+  flex-direction: column;
+  width: 260px;
+  flex: 0 0 260px;
+}
+
+.rail .link {
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rail .follow {
+  padding-top: 0;
+}
+
+@media (min-width: 900px) {
+  .card {
+    align-items: center;
+  }
+}
