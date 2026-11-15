@@ -3,6 +3,7 @@ import type { Paginated, SavedFilter, SavedStoryItem } from '@ubuntu-tales/share
 import { useEffect, useRef } from 'react';
 
 import { api } from '@/lib/api';
+import { getDeviceId } from '@/lib/device-id';
 
 import { SAVED_PAGE_SIZE } from './savedSync';
 
@@ -20,6 +21,7 @@ export function savedFeedQueryOptions(filter: SavedFilter) {
         limit: SAVED_PAGE_SIZE,
         cursor: pageParam ?? undefined,
         signal,
+        ...(filter === 'offline' ? { deviceId: getDeviceId() } : {}),
       }),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage: Paginated<SavedStoryItem>) => lastPage.nextCursor,

@@ -174,3 +174,20 @@
     padding-top: var(--space-7);
   }
 }
+
+.listenBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-5) 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--paper-sunk);
+  border-left: 3px solid var(--accent, var(--terracotta));
+  border-radius: var(--radius-xs);
+}
+
+.listenHint {
+  font-size: var(--text-meta);
+  color: var(--muted);
+}

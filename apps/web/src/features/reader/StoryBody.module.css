@@ -23,3 +23,9 @@
   /* Inline spans only: sentence boundaries for read-along, never a visual break. */
   display: inline;
 }
+
+.sentenceActive {
+  background: var(--terracotta-wash);
+  box-shadow: 0 0 0 2px var(--terracotta-wash);
+  border-radius: var(--radius-xs);
+}

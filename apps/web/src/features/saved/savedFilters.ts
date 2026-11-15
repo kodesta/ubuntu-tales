@@ -15,24 +15,22 @@ export interface SavedFilterOption {
 export const SAVED_FILTER_OPTIONS: SavedFilterOption[] = [
   { value: 'all', label: 'All' },
   { value: 'in-progress', label: 'In progress' },
-  {
-    value: 'offline',
-    label: 'Offline',
-    disabled: true,
-    note: 'Offline reading is coming with downloads.',
-  },
+  { value: 'offline', label: 'Offline' },
 ];
 
 /**
- * Applies the `/saved` filter to the on-device reading list. "Offline" is a Phase 3 feature, so it
- * resolves to an empty list rather than pretending to work.
+ * Applies the `/saved` filter to the on-device reading list. "Offline" keeps only tales downloaded
+ * on this device (Phase 3).
  */
 export function filterSavedEntries(
   entries: SavedEntry[],
   filter: SavedFilter,
   progressBySlug: Record<string, ReadingProgress>,
+  offlineSlugs: ReadonlySet<string> = new Set(),
 ): SavedEntry[] {
-  if (filter === 'offline') return [];
+  if (filter === 'offline') {
+    return entries.filter((entry) => offlineSlugs.has(entry.story.slug));
+  }
   if (filter === 'in-progress') {
     return entries.filter((entry) => isInProgress(progressBySlug[entry.story.slug]));
   }

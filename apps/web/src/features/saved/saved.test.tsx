@@ -79,7 +79,7 @@ describe('saved store integration', () => {
 });
 
 describe('SavedFilters', () => {
-  it('marks the active filter and keeps Offline disabled with its hint', async () => {
+  it('marks the active filter and enables Offline once downloads exist', async () => {
     const user = userEvent.setup();
     const onChange = vi.fn<(value: SavedFilter) => void>();
     render(<SavedFilters value="all" onChange={onChange} />);
@@ -87,13 +87,18 @@ describe('SavedFilters', () => {
     expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'true');
 
     const offline = screen.getByRole('button', { name: /offline/i });
-    expect(offline).toBeDisabled();
-    expect(offline).toHaveAttribute('title', 'Offline reading is coming with downloads.');
+    expect(offline).toBeEnabled();
 
     await user.click(offline);
-    expect(onChange).not.toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith('offline');
 
     await user.click(screen.getByRole('button', { name: 'In progress' }));
     expect(onChange).toHaveBeenCalledWith('in-progress');
+  });
+
+  it('can disable Offline while there is nothing downloaded', () => {
+    const onChange = vi.fn<(value: SavedFilter) => void>();
+    render(<SavedFilters value="all" onChange={onChange} offlineEnabled={false} />);
+    expect(screen.getByRole('button', { name: /offline/i })).toBeDisabled();
   });
 });

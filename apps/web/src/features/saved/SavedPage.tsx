@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { isInProgress, useReadingProgressStore } from '@/features/reader/readingProgress';
 import { formatTaleCount } from '@/lib/format';
 import { requireAuth } from '@/features/auth';
+import { useDownloads } from '@/features/offline';
 import { useIsAuthenticated } from '@/stores/session';
 import { useSavedStore } from '@/stores/saved';
 import {
@@ -75,8 +76,10 @@ interface SavedListProps {
 function GuestSavedList({ filter, onFilterChange }: SavedListProps) {
   const entries = useSavedStore((state) => state.entries);
   const progressBySlug = useReadingProgressStore((state) => state.bySlug);
+  const downloads = useDownloads();
+  const offlineSlugs = new Set(downloads.entries.map((entry) => entry.slug));
 
-  const filtered = filterSavedEntries(entries, filter, progressBySlug);
+  const filtered = filterSavedEntries(entries, filter, progressBySlug, offlineSlugs);
   const inProgress = countInProgress(entries, progressBySlug);
 
   const emptyState = entries.length === 0 ? (
@@ -133,7 +136,7 @@ function GuestSavedList({ filter, onFilterChange }: SavedListProps) {
       />
 
       <div className={styles.controls}>
-        <SavedFilters value={filter} onChange={onFilterChange} />
+        <SavedFilters value={filter} onChange={onFilterChange} offlineEnabled={false} />
         <p className={styles.note}>Offline reading arrives with downloads, in a later chapter.</p>
         <Button
           variant="ghost"

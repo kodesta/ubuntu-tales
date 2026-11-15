@@ -9,6 +9,7 @@ import { useIsAuthenticated, useSessionStore } from '@/stores/session';
 import { useReadingProgressStore } from '@/features/reader/readingProgress';
 import { useToastStore } from '@/stores/toast';
 import { Avatar, Button, EmptyState, Image, PageShell, ReadingProgress, Skeleton } from '@/ui';
+import { useReadAlong, usePlayerStore } from '@/features/player';
 
 import { ReaderEndMatter } from './ReaderEndMatter';
 import { ReaderTopBar } from './ReaderTopBar';
@@ -45,6 +46,9 @@ export function ReaderPage({ slug }: ReaderPageProps) {
   );
   const recordProgress = useReadingProgressStore((state) => state.record);
   const markCompleteProgress = useReadingProgressStore((state) => state.markComplete);
+  const playStory = usePlayerStore((state) => state.playStory);
+  const currentPlayerSlug = usePlayerStore((state) => state.storySlug);
+  const { activeSentenceId } = useReadAlong(storyQuery.data?.slug);
 
   // Signed-in readers: mirror the local marker to PUT /me/progress while reading (10 s + flush on
   // visibility/unmount). Guests stay local-only — the hook is a no-op.
@@ -211,7 +215,52 @@ export function ReaderPage({ slug }: ReaderPageProps) {
             <figcaption className={styles.coverCaption}>{coverCaption}</figcaption>
           </figure>
 
-          <StoryBody body={story.body} className={styles.body} />
+          {story.defaultNarration ? (
+            <div className={styles.listenBar}>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => {
+                  if (currentPlayerSlug === story.slug) return;
+                  void playStory({
+                    storySlug: story.slug,
+                    storyId: story.id,
+                    storyTitle: story.title,
+                    tribeName: story.tribe.name,
+                    coverUrl: story.cover?.url,
+                    narration: story.defaultNarration!,
+                    startMs:
+                      story.viewer?.progressPercent && story.defaultNarration
+                        ? Math.round(
+                            (story.viewer.progressPercent / 100) *
+                              story.defaultNarration.durationMs,
+                          )
+                        : 0,
+                  });
+                }}
+              >
+                {currentPlayerSlug === story.slug ? 'Playing narration' : 'Listen to this tale'}
+              </Button>
+              <span className={styles.listenHint}>
+                {story.listenTimeMinutes
+                  ? `${story.listenTimeMinutes} min listen · read-along highlighted as it plays`
+                  : 'Read-along highlighted as it plays'}
+              </span>
+            </div>
+          ) : null}
+
+          <StoryBody
+            body={story.body}
+            className={styles.body}
+            activeSentenceId={activeSentenceId}
+            onSentenceActivate={(sentenceId) => {
+              if (currentPlayerSlug !== story.slug) return;
+              const timing = story.defaultNarration?.sentenceTimings?.find(
+                (entry) => entry.sentenceId === sentenceId,
+              );
+              if (timing) usePlayerStore.getState().seek(timing.startMs);
+            }}
+          />
 
           <ReaderEndMatter
             story={story}

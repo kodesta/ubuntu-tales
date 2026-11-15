@@ -9,28 +9,30 @@ export interface SavedFiltersProps {
   value: SavedFilter;
   onChange: (value: SavedFilter) => void;
   className?: string;
+  /** Offline filtering needs at least one download on this device. */
+  offlineEnabled?: boolean;
 }
 
 /**
  * Filter pills for the reading list. Mirrors the design-system `FilterPills` grammar but supports
- * a per-option disabled state, which the shared primitive does not expose yet (Offline is disabled
- * until downloads land).
+ * a per-option disabled state, which the shared primitive does not expose yet.
  */
-export function SavedFilters({ value, onChange, className }: SavedFiltersProps) {
+export function SavedFilters({ value, onChange, className, offlineEnabled = true }: SavedFiltersProps) {
   return (
     <div className={cn(styles.pills, className)} role="group" aria-label="Filter your reading list">
       {SAVED_FILTER_OPTIONS.map((option) => {
         const active = option.value === value;
+        const disabled = option.disabled || (option.value === 'offline' && !offlineEnabled);
         return (
           <button
             key={option.value}
             type="button"
             className={cn(styles.pill, active && styles.active)}
             aria-pressed={active}
-            disabled={option.disabled}
+            disabled={disabled}
             title={option.note}
             onClick={() => {
-              if (option.disabled) return;
+              if (disabled) return;
               onChange(option.value);
             }}
           >

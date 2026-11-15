@@ -6,6 +6,7 @@ import type { CSSProperties } from 'react';
 import { useState } from 'react';
 
 import { announceSavedToggle, toggleSavedWithSync } from '@/features/saved/savedSync';
+import { DownloadButton } from '@/features/offline';
 import { cn } from '@/lib/cn';
 import { formatReadTime } from '@/lib/format';
 import { useStories } from '@/lib/queries';
@@ -184,6 +185,7 @@ export function ReaderEndMatter({ story, onShare, onCopyLink }: ReaderEndMatterP
         >
           Copy link
         </Button>
+        <DownloadButton storySlug={story.slug} storyTitle={story.title} />
       </div>
 
       <div className={styles.finishBlock}>
