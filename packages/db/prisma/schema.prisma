@@ -103,9 +103,9 @@ model Tribe {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
-  stories Story[]
-
-  users User[]
+  stories     Story[]
+  users       User[]
+  submissions Submission[]
 
   @@index([region, isActive])
   @@index([isActive, sortOrder])
@@ -119,7 +119,8 @@ model Category {
   sortOrder Int     @default(0)
   isActive  Boolean @default(true)
 
-  stories Story[]
+  stories     Story[]
+  submissions Submission[]
 
   @@index([isActive, sortOrder])
 }
@@ -138,7 +139,8 @@ model Narrator {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  stories Story[]
+  stories    Story[]
+  narrations Narration[]
 }
 
 model Story {
@@ -170,13 +172,17 @@ model Story {
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
-  tribe   Tribe     @relation(fields: [tribeId], references: [id])
-  category Category @relation(fields: [categoryId], references: [id])
-  narrator Narrator? @relation(fields: [narratorId], references: [id])
+  tribe      Tribe           @relation(fields: [tribeId], references: [id])
+  category   Category        @relation(fields: [categoryId], references: [id])
+  narrator   Narrator?       @relation(fields: [narratorId], references: [id])
   featuredOn StoryOfTheDay[]
+  narrations Narration[]
+  revisions  StoryRevision[]
+  downloads  Download[]
+  submission Submission?     @relation("PublishedFrom")
 
-  saved    SavedStory[]
-  progress ReadingProgress[]
+  saved     SavedStory[]
+  progress  ReadingProgress[]
   reactions Reaction[]
 
   @@index([status, publishedAt(sort: Desc)])
@@ -235,6 +241,9 @@ model User {
   saved         SavedStory[]
   progress      ReadingProgress[]
   reactions     Reaction[]
+  downloads     Download[]
+  submissions   Submission[]      @relation("SubmissionAuthor")
+  reviews       Submission[]      @relation("SubmissionReviewer")
 
   @@index([tribeId])
   @@index([status])
@@ -360,4 +369,244 @@ model Reaction {
   @@id([userId, storyId])
   @@index([storyId, type])
   @@index([userId])
+}
+
+// ───────────── Media (Phase 3) ─────────────
+
+enum MediaKind {
+  IMAGE
+  AUDIO
+}
+
+enum MediaPurpose {
+  STORY_COVER
+  TRIBE_IMAGE
+  TRIBE_MASK
+  NARRATOR_AVATAR
+  USER_AVATAR
+  NARRATION_AUDIO
+  SOUNDSCAPE_AUDIO
+  SUBMISSION_COVER
+  SUBMISSION_AUDIO
+}
+
+enum MediaStatus {
+  PENDING_UPLOAD
+  PROCESSING
+  READY
+  FAILED
+  QUARANTINED
+}
+
+enum TimingStatus {
+  NONE
+  AUTO
+  VERIFIED
+}
+
+/// One uploaded original plus its processed renditions. Phase 3 stores files on local disk
+/// (`MEDIA_ROOT`) behind `/media/**`; Phase 5+ can swap in RustFS without changing this model.
+model MediaAsset {
+  id            String       @id @default(uuid(7)) @db.Uuid
+  kind          MediaKind
+  purpose       MediaPurpose
+  status        MediaStatus  @default(PENDING_UPLOAD)
+  /// Path of the verified original relative to MEDIA_ROOT (never exposed directly).
+  storageKey    String
+  originalName  String       @db.VarChar(255)
+  contentType   String       @db.VarChar(120)
+  sizeBytes     Int
+  width         Int?
+  height        Int?
+  durationMs    Int?
+  checksum      String?
+  failureReason String?
+  uploadedById  String?      @db.Uuid
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  renditions  MediaRendition[]
+  narrations  Narration[]      @relation("NarrationAudio")
+  soundscapes Soundscape[]     @relation("SoundscapeAudio")
+
+  @@index([purpose, status])
+  @@index([uploadedById])
+}
+
+model MediaRendition {
+  id         String   @id @default(uuid(7)) @db.Uuid
+  assetId    String   @db.Uuid
+  /// e.g. "w640", "w1280", "avatar_96", "aac_64k", "aac_128k", "aac_96k".
+  name       String   @db.VarChar(40)
+  /// Root-relative public URL, e.g. "/media/images/…/w640.webp".
+  url        String
+  mimeType   String   @db.VarChar(80)
+  width      Int?
+  height     Int?
+  sizeBytes  Int
+  durationMs Int?
+  createdAt  DateTime @default(now())
+
+  asset MediaAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@unique([assetId, name])
+  @@index([assetId])
+}
+
+/// An ambience loop played under a narration (savanna night, rain, fire…).
+model Soundscape {
+  id           String   @id @default(uuid(7)) @db.Uuid
+  slug         String   @unique
+  name         String
+  audioAssetId String?  @db.Uuid
+  /// Public root-relative audio URL (seeded demo loops live under /media/soundscapes).
+  audioUrl     String
+  defaultGain  Float    @default(0.25)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  audio      MediaAsset? @relation("SoundscapeAudio", fields: [audioAssetId], references: [id])
+  narrations Narration[]
+
+  @@index([slug])
+}
+
+/// A recorded reading of a tale. Timings are validated: monotonic, non-overlapping, sentence ids
+/// must exist in the story body.
+model Narration {
+  id              String       @id @default(uuid(7)) @db.Uuid
+  storyId         String       @db.Uuid
+  narratorId      String       @db.Uuid
+  locale          String       @default("en") @db.VarChar(10)
+  audioAssetId    String?      @db.Uuid
+  durationMs      Int?
+  /// [{ sentenceId, startMs, endMs }]
+  sentenceTimings Json?
+  timingStatus    TimingStatus @default(NONE)
+  soundscapeId    String?      @db.Uuid
+  isDefault       Boolean      @default(false)
+  isPublished     Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  story      Story       @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  narrator   Narrator    @relation(fields: [narratorId], references: [id])
+  audio      MediaAsset? @relation("NarrationAudio", fields: [audioAssetId], references: [id])
+  soundscape Soundscape? @relation(fields: [soundscapeId], references: [id])
+
+  @@index([storyId, isPublished])
+  @@index([narratorId])
+}
+
+/// A downloaded tale on a specific browser install (the audio itself lives in Cache Storage).
+model Download {
+  id          String    @id @default(uuid(7)) @db.Uuid
+  userId      String    @db.Uuid
+  storyId     String    @db.Uuid
+  deviceId    String    @db.VarChar(64)
+  narrationId String?   @db.Uuid
+  rendition   String    @default("aac_64k") @db.VarChar(16)
+  createdAt   DateTime  @default(now())
+  removedAt   DateTime?
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, storyId, deviceId])
+  @@index([userId, deviceId])
+}
+
+// ───────────── Editorial & community (Phase 4) ─────────────
+
+enum SubmissionStatus {
+  DRAFT
+  SUBMITTED
+  IN_REVIEW
+  CHANGES_REQUESTED
+  APPROVED
+  PUBLISHED
+  REJECTED
+  WITHDRAWN
+}
+
+/// A community-submitted tale moving through the editorial state machine.
+model Submission {
+  id              String           @id @default(uuid(7)) @db.Uuid
+  authorId        String           @db.Uuid
+  reviewerId      String?          @db.Uuid
+  status          SubmissionStatus @default(DRAFT)
+  title           String           @db.VarChar(160)
+  bodyText        String
+  moral           String?          @db.VarChar(300)
+  tribeId         String?          @db.Uuid
+  customTribe     String?          @db.VarChar(120)
+  categoryId      String?          @db.Uuid
+  attribution     String?          @db.VarChar(300)
+  coverUrl        String?
+  audioUrl        String?
+  rightsConfirmed Boolean          @default(false)
+  licence         String           @default("CC BY 4.0") @db.VarChar(40)
+  reviewerNote    String?
+  submittedAt     DateTime?
+  publishedAt     DateTime?
+  storyId         String?          @unique @db.Uuid
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  author   User              @relation("SubmissionAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  reviewer User?             @relation("SubmissionReviewer", fields: [reviewerId], references: [id])
+  tribe    Tribe?            @relation(fields: [tribeId], references: [id])
+  category Category?         @relation(fields: [categoryId], references: [id])
+  story    Story?            @relation("PublishedFrom", fields: [storyId], references: [id])
+  events   SubmissionEvent[]
+
+  @@index([status, submittedAt])
+  @@index([authorId])
+}
+
+model SubmissionEvent {
+  id           String            @id @default(uuid(7)) @db.Uuid
+  submissionId String            @db.Uuid
+  fromStatus   SubmissionStatus?
+  toStatus     SubmissionStatus
+  actorId      String?           @db.Uuid
+  note         String?
+  createdAt    DateTime          @default(now())
+
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@index([submissionId, createdAt])
+}
+
+/// Immutable snapshot of a story at each publish transition.
+model StoryRevision {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  storyId   String   @db.Uuid
+  editorId  String?  @db.Uuid
+  snapshot  Json
+  createdAt DateTime @default(now())
+
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@index([storyId, createdAt])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  actorId   String?  @db.Uuid
+  action    String   @db.VarChar(80)
+  entity    String   @db.VarChar(60)
+  entityId  String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt(sort: Desc)])
+  @@index([entity, entityId])
+}
+
+model FeatureFlag {
+  key         String   @id @db.VarChar(80)
+  enabled     Boolean  @default(false)
+  description String?
+  updatedAt   DateTime @updatedAt
 }

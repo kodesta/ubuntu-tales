@@ -173,6 +173,8 @@ export interface ApiClient {
     query?: { rendition?: 'aac_64k' | 'aac_128k'; signal?: AbortSignal },
   ): Promise<OfflineBundle>;
   getConfig(opts?: RequestOptions): Promise<PublicConfig>;
+  admin: AdminClient;
+  submissions: ContributorClient;
   getHome(query?: HomeQuery): Promise<HomeResponse>;
   getTribe(slug: string, opts?: RequestOptions): Promise<TribeDetail>;
   getTribes(query?: TribeListQuery & RequestOptions): Promise<TribeSummary[]>;
@@ -408,6 +410,113 @@ export function createApiClient({
         { signal: query.signal },
       ),
 
+
+    admin: {
+      stories: {
+        list: (query = {}) =>
+          rawRequest<Paginated<AdminStorySummary>>(
+            `/admin/stories${buildQuery({
+              status: query.status,
+              tribe: query.tribe,
+              category: query.category,
+              q: query.q,
+              limit: query.limit,
+              cursor: query.cursor,
+            })}`,
+            { signal: query.signal },
+          ),
+        get: (id, opts) => rawRequest<AdminStoryDetail>(`/admin/stories/${id}`, { signal: opts?.signal }),
+        create: (input) => rawRequest<AdminStoryDetail>('/admin/stories', cfg('POST', input)),
+        update: (id, input) => rawRequest<AdminStoryDetail>(`/admin/stories/${id}`, cfg('PATCH', input)),
+        publish: (id) => rawRequest<PublishResponse>(`/admin/stories/${id}/publish`, cfg('POST')),
+        unpublish: (id) => rawRequest<PublishResponse>(`/admin/stories/${id}/unpublish`, cfg('POST')),
+        archive: (id) => rawRequest<PublishResponse>(`/admin/stories/${id}/archive`, cfg('POST')),
+      },
+      narrations: {
+        list: (query = {}) =>
+          rawRequest<NarrationAdminSummary[]>(
+            `/admin/narrations${buildQuery({ storyId: query.storyId, limit: query.limit })}`,
+            { signal: query.signal },
+          ),
+        attach: (storyId, input) =>
+          rawRequest<NarrationAdminSummary>(`/admin/stories/${storyId}/narrations`, cfg('POST', input)),
+        update: (id, input) =>
+          rawRequest<NarrationAdminSummary>(`/admin/narrations/${id}`, cfg('PATCH', input)),
+      },
+      catalogue: {
+        createTribe: (input) => rawRequest<TribeSummary>('/admin/tribes', cfg('POST', input)),
+        updateTribe: (id, input) => rawRequest<TribeSummary>(`/admin/tribes/${id}`, cfg('PATCH', input)),
+        createCategory: (input) => rawRequest<CategorySummary>('/admin/categories', cfg('POST', input)),
+        updateCategory: (id, input) =>
+          rawRequest<CategorySummary>(`/admin/categories/${id}`, cfg('PATCH', input)),
+        createNarrator: (input) =>
+          rawRequest<{ id: string; slug: string; name: string }>('/admin/narrators', cfg('POST', input)),
+        updateNarrator: (id, input) =>
+          rawRequest<{ id: string; slug: string; name: string }>(`/admin/narrators/${id}`, cfg('PATCH', input)),
+      },
+      storyOfTheDay: {
+        list: (from, to) =>
+          rawRequest<StoryOfDayEntry[]>(`/admin/story-of-the-day${buildQuery({ from, to })}`),
+        set: (date, storyId) =>
+          rawRequest<StoryOfDayEntry>(`/admin/story-of-the-day/${date}`, cfg('PUT', { storyId })),
+        remove: (date) =>
+          rawRequest<{ ok: true }>(`/admin/story-of-the-day/${date}`, cfg('DELETE')),
+      },
+      submissions: {
+        queue: (query = {}) =>
+          rawRequest<Paginated<SubmissionSummary>>(
+            `/admin/submissions${buildQuery({
+              status: query.status,
+              limit: query.limit,
+              cursor: query.cursor,
+            })}`,
+            { signal: query.signal },
+          ),
+        claim: (id) => rawRequest<SubmissionSummary>(`/admin/submissions/${id}/claim`, cfg('POST')),
+        requestChanges: (id, input) =>
+          rawRequest<SubmissionSummary>(`/admin/submissions/${id}/request-changes`, cfg('POST', input)),
+        approve: (id, input = {}) =>
+          rawRequest<SubmissionSummary>(`/admin/submissions/${id}/approve`, cfg('POST', input)),
+        reject: (id, input) =>
+          rawRequest<SubmissionSummary>(`/admin/submissions/${id}/reject`, cfg('POST', input)),
+      },
+      users: {
+        list: (query = {}) =>
+          rawRequest<Paginated<AdminUserRow>>(
+            `/admin/users${buildQuery({ q: query.q, limit: query.limit })}`,
+            { signal: query.signal },
+          ),
+        update: (id, input) => rawRequest<AdminUserRow>(`/admin/users/${id}`, cfg('PATCH', input)),
+      },
+      featureFlags: {
+        list: () => rawRequest<FeatureFlagRow[]>('/admin/feature-flags'),
+        set: (key, enabled) =>
+          rawRequest<FeatureFlagRow>(`/admin/feature-flags/${encodeURIComponent(key)}`, cfg('PUT', { enabled })),
+      },
+      auditLog: {
+        list: (query = {}) =>
+          rawRequest<Paginated<AuditLogRow>>(`/admin/audit-log${buildQuery({ limit: query.limit })}`, {
+            signal: query.signal,
+          }),
+      },
+      metrics: {
+        overview: () => rawRequest<AdminMetricsOverview>('/admin/metrics/overview'),
+      },
+    },
+
+    submissions: {
+      mine: (query = {}) =>
+        rawRequest<Paginated<SubmissionSummary>>(
+          `/submissions/mine${buildQuery({ limit: query.limit, cursor: query.cursor })}`,
+          { signal: query.signal },
+        ),
+      get: (id, opts) =>
+        rawRequest<SubmissionDetail>(`/submissions/${id}`, { signal: opts?.signal }),
+      create: (input) => rawRequest<SubmissionDetail>('/submissions', cfg('POST', input)),
+      update: (id, input) => rawRequest<SubmissionDetail>(`/submissions/${id}`, cfg('PATCH', input)),
+      submit: (id) => rawRequest<SubmissionSummary>(`/submissions/${id}/submit`, cfg('POST')),
+      withdraw: (id) => rawRequest<SubmissionSummary>(`/submissions/${id}/withdraw`, cfg('POST')),
+    },
     getConfig: (opts) => rawRequest('/config', { signal: opts?.signal }),
 
     getHome: (query = {}) =>
@@ -479,3 +588,89 @@ export function createApiClient({
 }
 
 export { buildQuery };
+
+// ───────────── Phase 4: admin & submissions ─────────────
+
+import type {
+  AdminMetricsOverview,
+  AdminStoryDetail,
+  AdminStoryListQuery,
+  AdminStorySummary,
+  AdminUserRow,
+  AttachNarrationInput,
+  AuditLogRow,
+  CategoryInput,
+  FeatureFlagRow,
+  ModerationActionInput,
+  NarrationAdminSummary,
+  NarratorInput,
+  PublishResponse,
+  StoryInput,
+  StoryOfDayEntry,
+  SubmissionDetail,
+  SubmissionInput,
+  SubmissionStatus,
+  SubmissionSummary,
+  TribeInput,
+  UpdateNarrationInput,
+} from '@ubuntu-tales/shared';
+
+export interface AdminClient {
+  stories: {
+    list(query?: AdminStoryListQuery & RequestOptions): Promise<Paginated<AdminStorySummary>>;
+    get(id: string, opts?: RequestOptions): Promise<AdminStoryDetail>;
+    create(input: StoryInput): Promise<AdminStoryDetail>;
+    update(id: string, input: Partial<StoryInput>): Promise<AdminStoryDetail>;
+    publish(id: string): Promise<PublishResponse>;
+    unpublish(id: string): Promise<PublishResponse>;
+    archive(id: string): Promise<PublishResponse>;
+  };
+  narrations: {
+    list(query?: { storyId?: string; limit?: number; signal?: AbortSignal }): Promise<NarrationAdminSummary[]>;
+    attach(storyId: string, input: AttachNarrationInput): Promise<NarrationAdminSummary>;
+    update(id: string, input: UpdateNarrationInput): Promise<NarrationAdminSummary>;
+  };
+  catalogue: {
+    createTribe(input: TribeInput): Promise<TribeSummary>;
+    updateTribe(id: string, input: Partial<TribeInput>): Promise<TribeSummary>;
+    createCategory(input: CategoryInput): Promise<CategorySummary>;
+    updateCategory(id: string, input: Partial<CategoryInput>): Promise<CategorySummary>;
+    createNarrator(input: NarratorInput): Promise<{ id: string; slug: string; name: string }>;
+    updateNarrator(id: string, input: Partial<NarratorInput>): Promise<{ id: string; slug: string; name: string }>;
+  };
+  storyOfTheDay: {
+    list(from: string, to: string): Promise<StoryOfDayEntry[]>;
+    set(date: string, storyId: string): Promise<StoryOfDayEntry>;
+    remove(date: string): Promise<{ ok: true }>;
+  };
+  submissions: {
+    queue(query?: { status?: SubmissionStatus; limit?: number; cursor?: string; signal?: AbortSignal }): Promise<Paginated<SubmissionSummary>>;
+    claim(id: string): Promise<SubmissionSummary>;
+    requestChanges(id: string, input: ModerationActionInput): Promise<SubmissionSummary>;
+    approve(id: string, input?: ModerationActionInput): Promise<SubmissionSummary>;
+    reject(id: string, input: ModerationActionInput): Promise<SubmissionSummary>;
+  };
+  users: {
+    list(query?: { q?: string; limit?: number; signal?: AbortSignal }): Promise<Paginated<AdminUserRow>>;
+    update(id: string, input: { systemRole?: AdminUserRow['systemRole']; status?: AdminUserRow['status'] }): Promise<AdminUserRow>;
+  };
+  featureFlags: {
+    list(): Promise<FeatureFlagRow[]>;
+    set(key: string, enabled: boolean): Promise<FeatureFlagRow>;
+  };
+  auditLog: {
+    list(query?: { limit?: number; signal?: AbortSignal }): Promise<Paginated<AuditLogRow>>;
+  };
+  metrics: {
+    overview(): Promise<AdminMetricsOverview>;
+  };
+}
+
+export interface ContributorClient {
+  mine(query?: { limit?: number; cursor?: string; signal?: AbortSignal }): Promise<Paginated<SubmissionSummary>>;
+  get(id: string, opts?: RequestOptions): Promise<SubmissionDetail>;
+  create(input: SubmissionInput): Promise<SubmissionDetail>;
+  update(id: string, input: Partial<SubmissionInput>): Promise<SubmissionDetail>;
+  submit(id: string): Promise<SubmissionSummary>;
+  withdraw(id: string): Promise<SubmissionSummary>;
+}

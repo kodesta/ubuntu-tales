@@ -27,9 +27,19 @@ export class LibraryController {
     );
   }
 
-  /** "Audio" tab — empty until narrations arrive in Phase 3. */
+  /** "Audio" tab — every tale with a published narration (Phase 3). */
   @Get('audio')
-  listAudio() {
-    return this.stories.listAudio();
+  listAudio(@Query() query: RawQuery, @CurrentUser() user?: AuthenticatedUser) {
+    const params = parseStoryListQuery(query);
+    return this.stories.listAudio(
+      {
+        q: params.q,
+        tribe: params.tribe,
+        category: params.category,
+        limit: params.limit,
+        cursor: params.cursor,
+      },
+      user?.id,
+    );
   }
 }

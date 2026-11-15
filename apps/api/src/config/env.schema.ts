@@ -60,6 +60,12 @@ export const envSchema = z
     /** When true (or when SMTP fails) emails are logged to the API console instead of sent. */
     EMAIL_LOG_ONLY: envBoolean(false),
 
+    // ───────────── Phase 3: media ─────────────
+    /** Local media root (uploads + processed renditions + seeded demo audio). */
+    MEDIA_ROOT: z.string().min(1).default('var/media'),
+    /** Absolute CDN base for public media URLs; empty means root-relative `/media/...`. */
+    MEDIA_PUBLIC_BASE_URL: z.string().optional(),
+
     /** Used by `pnpm db:seed` to create the dev users; never set in production. */
     SEED_DEV_PASSWORD: z.string().optional(),
   })

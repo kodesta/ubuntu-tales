@@ -169,9 +169,34 @@ export class StoriesService {
     return this.list({ ...options, sort: 'title' }, viewerId);
   }
 
-  /** `/library/audio` — empty until narrations arrive in Phase 3. */
-  listAudio(): Paginated<StoryCard> {
-    return { items: [], nextCursor: null };
+  /** `/library/audio` — tales with a published narration (Phase 3). */
+  async listAudio(
+    options: Omit<StoryListOptions, 'sort'>,
+    viewerId?: string | null,
+  ): Promise<Paginated<StoryCard>> {
+    const page = await this.list({ ...options, sort: 'title' }, viewerId);
+    return {
+      ...page,
+      items: page.items.filter((story) => story.hasAudio),
+    };
+  }
+
+  /**
+   * Everything a downloaded tale needs to work offline (production plan 01 §4.4):
+   * the structured body, the chosen narration with timings, and absolute media URLs.
+   */
+  async getOfflineBundle(
+    slug: string,
+    rendition: 'aac_64k' | 'aac_128k' = 'aac_64k',
+  ): Promise<import('@ubuntu-tales/shared').OfflineBundle> {
+    const detail = await this.getDetail(slug);
+    const narration = detail.defaultNarration;
+    return {
+      story: detail,
+      ...(narration ? { narration } : {}),
+      rendition,
+      generatedAt: new Date().toISOString(),
+    };
   }
 
   async getDetail(slug: string, viewerId?: string | null): Promise<StoryDetail> {

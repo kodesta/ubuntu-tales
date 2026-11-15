@@ -20,6 +20,7 @@ export class SavedController {
       filter: parseSavedFilter(query.filter),
       limit: parseLimit(query.limit),
       cursor: parseCursor(query.cursor),
+      ...(typeof query.deviceId === 'string' ? { deviceId: query.deviceId } : {}),
     });
   }
 

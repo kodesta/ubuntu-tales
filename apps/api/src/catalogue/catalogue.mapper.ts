@@ -1,3 +1,6 @@
+import type { NarrationDetail, NarrationSummary } from '@ubuntu-tales/shared';
+import type { NarrationRow } from './narration.mapper';
+import { listenTimeMinutes, toNarrationDetail, toNarrationSummary } from './narration.mapper';
 import {
   REGION_LABELS,
   storyBodySchema,
@@ -75,6 +78,7 @@ export interface StoryRow {
   tribe: TribeRow;
   category: CategoryRow;
   narrator: NarratorRow | null;
+  narrations?: NarrationRow[];
 }
 
 /** The plan's canonical 3:2 cover rendition (production plan 03 §1). */
@@ -158,6 +162,10 @@ export function storyPublishedAt(row: Pick<StoryRow, 'publishedAt' | 'createdAt'
 
 export function toStoryCard(row: StoryRow): StoryCard {
   const narrator = row.narrator ? toNarratorSummary(row.narrator) : undefined;
+  const publishedNarrations = row.narrations ?? [];
+  const defaultNarration =
+    publishedNarrations.find((narration) => narration.isDefault) ?? publishedNarrations[0];
+  const listenMinutes = listenTimeMinutes(defaultNarration?.durationMs);
   return {
     id: row.id,
     slug: row.slug,
@@ -173,7 +181,8 @@ export function toStoryCard(row: StoryRow): StoryCard {
     },
     regionLabel: row.regionLabel ?? REGION_LABELS[row.tribe.region],
     readTimeMinutes: row.readTimeMinutes,
-    hasAudio: false,
+    hasAudio: publishedNarrations.length > 0,
+    ...(listenMinutes ? { listenTimeMinutes: listenMinutes } : {}),
     cover: coverImageRef(row),
     publishedAt: storyPublishedAt(row),
     ...(narrator ? { narrator } : {}),
@@ -187,10 +196,17 @@ export function toStoryDetail(row: StoryRow): StoryDetail {
     throw new Error(`Stored body for story "${row.slug}" is not a valid StoryBody.`);
   }
 
+  const publishedNarrations = row.narrations ?? [];
+  const defaultNarration =
+    publishedNarrations.find((narration) => narration.isDefault) ?? publishedNarrations[0];
+  const narrations: NarrationSummary[] = publishedNarrations.map(toNarrationSummary);
+
   return {
     ...toStoryCard(row),
     body: parsed.data,
     ...(row.attribution ? { attribution: row.attribution } : {}),
+    ...(narrations.length > 0 ? { narrations } : {}),
+    ...(defaultNarration ? { defaultNarration: toNarrationDetail(defaultNarration) as NarrationDetail } : {}),
   };
 }
 

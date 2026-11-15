@@ -26,11 +26,13 @@ export interface SavedListOptions {
   filter: SavedFilter;
   limit: number;
   cursor?: CursorPayload;
+  /** Required for `filter=offline`: downloads are per browser install. */
+  deviceId?: string;
 }
 
 /**
  * `/me/saved` (production plan 03 §2.7): the reading list with the story card, save time, progress
- * and reaction. `filter=offline` is an empty page until downloads land in Phase 3.
+ * and reaction. `filter=offline` lists the tales downloaded on the given device (Phase 3).
  */
 @Injectable()
 export class SavedService {
@@ -38,9 +40,58 @@ export class SavedService {
 
   async list(userId: string, options: SavedListOptions): Promise<Paginated<SavedStoryItem>> {
     if (options.filter === 'offline') {
-      // Downloads are not implemented in this slice; a device-scoped empty page keeps the client
-      // contract stable (the web shows "offline arrives with downloads").
-      return { items: [], nextCursor: null, total: 0 };
+      if (!options.deviceId) return { items: [], nextCursor: null, total: 0 };
+      const downloads = await this.prisma.download.findMany({
+        where: { userId, deviceId: options.deviceId, removedAt: null },
+        orderBy: { createdAt: 'desc' },
+        take: 200,
+      });
+      if (downloads.length === 0) return { items: [], nextCursor: null, total: 0 };
+
+      const stories = await this.prisma.story.findMany({
+        where: { id: { in: downloads.map((row) => row.storyId) }, status: 'PUBLISHED' },
+        include: STORY_INCLUDE,
+      });
+      const byId = new Map(stories.map((story) => [story.id, story]));
+      const [progressRows, reactionRows] = await Promise.all([
+        this.prisma.readingProgress.findMany({
+          where: { userId, storyId: { in: [...byId.keys()] } },
+          select: { storyId: true, percent: true, completedAt: true },
+        }),
+        this.prisma.reaction.findMany({
+          where: { userId, storyId: { in: [...byId.keys()] } },
+          select: { storyId: true, type: true },
+        }),
+      ]);
+      const progressByStory = new Map(progressRows.map((row) => [row.storyId, row]));
+      const reactionByStory = new Map<string, ReactionType>(
+        reactionRows.map((row) => [row.storyId, row.type]),
+      );
+      const items: SavedStoryItem[] = downloads.flatMap((download) => {
+        const story = byId.get(download.storyId);
+        if (!story) return [];
+        const card = toStoryCard(story);
+        const progress = progressByStory.get(story.id);
+        const reaction = reactionByStory.get(story.id) ?? null;
+        const progressPercent = progress?.percent ?? 0;
+        return [
+          {
+            ...card,
+            savedAt: download.createdAt.toISOString(),
+            progressPercent,
+            completed: Boolean(progress?.completedAt),
+            reflection: reaction,
+            ...(card.narrator ? { narrator: card.narrator } : {}),
+            viewer: {
+              saved: true,
+              progressPercent,
+              completed: Boolean(progress?.completedAt),
+              reaction,
+            },
+          },
+        ];
+      });
+      return { items, nextCursor: null, total: items.length };
     }
 
     const where: Prisma.SavedStoryWhereInput = { userId };

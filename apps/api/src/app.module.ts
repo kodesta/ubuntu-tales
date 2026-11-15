@@ -8,9 +8,12 @@ import { CacheControlInterceptor } from './common/http/cache-control.interceptor
 import { ProblemDetailsFilter } from './common/errors/problem-details.filter';
 import { validateEnv } from './config/env.schema';
 import { PrismaModule } from './infra/prisma/prisma.module';
+import { StorageModule } from './infra/storage/storage.module';
 import { ActivityModule } from './modules/activity/activity.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
+import { MediaModule } from './modules/media/media.module';
+import { NarrationsModule } from './modules/narrations/narrations.module';
 import { PublicConfigModule } from './modules/public-config/public-config.module';
 import { UsersModule } from './modules/users/users.module';
 
@@ -24,10 +27,13 @@ import { UsersModule } from './modules/users/users.module';
       validate: validateEnv,
     }),
     PrismaModule,
+    StorageModule,
     // AuthModule registers JwtModule globally; keep it before the global guards resolve.
     AuthModule,
     UsersModule,
     CatalogueModule,
+    MediaModule,
+    NarrationsModule,
     ActivityModule,
     HealthModule,
     PublicConfigModule,

@@ -28,4 +28,20 @@ export class AppException extends HttpException {
   static serviceUnavailable(detail: string): AppException {
     return new AppException(ERROR_CODES.SERVICE_UNAVAILABLE, 503, detail);
   }
+
+  static forbidden(detail = 'You do not have access to this resource.'): AppException {
+    return new AppException(ERROR_CODES.FORBIDDEN, 403, detail);
+  }
+
+  static conflict(detail: string): AppException {
+    return new AppException(ERROR_CODES.CONFLICT, 409, detail);
+  }
+
+  static tooLarge(detail: string): AppException {
+    return new AppException(ERROR_CODES.UPLOAD_TOO_LARGE, 413, detail);
+  }
+
+  static notAllowed(detail: string): AppException {
+    return new AppException(ERROR_CODES.UPLOAD_TYPE_NOT_ALLOWED, 415, detail);
+  }
 }

@@ -4,6 +4,8 @@ import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, type NestFastifyApplication } from '@nestjs/platform-fastify';
+import fastifyStatic from '@fastify/static';
+import path from 'node:path';
 import type { FastifyInstance } from 'fastify';
 import { AppModule } from './app.module';
 import { createValidationPipe } from './common/validation/validation.pipe';
@@ -55,6 +57,47 @@ async function bootstrap(): Promise<void> {
     .filter((origin) => origin.length > 0);
 
   app.setGlobalPrefix('api/v1');
+
+  // Public media (processed renditions, seeded demo narration audio, soundscapes) is served
+  // read-only from MEDIA_ROOT with HTTP Range support so audio seeking works (plan 04 §6).
+  const repoRoot = path.resolve(__dirname, '../../..');
+  const configuredRoot = process.env.MEDIA_ROOT ?? 'var/media';
+  const mediaRoot = path.isAbsolute(configuredRoot)
+    ? configuredRoot
+    : path.resolve(repoRoot, configuredRoot);
+  await app.register(fastifyStatic, {
+    root: path.join(mediaRoot),
+    prefix: '/media/',
+    decorateReply: false,
+    cacheControl: true,
+    maxAge: '1d',
+    immutable: false,
+    acceptRanges: true,
+  });
+  // Uploads arrive as raw bytes with the file's real Content-Type. Fastify rejects unknown media
+  // types by default (415), so register a buffering parser for the allowed upload types. The
+  // controller still validates size and magic bytes before anything is persisted.
+  const fastify = app.getHttpAdapter().getInstance() as FastifyInstance;
+  fastify.addContentTypeParser(
+    [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+      'image/avif',
+      'audio/mpeg',
+      'audio/mp4',
+      'audio/aac',
+      'audio/wav',
+      'audio/x-wav',
+      'audio/ogg',
+      'audio/flac',
+      'audio/x-flac',
+      'application/octet-stream',
+    ],
+    { parseAs: 'buffer', bodyLimit: 320 * 1024 * 1024 },
+    (_request, body, done) => done(null, body),
+  );
+
   // Refresh-token cookies (httpOnly) — Fastify needs the cookie plugin to read/set them.
   await app.register(fastifyCookie);
   app.useGlobalPipes(createValidationPipe());
