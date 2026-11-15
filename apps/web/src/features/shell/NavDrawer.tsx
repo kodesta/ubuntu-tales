@@ -5,7 +5,9 @@ import {
   Compass,
   LibraryBig,
   LogIn,
+  PenLine,
   Settings,
+  ShieldCheck,
   UserRound,
 } from 'lucide-react';
 
@@ -22,6 +24,8 @@ const ITEMS = [
   { to: '/tribes', label: 'Publications', Icon: Compass },
   { to: '/library', label: 'Library', Icon: LibraryBig },
   { to: '/saved', label: 'Saved', Icon: Bookmark },
+  { to: '/submit', label: 'Submit a tale', Icon: PenLine },
+  { to: '/me/submissions', label: 'Your submissions', Icon: PenLine },
 ] as const;
 
 /** The paper navigation drawer from the header menu, now with the reader's account. */
@@ -52,6 +56,13 @@ export function NavDrawer() {
         <Link to="/" onClick={close} className={styles.brand} aria-label="Ubuntu Tales — home">
           <Wordmark />
         </Link>
+
+        {user && (user.systemRole === 'EDITOR' || user.systemRole === 'ADMIN') ? (
+          <Link to="/admin" onClick={close} className={styles.link}>
+            <ShieldCheck size={18} aria-hidden="true" className={styles.icon} />
+            Editorial console
+          </Link>
+        ) : null}
 
         <nav aria-label="Menu">
           <ul className={styles.list}>

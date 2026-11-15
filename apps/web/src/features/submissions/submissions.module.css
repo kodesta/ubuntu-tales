@@ -1,0 +1,137 @@
+.page {
+  max-width: var(--reader-width);
+  margin: 0 auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.label {
+  font-size: var(--text-meta);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hint {
+  font-size: var(--text-micro);
+  color: var(--muted);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: var(--space-3);
+  border: var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper-raised);
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  color: var(--ink);
+}
+
+.textarea {
+  font-family: var(--font-serif);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.checkbox {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--text-ui);
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.checkbox input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--terracotta);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.error {
+  color: var(--danger);
+  font-size: var(--text-ui);
+}
+
+.savedNote {
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--forest-wash);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-ui);
+}
+
+.rows {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-6) 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rowItem {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: var(--hairline);
+  align-items: baseline;
+}
+
+.rowTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  color: var(--ink);
+}
+
+.status {
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.note {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-meta);
+  color: var(--muted);
+}
