@@ -8,3 +8,7 @@ onlyBuiltDependencies:
   - '@swc/core'
   - esbuild
   - prisma
+  - sharp
+  - '@ffmpeg-installer/ffmpeg'
+  - '@ffmpeg-installer/linux-x64'
+  - 'unrs-resolver'

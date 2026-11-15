@@ -36,3 +36,7 @@ apps/web/src/routeTree.gen.ts
 
 # tanstack router plugin temp
 .tanstack/
+
+# local tooling and generated media
+.tools/
+var/

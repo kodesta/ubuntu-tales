@@ -93,6 +93,8 @@ export interface StoryCard {
   regionLabel: string;
   readTimeMinutes: number;
   hasAudio: boolean;
+  /** Minutes of published narration, when available. */
+  listenTimeMinutes?: number;
   audioDurationMinutes?: number;
   cover: ImageRef;
   /** ISO 8601 UTC. */
@@ -107,6 +109,9 @@ export interface StoryDetail extends StoryCard {
   body: StoryBody;
   attribution?: string;
   sourceNotes?: string;
+  /** Published narrations for this tale (Phase 3). */
+  narrations?: import('./media').NarrationSummary[];
+  defaultNarration?: import('./media').NarrationDetail;
 }
 
 export interface TribeDetail extends TribeSummary {

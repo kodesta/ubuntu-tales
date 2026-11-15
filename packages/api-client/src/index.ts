@@ -11,10 +11,14 @@ import type {
   HomeResponse,
   LibraryTab,
   LoginInput,
+  MediaAssetSummary,
   MePatchInput,
+  NarrationDetail,
   OkResponse,
   Paginated,
+  OfflineBundle,
   ProgressInput,
+  DownloadRequest,
   ProgressPutResponse,
   PublicConfig,
   ReactionSetResponse,
@@ -31,6 +35,8 @@ import type {
   TribeDetail,
   TribeListQuery,
   TribeSummary,
+  UploadRequest,
+  UploadTicket,
   UserMe,
   VerifyEmailResponse,
 } from '@ubuntu-tales/shared';
@@ -150,6 +156,22 @@ export interface ApiClient {
     remove(storyId: string): Promise<ReactionSetResponse>;
     summary(storyId: string, opts?: RequestOptions): Promise<ReactionSummary>;
   };
+  narrations: {
+    get(id: string, opts?: RequestOptions): Promise<NarrationDetail>;
+  };
+  uploads: {
+    request(input: UploadRequest): Promise<UploadTicket>;
+    complete(assetId: string): Promise<MediaAssetSummary>;
+    status(assetId: string, opts?: RequestOptions): Promise<MediaAssetSummary>;
+  };
+  downloads: {
+    add(storyId: string, body: DownloadRequest): Promise<{ ok: true }>;
+    remove(storyId: string, deviceId: string): Promise<{ ok: true }>;
+  };
+  getOfflineBundle(
+    slug: string,
+    query?: { rendition?: 'aac_64k' | 'aac_128k'; signal?: AbortSignal },
+  ): Promise<OfflineBundle>;
   getConfig(opts?: RequestOptions): Promise<PublicConfig>;
   getHome(query?: HomeQuery): Promise<HomeResponse>;
   getTribe(slug: string, opts?: RequestOptions): Promise<TribeDetail>;
@@ -347,6 +369,44 @@ export function createApiClient({
           { signal: opts?.signal },
         ),
     },
+
+    narrations: {
+      get: (id, opts) =>
+        rawRequest<NarrationDetail>(`/narrations/${encodeURIComponent(id)}`, {
+          signal: opts?.signal,
+        }),
+    },
+
+    uploads: {
+      request: (input) => rawRequest<UploadTicket>('/uploads', cfg('POST', input)),
+      complete: (assetId) =>
+        rawRequest<MediaAssetSummary>(
+          `/uploads/${encodeURIComponent(assetId)}/complete`,
+          cfg('POST'),
+        ),
+      status: (assetId, opts) =>
+        rawRequest<MediaAssetSummary>(`/uploads/${encodeURIComponent(assetId)}`, {
+          signal: opts?.signal,
+        }),
+    },
+
+    downloads: {
+      add: (storyId, body) =>
+        rawRequest<{ ok: true }>(`/me/downloads/${encodeURIComponent(storyId)}`, cfg('POST', body)),
+      remove: (storyId, deviceId) =>
+        rawRequest<{ ok: true }>(
+          `/me/downloads/${encodeURIComponent(storyId)}${buildQuery({ deviceId })}`,
+          cfg('DELETE'),
+        ),
+    },
+
+    getOfflineBundle: (slug, query = {}) =>
+      rawRequest<OfflineBundle>(
+        `/stories/${encodeURIComponent(slug)}/offline-bundle${buildQuery({
+          rendition: query.rendition,
+        })}`,
+        { signal: query.signal },
+      ),
 
     getConfig: (opts) => rawRequest('/config', { signal: opts?.signal }),
 
