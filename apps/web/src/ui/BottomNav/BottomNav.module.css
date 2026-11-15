@@ -5,7 +5,8 @@
   left: 0;
   z-index: 70;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Five destinations (Read, Explore, Publications, Library, Saved) share one row. */
+  grid-template-columns: repeat(5, 1fr);
   border-top: 1px solid var(--line);
   background: var(--paper);
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -19,6 +20,7 @@
   gap: var(--space-1);
   min-height: var(--bottom-nav-height);
   padding-block: var(--space-2);
+  min-width: 0;
   color: var(--muted);
   transition: color var(--transition-fast);
 }
@@ -40,6 +42,7 @@
   font-size: var(--text-micro);
   font-weight: 500;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 @media (min-width: 900px) {

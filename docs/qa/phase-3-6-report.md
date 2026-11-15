@@ -83,7 +83,7 @@ listed as blockers in `docs/launch/launch-checklist.md`.
 | Check | Result |
 | --- | --- |
 | Build/lint/typecheck/test (workspace) | **pass** — build 5/5, lint 8/8, typecheck 8/8, tests 299/299 (shared 5, api 142, web 152) |
-| Playwright e2e (desktop + mobile) | **128/128 passed** for Phases 3–6 before the atlas; the atlas adds 3 journeys proven on desktop (full-suite totals are reported in the final summary) |
+| Playwright e2e (desktop + mobile) | **128/128 passed** for Phases 3–6 before the atlas. Atlas journeys: **6/6** (3 × desktop + mobile); the mobile onboarding + console + atlas specs were re-run together after the five-item bottom-nav fix (**16/16**) |
 | Upload image → READY with renditions | pass (900×600 → w320/w640 webp) |
 | Upload wrong MIME rejected | pass (400 VALIDATION_FAILED) |
 | Media full + Range | pass (200 / 206, 1,024 bytes) |
@@ -92,6 +92,8 @@ listed as blockers in `docs/launch/launch-checklist.md`.
 | Audio progress with real listened seconds | pass |
 | Player plays and position advances | pass (0 → 2,308 ms in headless Chromium) |
 | Read-along highlight appears | pass (1 active sentence, `aria-current`) |
+| Explore map (pins → publication → tale, filters, world view, list view, axe) | pass (desktop + mobile, 0 axe violations) |
+| Bottom nav with five destinations fits one row at 390px | pass (65px, 1 row) |
 | Listening e2e (audio advances, follow-along, untimed tale) | pass |
 | Editorial console e2e (role gate, story editor, moderation, submit, legal) | pass |
 | Offline download writes bundle + caches | pass (`ut.bundle.*`, cache audio+cover, server download row) |
