@@ -12,8 +12,10 @@ import { StorageModule } from './infra/storage/storage.module';
 import { ActivityModule } from './modules/activity/activity.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { MediaModule } from './modules/media/media.module';
 import { NarrationsModule } from './modules/narrations/narrations.module';
+import { SubmissionsModule } from './modules/submissions/submissions.module';
 import { PublicConfigModule } from './modules/public-config/public-config.module';
 import { UsersModule } from './modules/users/users.module';
 
@@ -34,6 +36,8 @@ import { UsersModule } from './modules/users/users.module';
     CatalogueModule,
     MediaModule,
     NarrationsModule,
+    AdminModule,
+    SubmissionsModule,
     ActivityModule,
     HealthModule,
     PublicConfigModule,

@@ -157,6 +157,8 @@ model Story {
   tribeId         String      @db.Uuid
   categoryId      String      @db.Uuid
   narratorId      String?     @db.Uuid
+  /// Community author (Phase 4) when the tale originated from a submission.
+  authorUserId    String?     @db.Uuid
   /// Display override, e.g. "IGBO, NIGERIA"; falls back to the tribe region label.
   regionLabel     String?
   coverUrl        String
