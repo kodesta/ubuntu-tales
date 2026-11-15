@@ -5,6 +5,7 @@ import {
   apiRequest,
   getMe,
   loginViaApi,
+  openAccountMenu,
   openSignedIn,
   registerAccount,
   reloadSignedIn,
@@ -29,12 +30,10 @@ test.describe('phase 2 profile and settings', () => {
     await page.getByRole('button', { name: 'Save details' }).click();
 
     await expect(page.getByText('Your details are saved.')).toBeVisible();
-    await expect(
-      page
-        .locator('header')
-        .first()
-        .getByRole('button', { name: /Naledi Mokoena/ }),
-    ).toBeVisible();
+    // Desktop shows the name in the header trigger; mobile abbreviates it, so assert via the menu.
+    await openAccountMenu(page);
+    await expect(page.locator('#account-menu-panel')).toContainText('Naledi Mokoena');
+    await page.keyboard.press('Escape');
 
     await reloadSignedIn(page);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your reading life.');

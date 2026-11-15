@@ -103,12 +103,15 @@ Copy `.env.example` → `.env`. Values are local development defaults only. Neve
 
 ## Verification
 
-- Unit/integration: `pnpm test` (89 tests across shared, api and web).
+- Unit/integration: `pnpm test` (274 tests across shared, api and web).
 - End-to-end: `pnpm exec playwright test` with the API, web and seeded database running
-  (`PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright-browsers"`). See [`e2e/README.md`](e2e/README.md).
-- Accessibility: axe-core scan with zero violations across 9 routes × 2 viewports.
-- Evidence: [`docs/qa/phase-1-report.md`](docs/qa/phase-1-report.md) (GO verdict),
-  [`screenshot contact sheet`](docs/qa/screenshots/index.html), API smoke log and layout audit.
+  (`PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright-browsers"`). See [`e2e/README.md`](e2e/README.md) —
+  116 journeys across desktop and mobile.
+- Accessibility: axe-core scan with zero violations across 17 routes × 2 viewports.
+- Evidence: [`Phase 1 QA report`](docs/qa/phase-1-report.md) and
+  [`Phase 2 QA report`](docs/qa/phase-2-report.md) (both GO verdicts), screenshot contact sheets
+  ([Phase 1](docs/qa/screenshots/index.html), [Phase 2](docs/qa/screenshots/phase-2/index.html)),
+  security probe, API smoke log and layout audit.
 
 ## Contributing
 

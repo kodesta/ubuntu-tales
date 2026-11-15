@@ -79,10 +79,16 @@ for (const reaction of ['JOY', 'GREAT']) {
 const unverified = await registerAccount({ displayName: 'New Reader', verify: false });
 
 const ROUTES = [
-  { name: 'login', path: '/login', note: 'Sign-in page: editorial split, form, dev reader chips.' },
+  {
+    name: 'login',
+    path: '/login',
+    guest: true,
+    note: 'Sign-in page: editorial split, form, dev reader chips.',
+  },
   {
     name: 'signup',
     path: '/signup',
+    guest: true,
     note: 'Open-account page: optional roots/consents, assurances.',
   },
   {
@@ -178,11 +184,15 @@ for (const device of DEVICES) {
 
     // Fresh login session per screenshot: boot refresh rotates the cookie, so reusing one across
     // contexts would trigger the server's reuse detection and sign the other contexts out.
-    const session = await loginViaApi(
-      (route.account ?? account).email,
-      (route.account ?? account).password,
-    );
-    await addRefreshCookie(context, session.refreshToken);
+    // The signed-out auth screens are captured without a cookie (an authenticated reader would be
+    // redirected away from /login and /signup).
+    if (!route.guest) {
+      const session = await loginViaApi(
+        (route.account ?? account).email,
+        (route.account ?? account).password,
+      );
+      await addRefreshCookie(context, session.refreshToken);
+    }
 
     const page = await context.newPage();
     const file = `${route.name}-${device.name}-${device.viewport.width}x${device.viewport.height}.png`;

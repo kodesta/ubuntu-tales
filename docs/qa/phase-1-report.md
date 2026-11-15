@@ -7,6 +7,12 @@
 finds **zero** violations (was 164 serious nodes before the token/label fixes below), and the API
 contract smoke is 20/20. Only five low-severity design-polish items remain (see §7); none blocks launch.
 
+> **Historical note (Phase 2):** the Phase 1 QA artifacts in this folder were later regenerated for
+> Phase 2 QA — `axe-results.json`/`axe-summary.md` now cover 17 routes (Phase 1 + Phase 2),
+> `layout-audit.json` covers 18 routes, and `api-smoke.log` now includes the auth/personal endpoints.
+> The Phase 1 numbers in this report record the Phase 1 result set at the time; see
+> [`phase-2-report.md`](./phase-2-report.md) for the current evidence.
+
 ---
 
 ## 1. Environment

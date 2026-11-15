@@ -4,6 +4,7 @@ import {
   API_URL,
   DEV_PASSWORD,
   apiRequest,
+  openAccountMenu,
   openSignedIn,
   registerAccount,
   signOutViaMenu,
@@ -72,7 +73,12 @@ test.describe('phase 2 auth', () => {
 
     await expect(page).toHaveURL(/\/$/);
     await waitForSignedIn(page);
-    await expect(page.getByText('Kwame Mensah').first()).toBeVisible();
+    // The header shows the full name on desktop; on mobile it abbreviates to the avatar, so assert
+    // through the account menu panel instead of the trigger label.
+    await openAccountMenu(page);
+    await expect(page.locator('#account-menu-panel')).toContainText('Kwame Mensah');
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#account-menu-panel')).toHaveCount(0);
 
     // The refresh cookie is the only credential: httpOnly, SameSite=Lax, scoped to /api/v1/auth.
     const cookie = (await context.cookies()).find((entry) => entry.name === 'refresh_token');
@@ -176,8 +182,12 @@ test.describe('phase 2 auth', () => {
     await openSignedIn(page, '/', unverified);
     const banner = page.getByText('Your email is not verified yet.');
     await expect(banner).toBeVisible();
-    await page.getByRole('button', { name: 'Resend letter' }).click();
-    await expect(page.getByText('A new verification letter is on its way.')).toBeVisible();
+    // The resend button is deliberately hidden on narrow screens; the banner + dismiss remain.
+    const resend = page.getByRole('button', { name: 'Resend letter' });
+    if (await resend.isVisible().catch(() => false)) {
+      await resend.click();
+      await expect(page.getByText('A new verification letter is on its way.')).toBeVisible();
+    }
     await page.getByRole('button', { name: 'Dismiss verification reminder' }).click();
     await expect(banner).toHaveCount(0);
 

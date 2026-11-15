@@ -68,7 +68,7 @@ test.describe('phase 2 guest merge via AuthModal', () => {
     // Roots moved to the account and are visible on the profile.
     await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your reading life.');
-    await expect(page.getByText('Zulu').first()).toBeVisible();
+    await expect(page.locator('main').getByText('Zulu').first()).toBeVisible();
 
     // Reading place moved too: the reader resumes from the merged progress.
     const waitForBoot = await awaitBootRefresh(page);

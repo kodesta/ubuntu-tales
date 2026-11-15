@@ -7,6 +7,11 @@ interface ConsoleFinding {
   text: string;
 }
 
+/** Phase 2: a guest boot performs `POST /auth/refresh` and gets an expected 401 network response. */
+function isExpectedBootNoise(text: string): boolean {
+  return /401 \(Unauthorized\)/.test(text) || /\/auth\/refresh/.test(text);
+}
+
 /**
  * Console cleanliness on core journeys: no uncaught page errors and no console errors. Warnings
  * are collected too (React/router dev warnings are actionable) and surfaced in the report.
@@ -23,7 +28,7 @@ test.describe('console cleanliness', () => {
 
     page.on('console', (message) => {
       const entry = { type: message.type(), text: message.text() };
-      if (entry.type === 'error') errors.push(entry);
+      if (entry.type === 'error' && !isExpectedBootNoise(entry.text)) errors.push(entry);
       if (entry.type === 'warning') warnings.push(entry);
     });
     page.on('pageerror', (error) => pageErrors.push(error.message));
