@@ -25,6 +25,17 @@ export function useHome() {
   return useQuery(homeQueryOptions(tribe));
 }
 
+export const exploreQueryOptions = () =>
+  queryOptions({
+    queryKey: ['explore'],
+    queryFn: ({ signal }) => api.getExplore({ signal }),
+    staleTime: CATALOGUE_STALE_TIME,
+  });
+
+export function useExplore() {
+  return useQuery(exploreQueryOptions());
+}
+
 export const tribesQueryOptions = (query: TribeListQuery = {}) =>
   queryOptions({
     queryKey: ['tribes', query.q ?? '', query.region ?? ''],

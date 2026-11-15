@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { AuthorsController } from './authors.controller';
 import { AuthorsService } from './authors.service';
 import { CategoriesController } from './categories.controller';
+import { ExploreController } from './explore.controller';
 import { CategoriesService } from './categories.service';
+import { ExploreService } from './explore.service';
 import { HomeController } from './home.controller';
 import { HomeService } from './home.service';
 import { LibraryController } from './library.controller';
@@ -21,6 +23,7 @@ import { ViewerOverlayService } from './viewer.service';
     StoriesController,
     TribesController,
     CategoriesController,
+    ExploreController,
     AuthorsController,
     HomeController,
     LibraryController,
@@ -29,6 +32,7 @@ import { ViewerOverlayService } from './viewer.service';
     StoriesService,
     TribesService,
     CategoriesService,
+    ExploreService,
     AuthorsService,
     HomeService,
     ViewerOverlayService,

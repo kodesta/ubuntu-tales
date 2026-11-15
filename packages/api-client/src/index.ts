@@ -19,6 +19,7 @@ import type {
   OfflineBundle,
   ProgressInput,
   DownloadRequest,
+  ExploreResponse,
   ProgressPutResponse,
   PublicConfig,
   ReactionSetResponse,
@@ -172,6 +173,7 @@ export interface ApiClient {
     slug: string,
     query?: { rendition?: 'aac_64k' | 'aac_128k'; signal?: AbortSignal },
   ): Promise<OfflineBundle>;
+  getExplore(opts?: RequestOptions): Promise<ExploreResponse>;
   getConfig(opts?: RequestOptions): Promise<PublicConfig>;
   admin: AdminClient;
   submissions: ContributorClient;
@@ -517,6 +519,8 @@ export function createApiClient({
       submit: (id) => rawRequest<SubmissionSummary>(`/submissions/${id}/submit`, cfg('POST')),
       withdraw: (id) => rawRequest<SubmissionSummary>(`/submissions/${id}/withdraw`, cfg('POST')),
     },
+    getExplore: (opts) => rawRequest<ExploreResponse>('/explore', { signal: opts?.signal }),
+
     getConfig: (opts) => rawRequest('/config', { signal: opts?.signal }),
 
     getHome: (query = {}) =>

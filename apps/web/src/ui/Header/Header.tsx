@@ -17,6 +17,7 @@ export interface HeaderProps {
 
 const NAV_ITEMS = [
   { to: '/', label: 'Read', exact: true },
+  { to: '/explore', label: 'Explore', exact: false },
   { to: '/tribes', label: 'Publications', exact: false },
   { to: '/library', label: 'Library', exact: false },
   { to: '/saved', label: 'Saved', exact: false },

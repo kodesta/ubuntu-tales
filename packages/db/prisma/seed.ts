@@ -33,6 +33,26 @@ function resolveContentDir(): string {
   return resolve(__dirname, '../../../content');
 }
 
+interface GeoEntry {
+  lat: number;
+  lng: number;
+  place?: string;
+}
+
+/** Curated coordinates for the /explore map (content/geo.json). */
+function readGeo(contentDir: string): Record<string, GeoEntry> {
+  const file = path.join(contentDir, 'geo.json');
+  if (!fs.existsSync(file)) return {};
+  const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as Record<string, unknown>;
+  const out: Record<string, GeoEntry> = {};
+  for (const [slug, value] of Object.entries(parsed)) {
+    if (slug.startsWith('_') || !value || typeof value !== 'object') continue;
+    const entry = value as GeoEntry;
+    if (typeof entry.lat === 'number' && typeof entry.lng === 'number') out[slug] = entry;
+  }
+  return out;
+}
+
 function readJsonArray<T>(filePath: string, schema: z.ZodType<T>): T[] {
   if (!existsSync(filePath)) {
     console.warn(`[seed] ${filePath} not found — skipping.`);
@@ -480,6 +500,7 @@ async function main(): Promise<void> {
 
   const contentDir = resolveContentDir();
   console.log(`[seed] content directory: ${contentDir}`);
+  const geo = readGeo(contentDir);
 
   const categories = readJsonArray(join(contentDir, 'categories.json'), contentCategorySchema);
   const tribes = readJsonArray(join(contentDir, 'tribes.json'), contentTribeSchema);
@@ -528,6 +549,13 @@ async function main(): Promise<void> {
         sortOrder: tribe.sortOrder,
         subscriberCount: tribe.subscriberCount,
         isActive: true,
+        ...(geo[tribe.slug]
+          ? {
+              latitude: geo[tribe.slug]!.lat,
+              longitude: geo[tribe.slug]!.lng,
+              mapPlaceLabel: geo[tribe.slug]!.place ?? null,
+            }
+          : {}),
       };
       await prisma.tribe.upsert({
         where: { slug: tribe.slug },

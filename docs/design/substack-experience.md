@@ -143,8 +143,9 @@ properties from data). Spacing only from the scale. Type sizes only from the sca
 - Breakpoints: `640px` (mobile → tablet), `900px`, `1200px`.
 - Header: sticky, 64px, `--paper` at 92 % with `backdrop-filter: blur(8px)`, bottom hairline.
 - Footer: full-width `--paper-sunk`, hairline top, 4 columns on desktop → stacked on mobile.
-- Mobile bottom nav (`BottomNav`): 4 items — Read, Publications, Library, Saved. Hidden on the
-  reader route (`/stories/$slug`) so the tale owns the screen; a slim floating back bar is used there.
+- Mobile bottom nav (`BottomNav`): 5 items — Read, Explore, Publications, Library, Saved. Hidden on
+  the reader route (`/stories/$slug`) so the tale owns the screen; a slim floating back bar is used
+  there.
 
 ### Page shells
 
@@ -254,7 +255,27 @@ properties from data). Spacing only from the scale. Type sizes only from the sca
 - Author note / wisdom quote, 3 recommendations from the API, "Back to reading list" + "Share wisdom".
 - Confetti: CSS-only, ≤ 1.2s, disabled with reduced motion.
 
-### 7.10 404
+### 7.10 `/explore` — the atlas
+
+- Masthead: eyebrow "THE ATLAS", h1 "The world that tells these tales.", intro about the map being a
+  doorway rather than a diagram.
+- Controls: region filter pills (All + five regions), an **Africa / World** segmented map view, and a
+  **List view** toggle (the same data without the map, for keyboard/screen-reader readers).
+- Map: 2:1 world map (Natural Earth 110m, equirectangular) on paper-sunk; world land in paper with
+  hairline strokes, the African continent in saffron-wash with a saffron outline. Each publication is
+  a pin at its curated cultural homeland, coloured with the publication accent, sized by tale count
+  (6–14 px), with a soft halo and one selected pin outlined in ink.
+- Right panel (below the map on mobile): the selected publication — region/place eyebrow, name linked
+  to the publication page, tagline, 2–3 sentence description, "Tales from here" rows (cover thumb,
+  title, category · read time · audio) linking into the reader, and "Read the whole publication →".
+- Sidebar: "Places" list (same selection model, coloured dots) and "By region" summary with
+  publication/tale counts; a quiet note that pins are cultural homelands, not borders.
+- Voice: "Each pin is a publication. Follow one to the ground it grows from, then open a tale — the
+  map is only the beginning of the journey."
+- Accessibility: pins are focusable buttons with a full accessible name (name, tale count, place);
+  Enter/Space selects; the list view removes the SVG entirely; no colour-only meaning.
+
+### 7.11 404
 
 - Editorial: "This path has grown over." + "The tale may have moved." + link home/library.
 

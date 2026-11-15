@@ -3,8 +3,8 @@
 > *Umuntu ngumuntu ngabantu* — a person is a person through other persons.
 
 A mobile-first reading home for African folktales, organised by tribe and region. Pick your roots,
-read illustrated tales from the publications you follow, listen to narrations with read-along
-highlighting, keep a synced reading list, download tales for offline reading, track progress and
+read illustrated tales from the publications you follow, explore them on a map of the continent,
+listen to narrations with read-along highlighting, keep a synced reading list, download tales for offline reading, track progress and
 reactions, and contribute your own tales through an editorial process.
 
 The product is built with a **Substack-inspired editorial experience**: each tribe is a publication,
@@ -111,6 +111,9 @@ Copy `.env.example` → `.env`. Values are local development defaults only. Neve
 - **Phase 4 — Editorial console and submissions:** story CRUD/publish, narration attach, moderation
   queue, story-of-the-day calendar, users/flags/audit, community submission flow. *(Waveform timing
   editor, outbox emails and auto-alignment deferred.)*
+- **Explore atlas:** `/explore` pins every publication to its cultural homeland on a world/Africa
+  map, with a place list, region summaries, a keyboard-friendly list view and direct links into the
+  tales.
 - **Phase 5 — Production hardening:** Caddy security headers/CSP, Docker images, deploy workflows,
   observability configs, legal pages, consent-gated analytics, security checklist, Lighthouse/k6
   tooling, content lint/import.

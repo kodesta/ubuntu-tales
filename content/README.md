@@ -8,6 +8,7 @@ translators can work here without touching code. Every file is validated against
 
 ```
 content/
+├── geo.json             # map coordinates per publication (used by /explore)
 ├── categories.json      # 5 categories, ordered
 ├── tribes.json          # 16 publications (tribes), ordered
 ├── narrators.json       # griots/voices
@@ -99,6 +100,18 @@ Exactly these five, with `sortOrder` 1–5:
 | `wisdom`    | Wisdom tales    | `WISDOM TALE`    |
 | `folklore`  | Folklore        | `FOLKLORE`       |
 | `creation`  | Creation myths  | `CREATION MYTH`  |
+
+## `geo.json`
+
+Approximate homeland coordinates for each publication, used by the `/explore` atlas. Keys are tribe
+slugs; `lat`/`lng` are decimal degrees at the cultural centre of the people (not a border claim);
+`place` is the short label shown in the map panel. Keys beginning with `_` are comments.
+
+```jsonc
+{
+  "zulu": { "lat": -28.5, "lng": 31.5, "place": "KwaZulu-Natal, South Africa" }
+}
+```
 
 ## `narrators.json`
 

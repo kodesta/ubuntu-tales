@@ -229,3 +229,28 @@ export interface AuthorSummary {
   publishedStoryCount: number;
   tribeNames?: string[];
 }
+
+/** A publication placed on the /explore map. */
+export interface ExplorePoint {
+  tribe: TribeSummary;
+  latitude: number;
+  longitude: number;
+  /** Human place label, e.g. "KwaZulu-Natal, South Africa". */
+  placeLabel?: string;
+  storyCount: number;
+  /** Up to three tales to offer when the pin is opened. */
+  featuredStories: StoryCard[];
+}
+
+export interface ExploreRegionSummary {
+  region: Region;
+  publicationCount: number;
+  storyCount: number;
+}
+
+export interface ExploreResponse {
+  points: ExplorePoint[];
+  regions: ExploreRegionSummary[];
+  totalStories: number;
+  totalPublications: number;
+}

@@ -271,3 +271,20 @@ Deviations:
 2. **No legacy Angular app exists in this repository**, so 6.1's visual parity/legacy-deletion step is
    N/A; visual sign-off is measured against the design spec instead.
 3. **Final sign-off requires humans** (design, legal, security, editorial) and real infrastructure.
+
+## Explore atlas (added 2026-11-15, beyond the original plan)
+
+1. **Bundled map, no tile provider.** `/explore` renders Natural Earth 1:110m country boundaries
+   (public domain, via the `world-atlas` package) as generated SVG paths in
+   `apps/web/src/features/explore/world-geometry.ts` (`node tools/generate-map.mjs`). No Mapbox/Google
+   tiles, no API keys, no network calls and no third-party map attribution burden; the map chunk is
+   lazy-loaded with the route.
+2. **Curated coordinates.** `Tribe.latitude/longitude/mapPlaceLabel` are seeded from
+   `content/geo.json`. Pins are cultural homelands, not borders; the page says so.
+3. **Explore is a new API surface** (`GET /explore`, public + cacheable) not listed in the original
+   `03-api-specification.md`; it returns publication points with tale counts and up to three featured
+   tales, plus region summaries.
+4. **Navigation** now has five bottom-nav destinations (Read, Explore, Publications, Library, Saved);
+   the design spec was updated from four.
+5. **List view** is provided alongside the map for keyboard/screen-reader parity; axe reports zero
+   violations on both viewports.

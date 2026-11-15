@@ -90,6 +90,11 @@ model Tribe {
   description         String?
   accentColor         String   @db.VarChar(7)
   themeVariant        String?
+  /// Approximate cultural centre, used by the /explore map (nullable until curated).
+  latitude            Float?
+  longitude           Float?
+  /// Short place label for the map panel, e.g. "KwaZulu-Natal, South Africa".
+  mapPlaceLabel       String?
   /// Publication mark (static SVG until the media pipeline exists).
   imageUrl            String?
   imageAlt            String?

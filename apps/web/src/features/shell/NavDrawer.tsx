@@ -3,6 +3,7 @@ import {
   Bookmark,
   BookOpen,
   Compass,
+  Globe2,
   LibraryBig,
   LogIn,
   PenLine,
@@ -21,6 +22,7 @@ import styles from './NavDrawer.module.css';
 
 const ITEMS = [
   { to: '/', label: 'Read', Icon: BookOpen },
+  { to: '/explore', label: 'Explore the atlas', Icon: Globe2 },
   { to: '/tribes', label: 'Publications', Icon: Compass },
   { to: '/library', label: 'Library', Icon: LibraryBig },
   { to: '/saved', label: 'Saved', Icon: Bookmark },
