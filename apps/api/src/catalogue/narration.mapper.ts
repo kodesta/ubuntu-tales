@@ -7,6 +7,7 @@ import type {
   SoundscapeSummary,
   TimingStatus,
 } from '@ubuntu-tales/shared';
+import { resolveMediaUrl } from '../common/http/media-url';
 import type { NarratorRow } from './catalogue.mapper';
 import { toNarratorSummary } from './catalogue.mapper';
 
@@ -37,7 +38,7 @@ export function narrationRenditions(row: NarrationRow): AudioRendition[] {
   return RENDITION_ORDER.flatMap((key) => {
     const match = renditions.find((rendition) => rendition.name === key);
     return match
-      ? [{ rendition: key, url: match.url, sizeBytes: match.sizeBytes } satisfies AudioRendition]
+      ? [{ rendition: key, url: resolveMediaUrl(match.url), sizeBytes: match.sizeBytes } satisfies AudioRendition]
       : [];
   });
 }
@@ -47,7 +48,7 @@ export function soundscapeSummary(row: NarrationRow): SoundscapeSummary | undefi
   return {
     slug: row.soundscape.slug,
     name: row.soundscape.name,
-    url: row.soundscape.audioUrl,
+    url: resolveMediaUrl(row.soundscape.audioUrl),
     defaultGain: row.soundscape.defaultGain,
   };
 }

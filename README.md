@@ -90,6 +90,19 @@ infra/
 | `pnpm infra:up` / `pnpm infra:down` / `pnpm infra:reset` | Local PostgreSQL lifecycle |
 | `pnpm db:migrate` / `pnpm db:seed` / `pnpm db:reset` / `pnpm db:studio` | Database lifecycle |
 
+## Deployment (this host)
+
+The current deployment is published behind Cloudflare Tunnel:
+
+| Public hostname | Local service |
+| --- | --- |
+| `tales.fabapi.xyz` | `http://127.0.0.1:4180` (static SPA/PWA) |
+| `talesapi.fabapi.xyz` | `http://127.0.0.1:4100` (API + `/media/*`) |
+
+See [`docs/runbooks/deploy-cloudflare-tunnel.md`](docs/runbooks/deploy-cloudflare-tunnel.md) for the
+tunnel ingress, DNS commands, restart/redeploy steps and verification. Production env and editorial
+credentials live in `deploy/` (gitignored). On this host: `./deploy/restart.sh` (or `--status`).
+
 ## Environment
 
 Copy `.env.example` → `.env`. Values are local development defaults only. Never commit `.env`.

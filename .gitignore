@@ -40,3 +40,8 @@ apps/web/src/routeTree.gen.ts
 # local tooling and generated media
 .tools/
 var/
+
+# deployment secrets
+deploy/.env.production
+deploy/admin-credentials.txt
+deploy/*.local
