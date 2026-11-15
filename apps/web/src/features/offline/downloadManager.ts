@@ -33,10 +33,15 @@ async function fetchToCache(url: string, cacheKey: string): Promise<number> {
  * Downloads a tale for offline reading/listening: the bundle JSON goes to IndexedDB, the cover and
  * the chosen audio rendition go to Cache Storage, then the server records the device (plan 01 §4.4).
  */
+function hasBrowserStorage(): boolean {
+  return typeof indexedDB !== 'undefined' && typeof caches !== 'undefined';
+}
+
 export async function downloadStory(
   slug: string,
   options: { rendition?: 'aac_64k' | 'aac_128k'; onProgress?: (progress: DownloadProgress) => void } = {},
 ): Promise<StoredBundle> {
+  if (!hasBrowserStorage()) throw new Error('Offline downloads are not available in this browser.');
   const rendition = options.rendition ?? 'aac_64k';
   const report = (phase: DownloadPhase, percent: number, message: string, bytes?: number) =>
     options.onProgress?.({ slug, phase, percent, message, ...(bytes ? { bytes } : {}) });
@@ -121,6 +126,7 @@ async function removeDownloadMedia(slug: string, record: StoredBundle): Promise<
 }
 
 export async function removeDownload(slug: string): Promise<void> {
+  if (!hasBrowserStorage()) return;
   const record = await deleteBundle(slug);
   if (record) {
     await removeDownloadMedia(slug, record);

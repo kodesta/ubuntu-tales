@@ -2,6 +2,11 @@ import { del, get, keys, set } from 'idb-keyval';
 import type { OfflineBundle } from '@ubuntu-tales/shared';
 
 const BUNDLE_PREFIX = 'ut.bundle.';
+
+/** IndexedDB is absent in tests and some private modes; the offline layer degrades to a no-op. */
+function hasIndexedDb(): boolean {
+  return typeof indexedDB !== 'undefined';
+}
 export const MEDIA_CACHE = 'offline-media-v1';
 
 export interface StoredBundle {
@@ -18,14 +23,17 @@ function key(slug: string): string {
 }
 
 export async function putBundle(slug: string, record: StoredBundle): Promise<void> {
+  if (!hasIndexedDb()) return;
   await set(key(slug), record);
 }
 
 export async function getBundle(slug: string): Promise<StoredBundle | undefined> {
+  if (!hasIndexedDb()) return undefined;
   return (await get<StoredBundle>(key(slug))) ?? undefined;
 }
 
 export async function listBundles(): Promise<{ slug: string; record: StoredBundle }[]> {
+  if (!hasIndexedDb()) return [];
   const allKeys = (await keys()) as string[];
   const out: { slug: string; record: StoredBundle }[] = [];
   for (const entry of allKeys) {
@@ -37,6 +45,7 @@ export async function listBundles(): Promise<{ slug: string; record: StoredBundl
 }
 
 export async function deleteBundle(slug: string): Promise<StoredBundle | undefined> {
+  if (!hasIndexedDb()) return undefined;
   const record = await getBundle(slug);
   await del(key(slug));
   return record;

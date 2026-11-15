@@ -14,11 +14,17 @@ export interface OutboxEntry {
   createdAt: string;
 }
 
+function hasIndexedDb(): boolean {
+  return typeof indexedDB !== 'undefined';
+}
+
 async function enqueue(entry: OutboxEntry): Promise<void> {
+  if (!hasIndexedDb()) return;
   await set(`${PREFIX}${entry.id}`, entry);
 }
 
 async function listOutbox(): Promise<OutboxEntry[]> {
+  if (!hasIndexedDb()) return [];
   const allKeys = (await keys()) as string[];
   const entries: OutboxEntry[] = [];
   for (const key of allKeys) {
