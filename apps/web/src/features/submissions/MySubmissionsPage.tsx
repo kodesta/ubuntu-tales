@@ -34,6 +34,7 @@ export function MySubmissionsPage() {
         <EmptyState
           eyebrow="Your submissions"
           title="Sign in to see your tales."
+          headingLevel={1}
           body="Your submitted stories and their review status live with your account."
           action={<Button onClick={() => requireAuth(undefined, { redirectTo: '/me/submissions' })}>Sign in</Button>}
         />

@@ -169,15 +169,44 @@ export class StoriesService {
     return this.list({ ...options, sort: 'title' }, viewerId);
   }
 
-  /** `/library/audio` — tales with a published narration (Phase 3). */
+  /** `/library/audio` — tales with a published narration (Phase 3), sorted by title. */
   async listAudio(
     options: Omit<StoryListOptions, 'sort'>,
     viewerId?: string | null,
   ): Promise<Paginated<StoryCard>> {
-    const page = await this.list({ ...options, sort: 'title' }, viewerId);
+    const where: Prisma.StoryWhereInput = {
+      status: 'PUBLISHED',
+      locale: 'en',
+      narrations: { some: { isPublished: true } },
+      ...(options.tribe ? { tribe: { slug: options.tribe } } : {}),
+      ...(options.category ? { category: { slug: options.category } } : {}),
+      ...(options.q
+        ? {
+            OR: [
+              { title: { contains: options.q, mode: 'insensitive' } },
+              { summary: { contains: options.q, mode: 'insensitive' } },
+            ],
+          }
+        : {}),
+      ...(options.cursor ? { title: { gt: options.cursor.v } } : {}),
+    };
+
+    const rows = await this.prisma.story.findMany({
+      where,
+      include: STORY_INCLUDE,
+      orderBy: [{ title: 'asc' }, { id: 'asc' }],
+      take: options.limit + 1,
+    });
+    const hasMore = rows.length > options.limit;
+    const page = hasMore ? rows.slice(0, options.limit) : rows;
+    const items = await this.viewer.overlay(
+      viewerId,
+      page.map((story) => toStoryCard(story)),
+    );
+    const last = page.at(-1);
     return {
-      ...page,
-      items: page.items.filter((story) => story.hasAudio),
+      items,
+      nextCursor: hasMore && last ? encodeCursor({ v: last.title, id: last.id }) : null,
     };
   }
 

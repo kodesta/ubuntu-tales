@@ -35,6 +35,7 @@ export function AdminLayout() {
         <EmptyState
           eyebrow="Editors only"
           title="This room is for the editors."
+          headingLevel={1}
           body="If you believe you should have access, ask an administrator to raise your role."
           action={<Link to="/">Back to the reading list</Link>}
         />

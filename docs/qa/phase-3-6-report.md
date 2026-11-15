@@ -67,7 +67,8 @@ listed as blockers in `docs/launch/launch-checklist.md`.
 
 | Check | Result |
 | --- | --- |
-| Build/lint/typecheck/test (workspace) | pass (see final gate output) |
+| Build/lint/typecheck/test (workspace) | **pass** — build 5/5, lint 8/8, typecheck 8/8, tests 299/299 (shared 5, api 142, web 152) |
+| Playwright e2e (desktop + mobile) | **128/128 passed** (7.8m), including new listening + editorial-console specs |
 | Upload image → READY with renditions | pass (900×600 → w320/w640 webp) |
 | Upload wrong MIME rejected | pass (400 VALIDATION_FAILED) |
 | Media full + Range | pass (200 / 206, 1,024 bytes) |
@@ -75,7 +76,9 @@ listed as blockers in `docs/launch/launch-checklist.md`.
 | Offline bundle + downloads + saved filter | pass |
 | Audio progress with real listened seconds | pass |
 | Player plays and position advances | pass (0 → 2,308 ms in headless Chromium) |
-| Read-along highlight appears | pass (1 active sentence) |
+| Read-along highlight appears | pass (1 active sentence, `aria-current`) |
+| Listening e2e (audio advances, follow-along, untimed tale) | pass |
+| Editorial console e2e (role gate, story editor, moderation, submit, legal) | pass |
 | Offline download writes bundle + caches | pass (`ut.bundle.*`, cache audio+cover, server download row) |
 | Admin metrics/stories/moderation/flags | pass (editor), reader gets 403, admin gets audit |
 | Submission create → submit → claim → approve → draft story | pass (`SUBMITTED → IN_REVIEW → APPROVED`) |

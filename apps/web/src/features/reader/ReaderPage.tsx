@@ -253,13 +253,16 @@ export function ReaderPage({ slug }: ReaderPageProps) {
             body={story.body}
             className={styles.body}
             activeSentenceId={activeSentenceId}
-            onSentenceActivate={(sentenceId) => {
-              if (currentPlayerSlug !== story.slug) return;
-              const timing = story.defaultNarration?.sentenceTimings?.find(
-                (entry) => entry.sentenceId === sentenceId,
-              );
-              if (timing) usePlayerStore.getState().seek(timing.startMs);
-            }}
+            {...(currentPlayerSlug === story.slug
+              ? {
+                  onSentenceActivate: (sentenceId: string) => {
+                    const timing = story.defaultNarration?.sentenceTimings?.find(
+                      (entry) => entry.sentenceId === sentenceId,
+                    );
+                    if (timing) usePlayerStore.getState().seek(timing.startMs);
+                  },
+                }
+              : {})}
           />
 
           <ReaderEndMatter

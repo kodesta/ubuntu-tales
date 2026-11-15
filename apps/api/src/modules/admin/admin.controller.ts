@@ -33,7 +33,6 @@ import { AdminCatalogueService } from './admin-catalogue.service';
 import { AdminNarrationsService } from './admin-narrations.service';
 import { AdminStoriesService } from './admin-stories.service';
 import { AdminUsersService } from './admin-users.service';
-import { toAdminStorySummary } from './admin.mapper';
 
 const storyInputSchema = z.object({
   title: z.string().min(1).max(160),

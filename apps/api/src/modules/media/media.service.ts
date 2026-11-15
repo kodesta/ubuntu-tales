@@ -133,15 +133,11 @@ export class MediaService {
       data: { storageKey, contentType: sniffed, sizeBytes: buffer.length },
     });
 
-    return this.process(asset.id, buffer, sniffed);
+    return this.process(asset.id, buffer);
   }
 
   /** Called after the bytes land: runs the image/audio pipeline and records renditions. */
-  async process(
-    assetId: string,
-    buffer?: Buffer,
-    contentType?: string,
-  ): Promise<MediaAssetSummary> {
+  async process(assetId: string, buffer?: Buffer): Promise<MediaAssetSummary> {
     const asset = await this.prisma.mediaAsset.findUnique({
       where: { id: assetId },
       include: { renditions: true },

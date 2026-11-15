@@ -66,15 +66,26 @@ test.describe('library (archive)', () => {
     await expect(page).not.toHaveURL(/category=/);
   });
 
-  test('audio tab shows the empty narration state', async ({ page }) => {
+  test('audio tab lists narrated tales and links to the player', async ({ page, request }) => {
+    const audio = await getJson<Paginated<{ slug: string; title: string }>>(
+      request,
+      '/library/audio?limit=50',
+    );
+
     await openWithState(page, '/library?tab=audio');
 
     await expect(page.getByRole('tab', { name: 'Audio' })).toHaveAttribute('aria-selected', 'true');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('The library.');
-    await expect(page.getByText('Narrations are being recorded.')).toBeVisible();
-    await page.getByRole('button', { name: 'Read the tales' }).click();
-    await expect(page).toHaveURL(/tab=stories/);
+
+    if (audio.items.length === 0) {
+      await expect(page.getByText('Narrations are being recorded.')).toBeVisible();
+      return;
+    }
+
+    // Phase 3: narrated tales appear in the archive (Phase 2 had none seeded).
     await expect(page.locator('main article').first()).toBeVisible();
+    const first = audio.items[0]!;
+    await expect(page.getByText(first.title).first()).toBeVisible();
   });
 
   test('voices tab lists narrators and links to griot pages', async ({ page, request }) => {

@@ -7,7 +7,6 @@ import type {
   TribeInput,
   TribeSummary,
 } from '@ubuntu-tales/shared';
-import { REGION_LABELS } from '@ubuntu-tales/shared';
 import { AppException } from '../../common/errors/app-exception';
 import { PrismaService } from '../../infra/prisma/prisma.service';
 import { toCategorySummary, toTribeSummary } from '../../catalogue/catalogue.mapper';

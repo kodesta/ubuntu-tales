@@ -117,6 +117,7 @@ export function SubmitPage() {
         <EmptyState
           eyebrow="Submissions"
           title="Share a tale with the archive."
+          headingLevel={1}
           body="Sign in to write and submit a tale. We ask for a verified email so the editors can reach you."
           action={<Button onClick={() => requireAuth(undefined, { redirectTo: '/submit' })}>Sign in to continue</Button>}
         />
@@ -130,6 +131,7 @@ export function SubmitPage() {
         <EmptyState
           eyebrow="Submissions"
           title="Verify your email first."
+          headingLevel={1}
           body="We only accept tales from verified accounts, so the editors know who to thank."
           action={<Link to="/verify-email">Verify your email</Link>}
         />

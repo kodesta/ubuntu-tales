@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import fs from 'node:fs/promises';
+import fsSync from 'node:fs';
 import path from 'node:path';
 
 /**
@@ -78,10 +79,8 @@ export class StorageService {
   }
 
   ensureRoot(): void {
-    // fs sync here is fine: boot-time only.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { mkdirSync } = require('node:fs') as typeof import('node:fs');
-    mkdirSync(this.root, { recursive: true });
+    // Boot-time only; the constructor is synchronous, so a sync mkdir is the right tool.
+    fsSync.mkdirSync(this.root, { recursive: true });
     this.logger.log(`Media root: ${this.root}`);
   }
 }
