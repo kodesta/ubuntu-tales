@@ -1,0 +1,55 @@
+groups:
+  - name: ubuntu-tales-availability
+    rules:
+      - alert: ApiDown
+        expr: up{job="ubuntu-tales-api"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: API is not responding to scrapes
+          runbook: docs/runbooks/observability.md#api-down
+
+      - alert: ApiHighErrorRate
+        expr: |
+          sum(rate(http_requests_total{job="ubuntu-tales-api",status=~"5.."}[5m]))
+          /
+          sum(rate(http_requests_total{job="ubuntu-tales-api"}[5m])) > 0.02
+        for: 10m
+        labels:
+          severity: high
+        annotations:
+          summary: More than 2% of API requests are failing
+
+      - alert: ApiSlowP95
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job="ubuntu-tales-api"}[5m])) by (le)) > 0.2
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: API p95 latency above the 200ms budget
+
+      - alert: DatabaseConnectionsHigh
+        expr: pg_stat_activity_count{datname="ubuntu_tales"} > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: PostgreSQL connections above 80
+
+      - alert: MediaDiskFillingUp
+        expr: (node_filesystem_avail_bytes{mountpoint="/data"} / node_filesystem_size_bytes{mountpoint="/data"}) < 0.15
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: Media volume is more than 85% full (uploads + narration audio)
+
+      - alert: BackupSyncStale
+        expr: time() - ubuntu_tales_backup_last_success_timestamp_seconds > 108000
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: No successful off-site backup in 30 hours
+          runbook: docs/runbooks/backups.md

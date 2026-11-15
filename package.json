@@ -23,7 +23,11 @@
     "db:seed": "pnpm --filter @ubuntu-tales/db db:seed",
     "db:reset": "pnpm --filter @ubuntu-tales/db db:reset",
     "db:studio": "pnpm --filter @ubuntu-tales/db db:studio",
-    "build:deps": "pnpm db:generate && turbo build --filter=@ubuntu-tales/shared --filter=@ubuntu-tales/db"
+    "build:deps": "pnpm db:generate && turbo build --filter=@ubuntu-tales/shared --filter=@ubuntu-tales/db",
+    "content:lint": "node tools/content-lint.mjs",
+    "content:import": "node tools/content-import.mjs",
+    "media:generate": "node tools/generate-narrations.mjs",
+    "analyze:bundle": "node tools/bundle-analysis.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

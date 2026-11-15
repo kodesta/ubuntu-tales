@@ -338,3 +338,8 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.inlineLink {
+  color: var(--terracotta);
+  text-decoration: underline;
+}

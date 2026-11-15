@@ -188,3 +188,86 @@ restore, an unreachable AuthModal trigger (now wired from the guest reading list
 label-in-name regression on the reaction buttons. The only open findings are low-severity touch
 target sizes (carried from Phase 1) and launch-time coverage notes (WebKit/Firefox, visual
 baselines, Lighthouse, manual screen-reader pass, production `COOKIE_SECURE` + dev-token gating).
+
+## Phase 3 — Audio, read-along, offline (implemented 2026-11-15)
+
+Implemented: media uploads, image/audio processing, narrations + timings, story `hasAudio`/
+`listenTimeMinutes`/`defaultNarration`, `/library/audio`, offline bundles, downloads, a full player,
+read-along highlighting, PWA shell, offline downloads and a progress outbox.
+
+Deviations:
+
+1. **Local-disk storage instead of RustFS/S3.** `StorageService` behind `/media/**` with Range
+   support; `MEDIA_ROOT` points at `var/media`. The S3/RustFS swap is isolated to that one class.
+2. **In-process processing instead of the worker queue.** Uploads are processed synchronously (no
+   BullMQ/worker in this slice). Large files buffer in memory up to 320 MB.
+3. **Demo narration is synthesised** (Piper TTS) with exact sentence timings; seeded from
+   `var/media/narrations/manifest.json` via `tools/generate-narrations.mjs`. Human recordings replace
+   them for launch (6.2).
+4. **Single-pass loudness normalisation** instead of the plan's two-pass `loudnorm`.
+5. **No timing waveform editor UI.** The API validates and stores timings (monotonic, non-overlapping,
+   sentence ids exist) and accepts `VERIFIED`; the `wavesurfer.js` editor (4.3) is not built.
+6. **No auto-alignment service** (4.10); `auto_align` feature flag exists and is off.
+7. **Service worker strategy** is `injectManifest` with Workbox precache, image/API runtime caches and
+   `RangeRequestsPlugin`; native HLS is out of scope (ADR-010 unchanged).
+8. **Offline writes**: progress is queued and replayed; save/reaction offline queueing (3.8 fully) is
+   not wired.
+9. **`AudioEngine` uses a plain `HTMLAudioElement`** with Media Session and Web Audio gain for
+   ambience; no waveform scrubbing during playback beyond the seek bar.
+10. **Video/podcast media** is out of scope; only narration and soundscape purposes are processed.
+
+## Phase 4 — Admin console and submissions (implemented 2026-11-15)
+
+Implemented: admin story CRUD + publish transitions with revisions/audit, narration attach/update,
+tribes/categories/narrators CRUD, story-of-the-day, users admin with session revocation, feature
+flags, audit log, metrics, full submission state machine and the moderation UI.
+
+Deviations:
+
+1. **No transactional outbox (4.5).** Audit/revision rows are written transactionally; emails remain
+   synchronous.
+2. **Admin uploads have no in-editor picker**: covers are uploaded through `/uploads` and attached by
+   asset id (the API supports it; the UI does not yet).
+3. **No `wavesurfer.js` timing editor** (see Phase 3 #5).
+4. **Story editor is paragraph-text based** (blank line = paragraph) with server-side sentence
+   splitting and sentence-id preservation; per-sentence manual split/merge is not exposed in the UI.
+5. **Library author tab / community author pages** show seeded griots; a community author profile page
+   for submission authors is not built (their tale appears once published).
+6. **Submissions approval** creates a DRAFT story prefilled from the submission; it does not copy the
+   cover/audio asset automatically (the editor attaches them).
+7. **Moderation queue actions write audit rows**, but there is no email notification to the author on
+   moderation decisions yet (task 4.6's notification emails require the outbox).
+8. **RBAC**: users/flags/audit are ADMIN-only; every other admin route is EDITOR+. TOTP 2FA for
+   editors is Phase 5 and not implemented.
+
+## Phase 5 — Production hardening (implemented 2026-11-15)
+
+Implemented in repo: Caddy security headers/CSP + routing (validated), multi-stage non-root
+Dockerfiles, production compose, deploy workflows (Trivy, SBOM, approvals, rollback placeholders),
+observability configs (Prometheus rules, Grafana dashboard, OTel Collector, Loki/Tempo), legal pages,
+consent-gated analytics stub, security checklist, Lighthouse budgets, k6 scripts, content tooling.
+
+Deviations/remaining:
+1. **No `prom-client` metrics endpoint in the API yet** — the Prometheus scrape config expects
+   `/metrics` on :9464; wiring it is a follow-up.
+2. **Logs use Nest's default logger**, not `nestjs-pino`/redaction.
+3. **No OTel SDK instrumentation** in the API/worker; collector/dashboards are ready.
+4. **Deploy pipelines require real hosts/secrets** and are guarded placeholders for the roll/smoke/
+   rollback steps.
+5. **TOTP 2FA, ClamAV scanning, OWASP ZAP and a manual screen-reader pass are not done** — production
+   blockers.
+6. **Legal copy is a draft** and needs legal review (POPIA/NDPA/Kenya DPA/GDPR).
+7. **Analytics provider is not wired**; the consent gate and event wrapper are in place.
+
+## Phase 6 — Launch readiness (implemented 2026-11-15)
+
+Delivered: dated launch checklist with owners/evidence, release notes draft, visual sign-off
+template, content-readiness thresholds, incident-response/backup/rollback/observability/moderation
+runbooks, screen-reader checklist, content lint/import tooling.
+
+Deviations:
+1. **Content thresholds are not met** (18 demo tales vs ≥60; no human recordings; no cultural review
+   sign-off) — editorial work, not code.
+2. **No legacy Angular app exists in this repository**, so 6.1's visual parity/legacy-deletion step is
+   N/A; visual sign-off is measured against the design spec instead.
+3. **Final sign-off requires humans** (design, legal, security, editorial) and real infrastructure.

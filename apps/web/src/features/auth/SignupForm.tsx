@@ -272,7 +272,11 @@ export function SignupForm({ onSuccess, onSwitchToLogin, redirectTo }: SignupFor
           disabled={pending}
           error={errors.acceptTerms}
         >
-          I accept the terms of reading.
+          I accept the{' '}
+          <Link to="/legal/$slug" params={{ slug: 'terms' }} className={styles.inlineLink}>
+            terms of reading
+          </Link>
+          .
         </CheckboxField>
 
         <CheckboxField
@@ -282,12 +286,16 @@ export function SignupForm({ onSuccess, onSwitchToLogin, redirectTo }: SignupFor
           disabled={pending}
           error={errors.acceptPrivacy}
         >
-          I accept the privacy policy.
+          I accept the{' '}
+          <Link to="/legal/$slug" params={{ slug: 'privacy' }} className={styles.inlineLink}>
+            privacy policy
+          </Link>
+          .
         </CheckboxField>
 
         <p className={styles.hint}>
-          The full terms and privacy policy arrive with the legal pages. Reading stays free and
-          open to everyone, account or not.
+          Reading stays free and open to everyone, account or not. Your roots are optional and can
+          be removed at any time.
         </p>
       </div>
 

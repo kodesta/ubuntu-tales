@@ -46,6 +46,15 @@ export function Footer() {
           <Link to="/welcome" className={linkClass}>
             Welcome
           </Link>
+          <Link to="/legal/$slug" params={{ slug: 'terms' }} className={linkClass}>
+            Terms
+          </Link>
+          <Link to="/legal/$slug" params={{ slug: 'privacy' }} className={linkClass}>
+            Privacy
+          </Link>
+          <Link to="/legal/$slug" params={{ slug: 'community-guidelines' }} className={linkClass}>
+            Community guidelines
+          </Link>
         </nav>
 
         <div className={styles.column}>

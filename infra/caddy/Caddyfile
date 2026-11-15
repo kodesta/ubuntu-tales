@@ -1,0 +1,76 @@
+# Ubuntu Tales — production edge (Caddy v2)
+#
+# Routes:
+#   /                    → web SPA (static build)
+#   /api/*               → NestJS API
+#   /media/*             → API media (local storage in this build; RustFS/CDN later)
+#   /stories/*           → social crawlers get OG previews, humans get the SPA
+#
+# Security headers follow docs/production-plan/07 §3 and 08 §2. Replace the placeholders
+# (`{$DOMAIN}`, `{$API_UPSTREAM}`, `{$WEB_ROOT}`) from the environment at deploy time.
+
+{
+	email {$ACME_EMAIL:ops@example.com}
+	servers {
+		protocols h1 h2
+	}
+}
+
+{$DOMAIN:localhost} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+		Cross-Origin-Opener-Policy "same-origin"
+		Cross-Origin-Resource-Policy "same-site"
+		Content-Security-Policy "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: https:; media-src 'self' https:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https:; manifest-src 'self'; worker-src 'self' blob:"
+		-Server
+	}
+
+	# Long-lived hashed build assets.
+	@hashed path /assets/*
+	header @hashed Cache-Control "public, max-age=31536000, immutable"
+
+	# API
+	handle /api/* {
+		reverse_proxy {$API_UPSTREAM:localhost:4100}
+	}
+
+	# Media (audio seeking relies on Range requests being preserved end to end).
+	handle /media/* {
+		reverse_proxy {$API_UPSTREAM:localhost:4100}
+	}
+
+	# Social previews for shared tales (ADR-009): crawlers get the OG page.
+	@crawler {
+		header User-Agent *WhatsApp* *facebookexternalhit* *Twitterbot* *Slackbot* *LinkedInBot* *TelegramBot* *Discordbot*
+		path /stories/*
+	}
+	handle @crawler {
+		reverse_proxy {$API_UPSTREAM:localhost:4100}
+	}
+
+	# SPA fallback
+	handle {
+		root * {$WEB_ROOT:/srv}
+		try_files {path} /index.html
+		file_server
+	}
+
+	log {
+		output file /var/log/caddy/access.log {
+			roll_size 50MiB
+			roll_keep 10
+		}
+		format json
+	}
+
+	# If anything fails, fail closed rather than serving a blank page.
+	handle_errors {
+		respond "The fire is not lit right now. Please try again shortly." 502
+	}
+}
