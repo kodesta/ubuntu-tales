@@ -83,7 +83,7 @@ listed as blockers in `docs/launch/launch-checklist.md`.
 | Admin metrics/stories/moderation/flags | pass (editor), reader gets 403, admin gets audit |
 | Submission create → submit → claim → approve → draft story | pass (`SUBMITTED → IN_REVIEW → APPROVED`) |
 | Caddyfile validation | pass (`Valid configuration`) |
-| Prod compose config | pass (`docker compose config`, warnings only for unset env) |
+| Prod compose config | pass with the required deployment env set (`docker compose -f docker-compose.prod.yml config --quiet` → exit 0); image tags/secrets come from the environment at deploy time |
 | Content lint | pass with publication-content warnings |
 | Bundle budget | pass (168.3 KB initial JS gzip, budget 170) |
 

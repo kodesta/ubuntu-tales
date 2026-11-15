@@ -30,6 +30,20 @@ Production requires the `production` environment approval gate.
 4. Deploy during low traffic; watch Grafana (API p95, error rate, DB connections) for 15 minutes.
 5. If any smoke check fails: `docs/runbooks/rollback.md` immediately.
 
+## Validating the compose file without secrets
+
+`docker compose config` needs the image tags and required env present. To lint the file locally:
+
+```bash
+cd infra/compose
+API_IMAGE=ghcr.io/example/api:test WEB_IMAGE=ghcr.io/example/web:test \
+POSTGRES_USER=ut POSTGRES_PASSWORD=pw DATABASE_URL=postgresql://example \
+SMTP_HOST=smtp.example.com SMTP_PORT=587 SMTP_FROM=a@b.c DOMAIN=example.com \
+ACME_EMAIL=a@b.c WEB_ORIGIN=https://example.com \
+JWT_SECRET=0123456789012345678901234567890123456789 \
+docker compose -f docker-compose.prod.yml config --quiet && echo valid
+```
+
 ## Environment variables
 
 See `.env.example` (dev) and `deploy/.env.production.example` (to be created from the same list plus
